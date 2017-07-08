@@ -1,0 +1,19 @@
+\chapter{Conclusões e Trabalhos Futuros}
+\label{Chapter:Conclusao}
+
+
+    	\PARstartOne{N}{este} trabalho foram propostas uma técnica de proteção de instruções (TPI) e uma técnica de proteção de métodos (TPM) para aplicação no processador de tempo real JOP (\emph{Java Optimized Processor}). Estas técnicas utilizam algoritmo de Hamming e CRC, respectivamente. Ambos os algoritmos foram implementados em hardware e de forma massivamente paralela para aumentar a confiabilidade do processador Java, enquanto mantém seu desempenho e sua característica de tempo real.  A TPI adiciona quatro \emph{bits} de Hamming, que são armazenados em conjunto com cada \emph{bytecode} Java (palavra de 8 \emph{bits}) do processador JOP.  Estes quatro \emph{bits} são usados para detectar e corrigir erros na memória de código. A TPM detecta a integridade de um método Java através do uso do \emph{core} CRC32, especialmente desenvolvido para este propósito.
+
+O \emph{Soft IP Core} FTP-JOP foi desenvolvido a partir da aplicação das técnicas de TPI e TPM no JOP original. Para fins de verificação da eficácia das técnicas propostas e  análise de recursos extras necessários, O FT-JOP foi implementado em uma FPGA Virtex 4 FX25. Foram realizados testes em FPGA e de simulação, usando um módulo de injeção de falhas desenvolvido neste trabalho, que demonstraram que a técnica de TPI corrige 100\% dos erros simples (apenas um \emph{bit} invertido) ocorridos nos \emph{bytecodes} Java. Além disso, os testes também mostraram que a TPM é capaz de detectar se um método Java estar corrompido. Portanto, o FT-JOP é capaz de detectar e corrigir erros na memória de código. Isto permite manufaturar o FT-JOP (\emph{Fault Tolerant Java Optimized Processor}) utilizando-se os mesmos processos de fabricação de silício que são utilizados para fabricar chips comerciais, ao invés de usar processos de fabricação específicos para chips tolerantes a radiação. Logo, reduz-se consideravelmente o custo por área de silício.
+
+    De acordo com a pesquisa bibliográfica realizada, não foi encontrado nenhum processador Java que tenha simultaneamente garantia de tempo real e de funcionamento. Portanto, este trabalho é original no sentido de conceber, a partir do JOP, um processador Java de tempo real tolerante a falhas. Estas características são importantíssimas para sistemas embarcados de tempo real para aplicações que envolvem risco de vidas humanas.
+
+Conforme argumenta-se no início do Capítulo \ref{Chapter:JOPFT}, o bloco de memória \emph{cache} ocupa uma área de 44,46\% do processador JOP original, sendo esta área altamente suscpetível a SEUs, daí a importância de se proteger a \emph{cache} do JOP. No entanto, quando se compara o FT-JOP a outros processadores tolerantes a falhas \cite{leon3ft, erc32a, itaniumft, ibms390, 8051radhard, leon3ftufrgs, openriscft}, fica claro que, em trabalhos futuros, algumas melhorias ainda podem ser feitas no JOP, no sentido de aumentar sua confiabilidade, tais como:
+\begin{itemize}
+\item proteger os registradores do processador contra SEU, como proposto em \cite{leon3ft};
+\item proteger os \emph{flip flops} do processador;
+\item proteger da unidade de execução contra SEU.
+\end{itemize}
+
+
+

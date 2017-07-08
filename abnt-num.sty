@@ -1,0 +1,41 @@
+%% $Header: C:\\dissertação_de_mestrado-cvs\\thesis/thesis/abnt-num.sty,v 1.1.1.1 2002/08/31 00:13:24 vicente junior Exp $
+%% name of this file abnt-num.sty
+%% Copyright 2001-2002 by the abnTeX group at http://abntex.codigolivre.org.br
+%% $Headrer$
+%%
+%% This file is distributed under the LaTeXProject Public License (LPPL) http://www.latex-project.org/lppl.html
+%% You are free to modify this file under the LPPL.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{abnt-num}[2002/05/23]
+
+\RequirePackage[nomove]{overcite}
+
+\RequirePackage{ifthen}
+
+
+\renewcommand{\@biblabel}[1]%
+    {\ifthenelse{\equal{#1}{}}{}{{\large #1\hspace{.1em}}}}
+
+\newcommand{\citeopen}{[}
+\newcommand{\citeclose}{]}
+
+
+
+%retirado de overcite.sty
+\def\@cite#1{\mbox{$\m@th^{\hbox{\@ove@rcfont\citeopen#1\citeclose}}$}}
+
+\renewcommand{\@openbib@code}%
+{\setlength{\leftmargin}{0pt}\addtolength{\itemindent}{\labelsep}}
+
+
+% \citeoption - equal to \nocite but not complains about this option be
+%               obviously undefined
+\def\citeoption#1{\@bsphack
+  \@for\@citeb:=#1\do{%
+    \edef\@citeb{\expandafter\@firstofone\@citeb}%
+    \if@filesw\immediate\write\@auxout{\string\citation{\@citeb}}\fi
+  }%
+  \@esphack}
+
+\endinput

@@ -1,0 +1,8 @@
+// Bytecode do HelloWorld
+
+test.HelloWorld:main([Ljava/lang/String;)V
+Code(max_stack = 2, max_locals = 2, code_length = 9)
+0:    getstatic_ref	java.lang.System.out Ljava/io/PrintStream; (2)
+3:    ldc		"Hello World from JOP!" (3)
+5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (4)
+8:    return

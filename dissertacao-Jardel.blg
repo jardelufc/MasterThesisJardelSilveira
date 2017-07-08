@@ -1,0 +1,72 @@
+This is BibTeX, Version 0.99cThe top-level auxiliary file: dissertacao-Jardel.aux
+A level-1 auxiliary file: AcronismoJardel.aux
+A level-1 auxiliary file: Resumo_Jardel.aux
+A level-1 auxiliary file: Abstract_Jardel.aux
+A level-1 auxiliary file: Agradecimentos_Jardel.aux
+A level-1 auxiliary file: Cap1_Jardel.aux
+A level-1 auxiliary file: Cap2_Jardel.aux
+A level-1 auxiliary file: Cap3_Jardel.aux
+A level-1 auxiliary file: Cap4_Jardel.aux
+A level-1 auxiliary file: Cap5_Jardel.aux
+A level-1 auxiliary file: Cap6_Jardel.aux
+A level-1 auxiliary file: cap7_jardel.aux
+The style file: abnt-alf.bst
+Database file #1: abnt-options.bib
+Database file #2: biblio.bib
+I was expecting a `,' or a `}'---line 39 of file biblio.bib
+ : 
+ : %  volume = {accepted for publication},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 51 of file biblio.bib
+ : 
+ : %  url = {http://www.jopdesign.com/doc/wcetana.pdf},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 153 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 469 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 480 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 490 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 499 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 508 of file biblio.bib
+ : 
+ : %  author =       {},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 614 of file biblio.bib
+ : 
+ : %  volume = {doi:10.1016/j.sysarc.2007.06.001},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I'm ignoring TimeSys's extra "author" field
+--line 722 of file biblio.bib
+Warning--entry type for "crc2" isn't style-file defined
+--line 819 of file biblio.bib
+Warning--entry type for "bvm" isn't style-file defined
+--line 1012 of file biblio.bib
++---------------------------------------------------------+
+| Estilo bibliografico abnt-alf.bst versao 1.1           |
+| Em caso de duvidas ou problemas com este estilo procure |
+| http://abntex.codigolivre.org.br                        |
++---------------------------------------------------------+
+(There were 9 error messages)

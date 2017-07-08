@@ -1,0 +1,29 @@
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+\markboth{}{}
+
+\PARstartOne{S}{istemas} embarcados de tempo real têm severas restrições de garantia de funcionamento, tais como: confiabilidade, requisitos temporais, consumo, peso e volume total ocupado.  Considerando o projeto de circuitos integrados, para atingir o nível de confiabilidade requerido por esses sistemas, podem-se usar processos de fabricação de circuitos integrados para aplicações específicas, como por exemplo a tecnologia SOI/SOS (\emph{Silicon on Insulator/Silicon on Sapphire}), que é inerentemente resistente a radiação e utilizada principalmente em aplicações militares e aeroespaciais. Outra abordagem consiste na aplicação de técnicas de garantia de funcionamento em nível de projeto do circuito integrado. Além disso, no \emph{software} e no nível sistêmico (ou seja, na integração dos componentes eletrônicos em uma placa de circuito impresso) também é possível aplicar técnicas para aumentar a confiabilidade destes sistemas.
+	Os circuitos integrados manufaturados utilizando processos específicos têm alto custo devido ao pequeno volume de produção destes.  Pelo mesmo motivo (por serem específicos),  os mesmos estão em geral, três gerações atrasados em relação ao estado da arte. Portanto, é preferível fazer o projeto de um circuito integrado  tolerante a falhas e poder manufaturá-lo usando um processo que esteja no estado da arte.
+	Do ponto de vista do desenvolvimento de \emph{software}, os recursos fornecidos pela linguagem de programação utilizada para programar tais sistemas podem ter implicação no nível de confiabilidade dos mesmos. O uso de linguagens com um alto nível de abstração, como {J}ava, pode diminuir a ocorrência de erros de programação, reduzindo assim o número de falhas de projeto, introduzidas durante o desenvolvimento. O \emph{soft ip core} JOP (\emph{Java Optimized Processor}) para FPGAs (\emph{Field Programmable Gate Array}) é uma implementação otimizada da máquina virtual Java, em nível de \emph{hardware}, para aplicações de tempo real.
+	Neste trabalho, são propostas técnicas de \emph{hardware} para o \emph{soft ip core} JOP, que detectam e corrigem erros ocorridos na região de código da memória SRAM (\emph{Static Random Access Memory}). As técnicas propostas aumentam a confiabilidade do sistema e mantêm as características de tempo real do \emph{soft ip core} JOP.
+	O \emph{soft ip core} JOP modificado foi implementado em uma FPGA Virtex 4 e as características de frequência de operação e número de portas lógicas são comparadas com o \emph{soft ip core} original do JOP.
+
+\textbf{Palavras-chave:} tolerância a falhas, processador Java, sistemas embarcados de tempo real, CMOS, circuito integrado.
+
+%%    * TAP
+%%    * Interface com a memória Flash (Boot)
+%%    * Funcionalidade de carregamento de programa na memória Flash via Jtag
+%%    * Definição da taxa de baud rate através de registro mapeado no SimpCon
+%%    * Mapeamento de um registro no SimpCon para tornar o timer de tempo real funcional para diferentes taxas de Clock
+%%    * Adição de duas portas de GPIO de 8 bits cada mapeadas no SimpCon
+%%    * Inicialização da Stack Memory
+%%    * Remoção da lógica de reset interno
+%%    * Redução do número de pinos
+%%          o sinais da UART (cts, rts)
+%%    * Revisão do código RTL (cases que não cobriam todas as condições)
+%%    * Acrescentar lógica de Tri-State para as portas de e barramentos de memória. (TODO)
+%%    * Substituição das memórias internas pelas memórias da XFab (TODO)
+%%          o Adicionar o tempo de reset da memória da XFab
+%%    * Circuito gerador de clock (TODO)
+
+

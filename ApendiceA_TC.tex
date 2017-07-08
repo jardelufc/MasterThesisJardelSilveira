@@ -1,0 +1,714 @@
+\addcontentsline{toc}{chapter}{Ap\^{e}ndice}
+
+
+\chapter{Tomografia Computadorizada}
+\label{ApendiceA:TC}
+%\label{Chapter:TC}
+
+\PARstartOne{A}{Tomografia Computadorizada (TC)} foi desenvolvida ao
+longo de décadas, com a descoberta dos raios-X em 1885 pelo físico
+Wilhelm Conrad Röntgen, permitindo realizar radiografias do corpo
+humano e representar imagens de duas dimensões (2D), apresentado
+poucas informações sobre o objeto radiografado. Para o
+desenvolvimento da TC era necessário a criação de uma descrição
+matemática que permitisse quantificar um corpo de forma física real
+ou mais próxima da realidade. A teoria matemática de reconstrução de
+imagens foi então formulada independentemente em 1905 por Hendrik
+Antoon Lorentz e, em 1917 por, Johan Radon \cite{PhD:Sluimer2005}.
+
+A partir destas teorias matemáticas, Alan McLeod Cormack e Godrey M.
+Hounsfield idealizaram a representação matemática usada para inferir
+uma estrutura anatômica tridimensional (3D) para uma grande coleção
+de informações de diferentes projeções bidimensionais (2D)
+\cite{Book:Epstein2001}. Cormack desenvolveu em 1956 a teoria
+ma\-te\-má\-ti\-ca dos múltiplos raios projetados sobre o corpo, em
+diferentes ângulos, mas em um único plano, nos quais forneceriam uma
+imagem melhor do que um raio único, usado na radiografia. No início
+da década de 70, é desenvolvida por Hounsfield uma máquina de
+tomografia que permite computar imagens em seções cruzadas de alta
+qualidade e processar um número muito grande de medidas com
+operações matemáticas complexas, e ainda adquirir uma imagem com
+grande precis{\~a}o \cite{Paper:Kalender2006}.
+
+\section{Primeira geração da TC}
+\label{section:pgTC}
+
+A primeira geração da TC inventada por Hounsfield é introduzida
+comercialmente em 1973, chamada de EMI Mark
+\cite{Paper:hounsfield1973}. Esta TC usava uma geometria de raios
+cilíndricos paralelos, em que a aquisição dos dados era feita por
+meio de raios cilíndricos colimados (finos) de diâmetro na faixa de
+0,5 a 10 mm, direcionado a um único detector no outro lado do
+paciente. O detector e a fonte de raios-X eram alinhados em uma
+estrutura de escaneamento. Uma única projeção era adquirida
+rotacionando a fonte e o detector de raios-X sobre o centro do
+paciente por aproximadamente 1 grau, e transladando na outra
+direção. Este processo de rotação e translação era repetido em 180
+ou 240 graus. Na Figura~\ref{Fig1geracao} é apresentado um diagrama
+esquemático da TC de primeira geração
+\cite{Book:Jan2006,Book:Bronzino2000}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/1geracao.eps}
+\end{center}
+\caption{\label{Fig1geracao}\hspace{-0.4em} desenho esquemático da
+primeira geração, adaptada de \cite{Book:Jan2006}.}
+\end{figure}
+
+Os raios cilíndricos, altamente colimados, provêem uma excelente
+rejeição de espalhamento da radiação no paciente. Entretanto, o
+movimento complexo do escaneamento resulta em longos tempos
+(aproximadamente 5 minutos) para escanear, fazendo que uma grande
+radiação de raios-X sejam emitidas no paciente. Embora a
+re\-so\-lu\-ção de contraste de estruturas internas eram sem
+precedentes, as imagens re\-cons\-tru\-í\-das tinham baixa resolução
+de espaço (na ordem de 3 mm para um campo de visão de 25 cm e matriz
+80 $\times$ 80) e uma resolução muito pobre também para o eixo z (13
+mm de espessura por seção ou fatia)
+\cite{Paper:Mahesh2002,Book:Jan2006}.
+
+
+\section{Segunda geração da TC}
+\label{section:sgTC}
+
+Na segunda geração o tempo de escaneamento das imagens obtidas a
+partir da TC foi reduzido em relação à primeira geração. A redução
+deste tempo deveu-se ao uso de um leque de raios-X cilíndricos e um
+vetor de detectores lineares ao invés de apenas um detector. Desta
+forma, várias projeções podiam ser obtidas em uma única translação
+através da soma do deslocamento angular do vetor de detectores.
+Conseqüentemente, um sistema que usava quatro detectores podia
+rotacionar 4º para a próxima projeção ao invés de 1º, reduzindo o
+tempo de escaneamento por um fator de 4, fazendo então 45
+translações em vez de 180 para adquirir uma seção. Na Figura
+\ref{Fig2geracao} é mostrado o diagrama de uma TC de segunda geração
+\cite{Paper:Mahesh2002,Book:Jan2006}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.70]{FigApenA/2geracao.eps}
+\end{center}
+\caption{\label{Fig2geracao}\hspace{-0.4em} desenho esquemático da
+segunda geração, adaptada de \cite{Paper:Kalender2006}.}
+\end{figure}
+
+Os modelos da segunda geração tiveram até 53 detectores, que eram
+rápidos o bastante, cerca de 10 segundos, para permitir a aquisição
+durante uma parada de respiração, sendo este o primeiro modelo que
+permitiu o escaneamento do tórax. Os algoritmos de reconstruções são
+ligeiramente mais complicados, comparados com os algoritmos da
+primeira geração, porque têm que controlar os dados de projeções dos
+leques de raios-X cilíndricos
+\cite{Paper:Mahesh2002,Book:Bronzino2000}.
+
+\section{Terceira geração da TC}
+\label{section:tgTC}
+
+Uma das características mais proeminentes da terceira geração é o
+uso somente de rotações e a construção de seções com espessuras de 1
+a 10 mm. Para isto, um leque de raios-X cilíndricos deve ser largo o
+bastante(30° a 60°) para cobrir completamente a fatia do corpo
+(objeto) \cite{Book:Jan2006}. O paciente é localizado no centro da
+TC, enquanto que os detectores e a fonte de raios-X, encontram-se
+nas extremidades da estrutura cilíndrica, como é mostrado na Figura
+\ref{Fig3geracao}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/3geracao.eps}
+\end{center}
+\caption{\label{Fig3geracao}\hspace{-0.4em} desenho esquemático da
+terceira geração, adaptada de \cite{Book:Jan2006}.}
+\end{figure}
+
+Nesta geração, o vetor de detectores são curvados em um segmento
+circular com o foco da radiação no centro. Os detectores são
+espaçados igualmente e unidos à fonte de raios-X, ambos giram
+juntos, realizando um único movimento de rotação para escanear cada
+seção. O formato da terceira geração permite que seja colocado um
+fino septo (divisor) de tungstênio entre os detectores do vetor,
+focalizados na fonte de raios-X para rejeitar a radiação espalhada
+\cite{Paper:Mahesh2002,Book:Bronzino2000}.
+
+
+\section{Quarta geração da TC}
+\label{section:qgTC}
+
+Na quarta geração a fonte de raios-X é posicionado, para girar sobre
+o paciente dentro do espaço entre o paciente e o anel de detectores,
+como é apresentado na Figura \ref{Fig4geracao}. Esta apresenta um
+formato em anel com detectores de tamanho menor, com nível de
+desempenho semelhante ao da terceira geração, bem como a redução no
+tempo de escaneamento das imagens. A quarta geração difere
+principalmente da geração anterior, porque a fonte de raios-X gira
+sobre o centro do corpo, enquanto o anel de detectores permanece
+estacionária \cite{Paper:Mahesh2002,Book:Jan2006}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/4geracao.eps}
+\end{center}
+\caption{\label{Fig4geracao}\hspace{-0.4em} desenho esquemático da
+quarta geração, adaptada de \cite{Book:Jan2006}.}
+\end{figure}
+
+A desvantagem desta geração é um uso menos eficiente dos detectores
+com relação a terceira geração, pois apenas um quarto dos detectores
+são usados em qualquer ponto durante o escaneamento. Outra
+desvantagem é a ausência do septo (divisor) focalizado para rejeitar
+a radiação espalhada, tendo em vista que o anel de detectores não
+está fixado na fonte de raios-X, e o imageamento é menos favorável
+que o da terceira geração, porque os colimadores secundários não
+podem ser aplicados com eficiência, e os detectores são atingidos
+pelos raios-X de diferentes ângulos, assim, a influência da radiação
+espalhada não é bem suprimida \cite{Book:Jan2006,Book:Bronzino2000}.
+
+\section{Quinta geração da TC}
+\label{section:qtgTC}
+
+Esta geração usa o mesmo arranjo de imageamento que a quarta
+geração, a única diferença é que a fonte de raios-X não é
+rotacionada mecanicamente e faz parte do modelo do sistema, como é
+mostrado na Figura \ref{Fig5geracao}. Um grande ânodo metálico
+circular é situado no lugar da marca (trilha) da fonte de radiação e
+os raios-X cilíndricos são varridos eletronicamente para alcançar o
+ânodo na posição instantânea do foco desejado \cite{Book:Jan2006}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/5geracao.eps}
+\end{center}
+\caption{\label{Fig5geracao}\hspace{-0.4em} desenho esquemático da
+quinta geração, adaptada de \cite{Book:Bronzino2000}.}
+\end{figure}
+
+O algoritmo de reconstrução apresenta algumas modificações
+secundárias como, por exemplo, realizar mais interpolações provendo
+amostras equiangular do leque das projeções, para compensar  a
+influência do espalhamento. Para remover as redundâncias
+provenientes das interpolações alguns sistemas fazem um deslocamento
+lateral do anel de detectores \cite{Book:Jan2006,Book:Bronzino2000}.
+A projeção de dados pode ser adquirida em aproximadamente 50 ms,
+sendo um tempo bastante rápido até para escanear imagem de batimento
+cardíacos sem a interferência de artefatos ocasionados pelo
+movimento \cite{Paper:Boyd1983}.
+
+\section{TC espiral ou helicoidal}
+\label{section:TCeh}
+
+Para realizar fatiamentos em instantes de tempos mais rápidos, e em
+particular para escaneamento múltiplos para imageamento
+tridimensional, é desenvolvido um sistemas de escâner em espiral
+(helicoidal) \cite{Paper:Kalender1990}. No escaneamento helicoidal,
+múltiplas imagens são adquiridas enquanto o paciente é transladado,
+ou seja, é deslocado no sentido axial pela estrutura do sistema em
+um movimento contínuo e suave, ao invés de parar e realizar a
+aquisição de cada fatiamento da imagem \cite{Book:Bronzino2000},
+como é apresentado na Figura \ref{Fig6helicoidal}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/6helicoidal.eps}
+\end{center}
+\caption{\label{Fig6helicoidal}\hspace{-0.4em} principio da TC
+helicoidal, adaptada de \cite{Book:Jan2006}.}
+\end{figure}
+
+Os dados de projeção para múltiplas imagens, que cobrem o volume do
+paciente podem ser adquiridos em uma única respiração, a taxa de
+aproximadamente uma fatia por segundo. Os algoritmos de reconstrução
+são mais sofisticados, porquê eles ajustam o caminho do deslocamento
+helicoidal, traçado pela fonte de raios-X ao redor do paciente
+\cite{Book:Jan2006}.
+
+\section{TC de múltiplos fatiamentos}
+\label{section:TCmf}
+
+Os sistemas de múltiplos fatiamentos (\emph{multislice}) fornecem
+mais de uma fatia durante uma única rotação, geralmente quatro
+fatias por rotação, como é mostrado na Figura \ref{Fig7multislice}.
+Usando um campo bidimensional de detectores, em vez de uma única
+linha, diversas linha paralelas de detectores são usadas
+separadamente na direção z, de 0,5 a 2 mm aproximadamente. O
+princípio de múltiplos fatiamentos, fornece dados imediatamente
+tridimensionais em um volume limitado de quatro fatias; uma extensão
+maior ao longo do eixo-z, a linha central, pode ser conseguida pela
+exploração helicoidal, ou seja, através do deslocamento axial.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.7]{FigApenA/7multislice1.eps}
+\end{center}
+\caption{\label{Fig7multislice}\hspace{-0.4em} visualização
+perpendicular da esquerda para a direita, principio da TC helicoidal
+e da TC de múltiplos fatiamentos, adaptada de \cite{Book:Jan2006}.}
+\end{figure}
+
+
+\section{Princípios básicos da TC}
+
+A TC teve sua primeira aplicação clínica em Atkinson - Hospital de
+Morley, Wimbledon, Inglaterra, em outubro de 1971. A TC é aplicada
+para escanear a imagem do cérebro, em que a aquisição dos dados
+durou cerca de 5 minutos e a reconstrução da imagem tomográfica
+aproximadamente 20 minutos, e posteriormente é aplicada em todo o
+corpo
+\cite{Paper:hounsfield1973,Paper:hounsfield1980,Paper:Pugatch1981}.
+
+A mensuração da densidade radiográfica é feita de forma precisa
+através da TC. Para realizar esta tarefa a TC faz diversas medições
+de atenuação radiográfica, por meio de um plano de espessuras de
+tamanho finito em seções cruzadas. O sistema de aquisição de dados
+usa estas informações para reconstruir uma imagem digital da seção
+cruzada, em que cada \emph{pixel} na imagem reconstruída representa
+a média da atenuação radiográfica de um elemento no formato de uma
+caixa (\emph{voxel}), que estende-se pela espessura da seção. Um
+\emph{voxel} ou elemento de volume, corresponde ao valor real de uma
+imagem em três dimensões com as seguintes medidas: largura (p)
+$\times$ altura (p) $\times$ profundidade (e)
+\cite{Paper:hounsfield1973,Paper:Mahesh2002}. A profundidade é
+representada pela espessura da fatia da seção, conforme é visto na
+Figura \ref{Fig10voxel}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.9]{FigApenA/10voxel.eps}
+\end{center}
+\caption{\label{Fig10voxel}\hspace{-0.4em} representação de um
+elemento de volume \emph{voxel} no lado esquerdo e de um pixel no
+lado direito, adaptada de \cite{Book:Bontrager2000}.}
+\end{figure}
+
+A TC é um método de aquisição de imagens no plano axial, mas que
+permite uma visualização em outros planos de cortes (Figura
+\ref{Fig9secoes}), através da reconstrução da imagem, cuja a tarefa
+fundamental do seu sistema é adquirir um número extremamente grande
+de medidas (aproximadamente 500,000), altamente precisas de
+transmissão de radiografia pelo corpo do paciente (ou parte do
+corpo) com geometria precisamente controlada
+\cite{Book:HendeeRitenour2002}.
+
+\begin{figure}[ht]
+   \centering
+   \subfigure[]{\label{SubFig:9asecoes}\includegraphics[width=0.35\hsize]{FigApenA/9asecoes.eps}}
+   \hspace{0.02\hsize}
+   \subfigure[]{\label{SubFig:9bsecoes}\includegraphics[width=0.35\hsize]{FigApenA/9bsecoes.eps}}
+   \hspace{0.02\hsize}
+   \subfigure[]{\label{SubFig:9csecoes}\includegraphics[width=0.35\hsize]{FigApenA/9csecoes.eps}}
+   \hspace{0.02\hsize}
+   \subfigure[]{\label{SubFig:9dsecoes}\includegraphics[width=0.35\hsize]{FigApenA/9dsecoes.eps}}
+   \hspace{0.02\hsize}
+   \caption{imagens de seções do
+    pulmão (a) planos de cortes no corpo, (b) seção sagital, (c) seção
+    axial, (d) seção coronal, adaptada de \cite{PhD:Sluimer2005}.}
+   \label{Fig9secoes}
+\end{figure}
+
+Na Figura \ref{Fig8ct_moderno} é mostrado um sistema básico que
+consiste geralmente de um console de controle, computador, armação
+padrão constituído de fonte de emissão radiográfica, detectores
+radiográficos com sistema de aquisição de dados, uma mesa para
+pacientes, apoio para cabeça e um imageador de laser
+\cite{Book:Bronzino2000}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.85]{FigApenA/8ct_moderno.eps}
+\end{center}
+\caption{\label{Fig8ct_moderno}\hspace{-0.4em} desenho esquemático
+da instalação de uma típica TC. 1) console de controle, 2) armação
+padrão, 3) mesa para o paciente, 4) apoio para cabeça e 5) imageador
+de laser, adaptada de \cite{Book:Bronzino2000}.}
+\end{figure}
+
+A propriedade que os materiais têm em absorver a radiação
+eletromagnética é chamada de atenuação radiográfica. Uma medida de
+atenuação quantifica a fração de radiação removida, em que uma
+determinada quantidade de radiação atravessa um material com
+espessura específica. A radiação é reduzida exponencialmente quando
+passa através do material, de forma que a intensidade do material ou
+corpo ($I_{c}$) após percorrer uma certa distância (x) pode ser
+expressa por
+
+%Equação da intensidade
+\begin{equation}\label{intensidade}
+I_{c}=I_{0}e ^{-\mu x},
+\end{equation}
+em que $I_{c}$ é a medida da intensidade dos raios-X do corpo na
+trajetória do feixe dos raios-X, $I_{0}$  é a medida da intensidade
+dos raios-X sem o corpo na trajetória do feixe dos raios-X, $\mu$ é
+o coeficiente de atenuação linear específico do corpo, e $x$ é a
+distancia percorrida pelos feixes de raios-X
+\cite{Paper:drummond1998,Paper:Mahesh2002}.
+
+
+\section{Princípios de Reconstrução da TC}
+
+A reconstrução tomográfica, consiste em obter um mapeamento adequado
+dos raios-X que ultrapassam o corpo em análise e, a partir destes
+dados, reconstruir uma imagem que represente a forma geométrica mais
+próximo do real. Esta é uma etapa bastante complicada, devido a
+grande quantidade de dados gerados, através dos múltiplos raios que
+incidem e atravessam o corpo, apresentando informações relevantes ou
+irrelevantes.
+
+Desta forma, o algoritmo de reconstrução tem que ser robusto para
+rejeitar as informações espúrias e, combinar as informações mais
+adequadas em uma imagem representativa do corpo. Existem vários
+tipos de algoritmos de reconstrução aplicados a cada tipo de TC, a
+evolução destes ocorreram juntamente com as das TC vistas nas Seções
+\ref{section:pgTC} a \ref{section:TCmf}.
+
+Os algoritmos de reconstrução estão divididos em
+\cite{Book:HendeeRitenour2002,Book:Jan2006}:
+
+\begin{enumerate}
+\item \emph{Retropropagação simples}: Neste método, cada caminho de
+transmissão dos raios-X pelo corpo é dividido em elementos
+igualmente espaçados, e é assumido que cada elemento contribui
+igualmente à atenuação total ao longo do caminho dos raios-X. Este
+reproduz imagens muito borradas e não são utilizados comercialmente
+nas TC;
+
+\item \emph{Reconstrução de projeção paralela por retropropagação
+filtrada}: Este algoritmo de reconstrução é freqüentemente chamado
+de método de convolução e, usa uma integral unidimensional para a
+reconstrução de uma imagem em duas dimensões. Neste é combinado uma
+função (filtro) para reduzir o borramento na imagem, removendo a
+maioria dos ruídos antes dos dados serem retropropagados. Uma das
+vantagens do método de convolução, é que a imagem pode ser
+construída enquanto estão sendo adquiridos os dados, sendo este o
+algoritmo de reconstrução mais utilizado nas TC;
+
+\item \emph{Reconstrução via domínio da freqüência (transformada de
+Fourier)}: Este método é baseado no teorema de projeções de fatias,
+que formula a relação entre o espectro de duas-dimensões de uma
+imagem de duas-dimensões, e o espectro de uma-dimensão de uma
+projeção unidimensional desta imagem em baixo de um ângulo. O padrão
+de atenuação dos raios-X de cada orientação angular são separados em
+componentes de freqüência de varias amplitudes através da
+transformada de Fourier e depois reconstruída pela transformada
+inversa de Fourier utilizando as componentes mais adequadas; Esta
+técnica é normalmente aplicada em imagens de ressonância magnética e
+raramente em TC;
+
+\item Expansão de séries: Este apresenta três variações, a primeira
+é conhecido como Técnica de Reconstrução Algébrica, a segunda é a
+Técnica Interativa dos Mínimos Quadrados, e a terceira é a Técnica
+de Reconstrução Simultânea e Interativa. Os algoritmos da expansão
+de série (reconstrução interativa), não são usadas em TC comerciais,
+devido a repetição não pode ser começada até todos os dados de
+projeção forem adquiridos, causando uma demora na reconstrução da
+imagem.
+
+\end{enumerate}
+
+Detalhes sobre os algoritmos de reconstrução como formulação
+matemática e equações podem ser visto em:
+\cite{Book:Bronzino2000,Book:Epstein2001,Book:HendeeRitenour2002,Book:Jan2006}.
+
+
+\section{Escala da TC em unidades Hounsfield}
+\label{section:EscalaTC}
+
+O coeficiente de atenuação ou absorção $\mu$ quantifica a tendência
+de um corpo absorver os raios-X. A representação matemática do
+coeficiente de atenuação pode ser determinada algebricamente, com o
+uso de várias equações que somam todos os raios que cruzam o
+\emph{voxel}.
+
+Porém, um método que apresenta uma fórmula matemática mais
+simplificada é utilizado para realizar o cálculo deste
+\cite{Book:Epstein2001,Paper:Mahesh2002}. Definido pela equação
+
+\begin{equation}\label{absorcao}
+UH_{tecido} =1000\times
+\frac{(\mu_{tecido}-\mu_{\acute{a}gua})}{\mu_{\acute{a}gua}},
+\end{equation}
+em que $\mu$$_{tecido}$ é a medida do coeficiente de absorção do
+tecido em \emph{voxel} e $\mu$$_{\acute{a}gua}$ é a medida do
+coeficiente de absorção da água.
+
+A TC tem uma escala de densidade radiográfica específica para cada
+tipo de órgão e/ou tecido do corpo humano. Esta escala é
+representada em Unidades Hounsfield (UH). As anatomias das
+estruturas do corpo humano apresentam pequenas ou grandes variações,
+o mesmo acontece com o valor da densidade em UH. Desta forma,
+diferentes tipos de tecidos (órgão ou estruturas) apresentam valores
+ligeiramente diferentes de densidade, permitindo medir um valor de
+$\mu$ específicos para cada tipo de tecido, inclusive os patológicos
+\cite{Book:Epstein2001}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.85]{FigApenA/11escalaUH1.eps}
+\end{center}
+\caption{\label{Fig11escalaUH}\hspace{-0.4em} escala em Unidades
+Hounsfield, adaptada de \cite{TechReport:Siemens2004}.}
+\end{figure}
+
+Os valores em UH para determinados tipos de tecidos e órgãos do
+corpo humano são apresentados na Figura \ref{Fig11escalaUH}. Os
+coeficientes de atenuação do ar e da água são usados como referência
+no processo de calibração por serem de fácil obtenção. As TC
+trabalham tipicamente em uma escala de -1024 UH a +3071 UH. Para o
+pulmão com todas as suas estruturas, esta escala é compreendida de
+-1000 UH a +200 UH \cite{TechReport:Siemens2004,PhD:Sluimer2005}.
+
+
+\section{Padrão de Leituras de Imagens Médicas (DICOM)}
+
+O padrão de leitura de imagens médicas DICOM do inglês
+(\emph{Digital Imaging and Communications in Medicine}) é uma
+padronização detalhada que descreve um meio de formatar e trocar
+imagens médicas com informações associadas, dirigidas aos mecanismos
+de operação da interface usadas para transferir dados entre
+determinado dispositivo de imagens e redes \cite{Master:Silva2005}.
+
+Este padrão é utilizado mundialmente e, foi padronizado pela
+comissão ACR-NEMA (\emph{American College of Radiology - National
+Electrical Manufacturers Association}), devido a uma crescente
+aplicação dos computadores nas TC na década de 70
+\cite{TechReport:NEMA2007}.
+
+Este comitê foi criado em 1983, para desenvolver um padrão que
+possibilite a comunicação da informação de imagem digital entre os
+diversos fabricantes de dispositivos na área médica, facilitando o
+desenvolvimento e a expansão de arquivamento em quadros e
+comunicação dos sistemas (\emph{Picture Archiving and Communication
+Systems-PACS}), até conectar-se com outros sistemas de informação
+hospitalar e permita a criação de bancos de dados de informações e
+diagnóstico \cite{TechReport:NEMA2007}.
+
+O padrão DICOM de 2007 disponibilizado pelo ACR-NEMA, esta dividido
+em 18 partes, cujo o objetivo é facilitar a reedição destas. Cada
+parte descreve com detalhes um ou mais módulos. Os módulos agrupam
+dados que estão relacionados. Os módulos que definem a imagem DICOM,
+como dados do paciente (nome, idade, sexo) e dados das imagens, como
+frames, modalidades, formatos (de armazenamento, visualização e
+impressão), dimensões, espessura da fatia, regiões de interesse,
+etc.
+
+As partes são \cite{TechReport:NEMA2007}: introdução e visão geral,
+conformidade, informações e definições de objetos, especificações de
+classe de serviço, estrutura de dados e co\-di\-fi\-ca\-ção,
+dicionário de dados, troca de mensagem, suporte de comunicação de
+rede para troca de Mensagem, tirar de circulação (suporte de
+comunicação ponto-a-ponto antigo para troca de mensagem), mídia de
+armazenamento e formato de arquivo para troca de dados, mídia de
+armazenamento aplicado a perfis, função de armazenamento e formatos
+de mídias para troca de dados, tirar de circulação (suporte de
+comunicação ponto-a-ponto antigo para gerenciar a impressão), função
+de exibição padrão em escala de cinza, segurança e perfis de
+gerência de sistema, recurso de mapeamento de conteúdo, informação
+explicativa e objeto DICOM de acesso persistente a Web.
+
+%\begin{enumerate}
+%\item Introdução e visão geral;
+%\item Conformidade;
+%\item Informações e definições de objetos;
+%\item Especificações de Classe de serviço;
+%\item Estrutura de dados e codificação;
+%\item Dicionário de dados;
+%\item Troca de mensagem;
+%\item Suporte de comunicação de rede para troca de Mensagem;
+%\item Tirar de circulação (suporte de comunicação ponto-a-ponto antigo para troca de mensagem);
+%\item Mídia de armazenamento e formato de arquivo para troca de dados;
+%\item Mídia de armazenamento aplicado a perfis;
+%\item Função de armazenamento e formatos de mídias para troca de dados;
+%\item Tirar de Circulação (suporte de comunicação ponto-a-ponto antigo para gerenciar a impressão);
+%\item Função de exibição padrão em escala de cinza;
+%\item Segurança e perfis de gerência de sistema;
+%\item Recurso de mapeamento de conteúdo;
+%\item Informação explicativa;
+%\item Objeto DICOM de acesso persistente a Web.
+%\end{enumerate}
+
+A Figura \ref{Fig12PadraoDicom} mostra uma parte da estrutura que
+compõe uma imagem da TC no formato DICOM.
+
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[scale=0.85]{FigApenA/12PadraoDicom.eps}
+\end{center}
+\caption{\label{Fig12PadraoDicom}\hspace{-0.4em} estrutura de uma
+imagem no padrão DICOM \cite{Master:Silva2005}.}
+\end{figure}
+
+
+\section{Tomografia Computadorizada de Alta Resolução - TCAR}
+\label{section:TCAR}
+
+A Tomografia de Alta Resolução (TCAR) é uma técnica aplicada a TC
+com a finalidade de maximizar a resolução espacial, através do
+algoritmo de reconstrução de alta resolução espacial, cortes finos e
+alto contraste, que simulam os tecidos moles e o ar nos pulmões. A
+TCAR permite realizar fatiamentos com espessura de 1 a 2 mm,
+enquanto que a TC possibilita fatias de 8 a 10 mm de espessura. O
+algoritmo de reconstrução pode ser de altas ou baixas freqüências,
+dependendo da informação que se deseja reproduzir na imagem final
+\cite{Paper:Mayo1987,Paper:Swensen1992}.
+
+A TCAR é a ferramenta mais importante para a avaliação de pacientes
+com doenças pulmonares difusas como as pneumonias intersticiais
+idiopáticas, doenças pulmonares (eosinophilic) e doenças pulmonares
+obstrutivas. A TCAR em comparação com a TC possibilita uma melhor
+visualização de estruturas pulmonares menores entre 0.2 e 0.3 mm,
+como os vasos, brônquios e, principalmente, a identificação do
+lóbulo pulmonar secundário, local que apresenta as principais
+alterações pulmonares
+\cite{Paper:Murata1986,Paper:Mayo1987,Paper:Batra1993}.
+
+De acordo com Webb, Müller e Naidich, a TCAR pode distinguir entre 4
+categorias ou grupos de anormalidades presentes nos pulmões anormais
+\cite{Book:Webb2001}. São elas:
+
+%linear e opacidades reticulares, nodular ou opacidades
+%reticunodulares, opacificação do parênquima e, cistos e enfisemas.
+
+\begin{enumerate}
+\item~linear e opacidades reticulares;
+\item~nodular ou opacidades reticunodulares;
+\item~opacificação do parênquima;
+\item~cistos e enfisemas.
+\end{enumerate}
+
+
+\begin{figure}[htbp]
+   \centering
+   \subfigure[]{\label{SubFig13RoiTCARa}\includegraphics[width=0.46\hsize]{FigApenA/13RoiTCARa.eps}}
+   \hspace{0.02\hsize}
+   \subfigure[]{\label{SubFigFig13RoiTCARb}\includegraphics[width=0.373\hsize]{FigApenA/13RoiTCARb.eps}}
+   \hspace{0.02\hsize}
+   \caption{RI dos pulmões obtidas
+   através de uma TCAR (a) RI destacas na imagem,
+   (b) os pulmões direitos usadas na seleção das RI. As imagens de A1 e A2
+   até D1 e D2 mostram os padrões patológicos escolhidos para representar cada um dos quatro
+   grupos de pneumopatias: A) linear e opacidades reticulares, B) nodular ou opacidades
+   reticunodulares, C) opacificação do parênquima, D) cistos e enfisemas.
+   O tecido pulmonar normal é visto nas imagens E1 e E2 \cite{PhD:Sluimer2005}.}
+   \label{Fig13RoiTCAR}
+\end{figure}
+
+As RI correspondente a cada uma das categorias de anormalidade
+detectadas através da TCAR são mostradas na Figura
+\ref{Fig13RoiTCAR}. Em estudo mais recente realizado por Gotway
+\emph{et al.} \cite{Paper:Gotway2005} apresentam a distinção de
+várias patologias pulmonares através da TCAR, aplicando fatiamentos
+de 1 mm de espessura. Os padrões de doenças encontrados pela TCAR
+neste trabalho estão classificados dentro da opacidade pulmonar
+crescente e da opacidade pulmonar decrescente.
+
+A opacidade pulmonar crescente está nas faixas das altas densidades
+pulmonares, enquanto a opacidade pulmonar decrescente é localizada
+nas baixas densidades. As doenças presentes nestas duas classes são
+ainda subclassificadas. Na tabela \ref{tab:TCAR} é mostrado estas
+doenças e suas principais componentes geradoras (subclasses)
+\cite{Paper:Gotway2005}.
+
+\begin{table}[!p]
+\caption{\label{tab:TCAR}\hspace{-0.4em}doenças perceptíveis através
+da TCAR{\bf:} opacidade pulmonar crescente e decrescente
+\cite{Paper:Gotway2005}.}
+\begin{center}
+\begin{tabular}{|p{4.5cm}|p{4cm}|p{5.5cm}|}
+  %Primeira linha
+  \hline
+  \raggedright\textbf{Doenças Perceptíveis pela TCAR}
+  &
+  \raggedright\textbf{Subclassificações dos Padrões Perceptíveis}
+  &
+  \textbf{Doenças Freqüentemente Relacionadas}\\\hline\hline %exemplos de
+  %Segunda linha
+  \multicolumn{3}{|l|}{\raggedright \textbf{Opacidade pulmonar
+  crescente}}\\\hline
+  \textbf{Opacidade pulmonar crescente} & & \\
+  \hline
+  %Terceira linha
+  \textit{Nódulos}
+  &
+  centrilobulares e pe\-ri\-lis\-tá\-ti\-cos aleatórios\newline%\newline
+%  \newline\newline
+  &
+  bronquite, sarcoidose e infecção difusa hematogênica\newline\\
+  \hline
+  %Quarta linha
+  \textit{Anormalidades lineares}
+  &
+  septal in\-ter\-lo\-bu\-lar, bandas de parênquima, linhas sub-pleurais
+  \newline%\newline
+%  \newline\newline
+  &
+  edema pulmonar, carcinomatosa linfangite\newline\\
+  \hline
+  %Quinta linha
+  \textit{Anormalidades reticulares}
+  &
+  reticulação fina ou grossa e espessamento intralobular intersticial
+  \newline%\newline
+%  \newline\newline
+  &
+  pneumonias intersticiais i\-di\-o\-pá\-ti\-cas e pneumoconiose\newline\\
+  \hline
+  %Sexta linha
+  \textit{Opacidade em vidro despolido ou vidro fosco}
+  &
+  deve ser baseado no histórico clínico e associado com os achados da varredura
+  \newline%\newline
+%  \newline\newline
+  &
+  infecção oportunista, pneumonia intersticial idiopáticas e proteinose alveolar pulmonar
+\newline\\
+  \hline
+  %Sétima linha
+  \textit{Consolidação}
+  &
+  deve ser baseado no histórico clínico e associado com os achados da varredura\newline%\newline
+  &
+  pneumonia, pneumonia criptogênica organizada, hemorragia pulmonar\newline\\
+  \hline
+  \textbf{Opacidade pulmonar decrescente} & & \\
+  \hline
+  %Oitava linha
+  \textit{Áreas de atenuações decrescentes com paredes (aparência de cistos)}
+  &
+  forma do cisto, distribuição, espessura da parede e padrão de organização\newline%\newline
+  &
+  histiocitose da célula de Langerhans, linfangioleiomiomatose, bronquictasia,
+  enfisema paraseptal, pneumonias intersticiais i\-di\-o\-pá\-ti\-cas
+  \newline\\
+  \hline
+  %Nona linha
+  \textit{Áreas de atenuações decrescentes fora das paredes}
+  &
+  enfisema, perfusão em mosaico\newline%\newline
+  &
+  enfisema centrilobular ou panlobular, doenças que afetam as pequenas vias aéreas
+  \newline\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+No trabalho realizado por Kurashima \emph{et al.}
+\cite{Paper:Kurashima2005} mostram as limitações e a eficiência da
+TCAR na detecção da DPOC. Outros detalhes e estudos relacionados,
+que aplicam a TCAR para identificar enfisemas, DPOC e demais doenças
+que afetam o pulmão, podem ser visto nos autores já citados nesta
+seção, e em:
+\cite{Paper:Webb1988,Paper:Nishimura1992,Paper:Klein1992,Paper:Corcoran1992,Paper:Lopes2005}
+
+
+%\section{Conclusão do capítulo}
+%
+%Neste capítulo são apresentadas as gerações de TC e suas evoluções
+%técnicas, utilizadas para melhorar as aplicações na medicina e,
+%permitir aquisições e reconstruções mais rápidas de imagens. É
+%mostrado também os princípios básicos e de reconstrução aplicados a
+%TC, as características da TCAR em relação a TC, a escala em UH, bem
+%como o padrão DICOM. No próximo capítulo, é apresentada a Revisão
+%Bibliográfica referente as técnicas de segmentação aplicada aos
+%pulmões e suas estruturas, bem como as técnicas de detecção e
+%quantificação de algumas patologias pulmonares.

@@ -1,0 +1,193 @@
+\chapter{JOP Tolerante a Falhas}
+\label{Chapter:JOPFT}
+
+\PARstartOne{O}{código} de um programa de um sistema embarcado pode ser armazenado de forma permanente em uma memória não volátil do tipo ROM (\emph{Read Only Memory}), que é um tipo de memória tolerante a SEUs. No entanto, não é possível realizar atualizações do programa armazenado nesta memória. Por outro lado, as memórias do tipo \emph{flash} e SRAM (\emph{Static Random Access Memory}), as quais permitem atualização do programa armazenado, são susceptíveis a SEUs \cite{Limabook,flashseu}. Caso os erros de memória de programa armazenados nestas memórias não sejam tratados, podem ser disseminados para outras partes do sistema e provocar uma falha catastrófica.
+
+Para detectar e corrigir erros na região de dados de uma memória, existem técnicas bastante efetivas implementadas em \emph{software}. Entretanto, as técnicas aplicadas em nível de \emph{software} para detectar e corrigir erros na região de código de uma memória não são eficazes, pois, o próprio \emph{software} corretor de erros pode estar corrompido (neste também reside a memória de programa). Nesse sentido, neste Capítulo são propostas duas técnicas,  para detectar e corrigir erros nas memórias RAM interna (\emph{cache}) e externa do processador JOP, em nível de \emph{hardware} de forma a aumentar a confiabilidade do sistema de \emph{cache} de métodos descritos no Capítulo \ref{Chapter:JOP}.
+
+
+\section {Ocorrência de evento SEU na memória \emph{cache} interna ao JOP}
+     O \emph{floorplan} \footnote{Este \emph{floorplan} do JOP original é um resultado preliminar, de um projeto em desenvolvimento no LESC, que faz parte do programa Brazil-IP.}  do JOP original para a tecnologia XFAB XH035 é apresentado na Figura \ref{jopsilicon}. Os 4 (quatro) blocos inferiores mostrados nesta Figura, identificados por 1, 2, 3 e 4, representam a região ocupada pela memória \emph{cache} do JOP. Em termos percentuais, a área do bloco de memória \emph{cache} do JOP equivale a 44,46\% \cite{lesc} da área total do JOP original, excetuando-se a área ocupada pelos \emph{pads} e anéis de alimentação de \texttt{vcc} e \texttt{gnd}. Quando submetido a radiação, e dado que uma partícula altamente energizada tenha atingido o processador, existe portanto uma alta probabilidade de que a memória \emph{cache} tenha sido atingida, e possivelmente afetada por um SEU. No evento da ocorrência de um SEU na memória interna (\emph{cache}) do JOP, isto provavelmente levaria o sistema baseado neste processador, a uma falha.
+\begin{figure}[!hb]
+\centering
+\includegraphics[width=4.0in]{jopsilicon}
+\caption{\emph{floorplan} do JOP original, adaptado de \cite{lesc}.}
+\label{jopsilicon}
+\end{figure}	
+
+\section {Técnica de Proteção de Instruções (TPI)}
+
+    Para lidar com o problema abordado anteriormente, propõe-se o uso de blocos detectores e corretores de erros na memória \emph{cache} do JOP \cite{tpi}.
+
+
+	A técnica de proteção de instruções (ou TPI) detecta e corrige erros ocorridos nos \emph{bytecodes}, desde o armazenamento destes na \emph{cache} até o início de sua execução pelo \emph{core} do JOP. O erro é detectado e corrigido imediatamente antes do \emph{core} iniciar a exe\-cu\-ção do \emph{bytecode}. Portanto, essa é uma técnica de verificação de último instante (\emph{last minute check}) e que mascara a falha \cite{helanothesis}.
+
+   Utiliza-se redundância da \emph{cache} interna para proteger as instruções armazenadas nesta memória. As instruções são armazenadas durante um curto período de tempo na memória \emph{cache}, existindo uma baixa probabilidade de que dois \emph{bits} de uma mesma instrução sejam invertidos antes que outra instrução seja escrita nesta mesma posição de memória. Esta idéia é similar ao princípio no qual se baseia a técnica de \emph{scrubbing} para proteção da memória de configuração de FPGAs, ou seja, antes que ocorram dois SEUs, aquela posição de memória deve ter sido reescrita com o mesmo, ou com outro dado \cite{Limabook,CRCFpga}. Baseado neste princípio, escolheu-se um codificador de Hamming SECSED (\emph{Single Error Correction Single Error Detection}) para co\-di\-fi\-ca\-ção dos dados da memória \emph{cache}.
+
+\subsection{Fluxo dos \emph{Bytecodes} no JOP x Fluxo dos \emph{Bytecodes} no FT-JOP}
+
+   A memória \emph{cache} do processador JOP é uma memória com duas portas para leitura e/ou escrita, identificadas como porta A e porta B. A porta A desta memória permite acessar 2048 endereços, cada um contendo uma palavra de 8 \emph{bits} de dados. A porta B permite acessar 512 endereços, cada um contendo 32 \emph{bits} de dados. No projeto original do JOP, os dados são transferidos da memória externa (SRAM ou \emph{flash}) para a memória \emph{cache} através da porta B e, a partir da porta A, os \emph{bytecodes} são transferidos para o \emph{core} do JOP que irá executar a instrução. Portanto, no JOP original, as instruções seguem o seguinte fluxo: memória externa, \emph{cache} e núcleo do JOP.
+
+   O projeto do JOP foi modificado neste trabalho, de modo que simultaneamente à escrita de um \emph{bytecode} (tamanho de 8 \emph{bits}) na memória \emph{cache}, 4 \emph{bits} extras de redundância (\emph{bits} de Hamming) são calculados e armazenados em uma memória \emph{cache}, de redundância, que se posiciona em paralelo com a \emph{cache} original, conforme mostrado na Figura \ref{jopmodificado} - parte B. Esses \emph{bits} extras são calculados por um \emph{core} escrito em RTL (\emph{Register Transfer Level}), que implementa um codificador de Hamming.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=4.1in]{jopmodificado}
+\caption{Configurações do JOP - (A) JOP original  (B) JOP Original e TPI  (C) JOP Original, TPI e TPM.}
+\label{jopmodificado}
+\end{figure}	
+
+	Foram desenvolvidos 2 (dois) \emph{ip cores} e especificada uma memória interna da FPGA para a implementação da Técnica de Proteção de Instruções (TPI), os quais podem ser vistos na Figura \ref{jopmodificado} (parte B). A seguir, listamos e descrevemos cada um destes blocos:
+\begin{enumerate}
+\item codificador de Hamming;
+\item detector e corretor de erros em \emph{bytecodes} (Decodificador de Hamming); e
+\item redundância de \emph{cache} (RAMB16\underline{ }S4\underline{ }S18).
+\end{enumerate}
+
+   \subsection{Codificador de Hamming}
+
+   Foi desenvolvido um bloco codificador de Hamming SECSED, que é inserido entre a memória externa e a memória \emph{cache} do JOP. Este bloco recebe 32 \emph{bits} de dados (ou quatro instruções, pois cada uma tem 8 \emph{bits}) e gera uma saída de 48 \emph{bits}.
+
+  \subsection{Bloco extra de memória}
+    Além do bloco codificador de Hamming, foi acrescentado ao JOP uma memória, também de porta dupla, para armazenar os \emph{bits} extras gerados pelo codificador de Hamming. Esta é uma memória do tipo RAMB16\underline{ }S4\underline{ }S18. De acordo com a Tabela \ref{tabelaramb}, a porta $A$ desta memória permite acessar 4096 endereços, cada um contendo uma palavra de 4 \emph{bits} de dados, e a porta B permite acessar 1024 endereços, cada um contendo 16 \emph{bits} de dados.
+
+\begin{table}[!htb]
+\begin{center}
+%% increase table row spacing, adjust to taste
+\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{componentes de memória utilizados.}
+\label{tabelaramb}
+% Some packages, such as MDW tools, offer better commands for making tables
+% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|c|c|c|}	\hline
+% &  &  & Port A &  &   & &  Port B &  &  & \\ \hline
+Componente & Porta A &  Porta B   \\ \hline
+RAMB16\underline{ }S9\underline{ }S36 & 2048 x 8 &   	512 x 32     \\ \hline
+RAMB16\underline{ }S4\underline{ }S18 & 4096 x 4 &  	1024 x 16   \\ \hline
+\end{tabular}
+\end{center}
+\end {table}
+   \subsubsection{Decodificador de Hamming}
+	Imediatamente após a memória \emph{cache} fornecer um \emph{bytecode} para o \emph{core} do JOP, porém antes de ser executado, um \emph{core} decodificador de Hamming lê os 4 \emph{bits} armazenados na \emph{cache} de redundância, conforme mostrado na Figura \ref{jopmodificado} - parte B. Com base nesses 12 (doze) \emph{bits}, oito \emph{bits} do \emph{bytecode} mais quatro \emph{bits} de Hamming, esse \emph{core} verifica se houve alguma inversão de bit em algum dos \emph{bits} do \emph{bytecode}. Em caso afirmativo, isto significa que houve uma falha. Neste caso, o \emph{core} decodificador de Hamming corrige automaticamente o \emph{bytecode}, desde que apenas um bit tenha sido invertido. Finalmente, o \emph{bytecode} correto é entregue para a execução por parte do \emph{core} do JOP.
+
+
+%% DESCREVER O CORE DE HAMMING
+%% Foi desenvolvido também um core decodificador de Hamming.
+
+
+%% EXPLICAR SOBRE BAIXA PROBABILIDADE DE INVERSÃO DE MAIS DE UM BIT
+%% CÓDIGO RS MUITO PESADO
+	
+\section {Ocorrência de evento SEU na memória externa ao JOP}
+	Durante a inicialização do processador JOP, todo o código é transferido da memória \emph{flash} para a memória RAM. Após o código estar na memória RAM, o sistema de \emph{cache} transfere, sob demanda, métodos inteiros da memória externa para a memória de \emph{cache} interna. Por último, após um método estar completamente carregado na memória interna, o \emph{core} solicita e executa os \emph{bytecodes}, um a um.
+    No caso de ocorrência de um SEU na memória externa (\emph{Flash} ou RAM) do JOP, isto provavelmente levaria o sistema baseado neste processador, a um defeito.
+
+
+\section{Técnica de proteção de métodos}
+
+
+%% DESCREVER O PROBLEMA ... PORQUE PROTEGE MÉTODOS ETC.
+	Para proteger o JOP deste tipo de ocorrência, foi desenvolvida neste trabalho a técnica de proteção de métodos. Esta técnica detecta e corrige erros ocorridos desde o processo de transferência do código da memória \emph{flash} até a gravação deste na memória \emph{cache}. O erro é detectado e corrigido antes de iniciar a exe\-cu\-ção do método. Portanto, essa é uma técnica de checagem antecipada (\emph{early check}).
+
+
+\subsection{Software para adicionar CRC aos métodos}
+\label{section:addcrc}
+    Foi desenvolvido um software (de nome \texttt{ProtegeMetodo}) para calcular o CRC32 de cada método, e adicionar este dado ao final de cada método, no arquivo a ser gravado na memória de programa do JOP.
+	Portanto, essa técnica requer que o CRC  (\emph{Cyclical Redundancy Check}) \cite{crc1} de todos os métodos  contidos no programa da aplicação sejam calculados e anexados à memória de código do JOP. Isto é feito pelo aplicativo \texttt{ProtegeMetodo} na fase de montagem do programa.
+
+
+Para ilustrar o funcionamento da técnica de proteção de métodos, considera-se o programa \texttt{HelloWorld.java} mostrado abaixo, o qual envia uma mensagem para a porta serial do processador JOP.
+\verbatiminput{HelloWorld.java}
+
+Como pode ser visto neste código fonte do programa \texttt{HelloWorld}, o método \texttt{main} invoca o método \texttt{println} da classe \texttt{System.out}. Apresenta-se a seguir o código fonte de baixo nível do método \texttt{main} gerado pelo compilador \texttt{javac}.
+\verbatiminput{HelloWorld.bc}
+Nota-se que os \emph{bytecodes} \texttt{getstatic\underline{ }ref}, \texttt{ldc}, \texttt{invokevirtual} e \texttt{return} são utilizados para a implementação do método \texttt{main}. Os \emph{opcodes} relativos a estas instruções, assim como a quantidade de operandos que cada uma dessas instruções deve receber são mostrados na Tabela \ref{tabelaopcodes}.
+\begin{table}[!htb]
+\begin{center}
+%% increase table row spacing, adjust to taste
+\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{instruções utilizadas no método \texttt{main} do programa HelloWorld.java.}
+\label{tabelaopcodes}
+% Some packages, such as MDW tools, offer better commands for making tables
+% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|c|c|c|}	\hline
+Instrução da JVM    &   Opcode   & Operandos   \\	\hline
+\texttt{getstatic\underline{ }ref}   & 224 & 2   \\ 	\hline
+\texttt{ldc}   & 18 & 1 \\ 	\hline
+\texttt{invokevirtual}   & 182 & 2 \\ 	\hline
+\texttt{return}   & 177 & 0 \\ 	\hline
+\end{tabular}
+\end{center}
+\end {table}
+Mostra-se abaixo o código de máquina gerado pelo compilador, o qual deve ser gravado na memória externa do processador JOP.
+\verbatiminput{HelloWorld.jop}
+Neste código de máquina, cada linha contém uma palvra de 32 \emph{bits} e portanto, 4 \emph{bytes}. Cada um destes \emph{bytes} pode representar um \emph{opcode} ou um operando de um \emph{opcode}. Por exemplo, na linha 1, observa-se o opcode 224, que de acordo com a Tabela \ref{tabelaopcodes}, representa a instrução \texttt{getstatic\underline{ }ref}. Ainda na linha 1, encontram-se os \emph{bytes} 0 e 148, que são operandos da instrução anterior (\texttt{getstatic\underline{ }ref}), e o \emph{byte} 18 que representa a instrução \texttt{ldc}. Mostra-se a seguir o código de máquina gerado pelo programa \texttt{ProtegeMetodo} para este exemplo.
+\verbatiminput{HelloWorldCRC.jop}
+Como pode ser visto neste código gerado pelo programa \texttt{ProtegeMetodo}, uma palavra de 32 \emph{bits} extra foi adicionada ao código de máquina. Esta palavra extra é o resultado do algoritmo CRC32 aplicado sobre todas as palavras que compõem o método.
+
+
+\subsection{Verificador da integridade dos métodos}
+
+
+	Sempre que um novo método for carregado na memória \emph{cache} de código, a \emph{cache} de métodos tolerante a falhas e de tempo previsível faz, em paralelo com a carga do método, o cálculo do CRC deste. Para realizar este cálculo foi adicionado ao bloco de interface de memória do JOP, um bloco verificador e corretor de métodos, conforme apresentado na Figura \ref{jopmodificado} - parte C. Ao final da carga do método na memória \emph{cache}, porém antes de executá-lo, o valor calculado do CRC do método é comparado com o valor do CRC do método lido da memória. Nessa situação, caso os valores do CRCs do método, lido da memória e calculado sejam diferentes, isto significa que ocorreu uma falha no sistema.
+
+
+	Logo após a detecção da falha, uma exceção é gerada e o método em falha é impedido de ser executado, evitando assim que um erro seja gerado por essa falha. É importante salientar que esta técnica detecta uma falha antes que a mesma possa causar um erro e, portanto, não causa um defeito no sistema.
+
+	Quando uma falha é detectada, o conteúdo do método do próprio CRC pode estar corrompido, pois, os dois valores (lido e calculado) estão armazenados na mesma memória. No entanto, estatisticamente é muito mais provável que o método esteja corrompido e não o CRC. Uma possível estratégia para aumentar a confiabilidade e detectar qual dos dois está realmente corrompido, seria armazenar o CRC de forma redundante, ou seja, em duas ou mais áreas distintas da memória SRAM.
+
+	Com a modificação proposta por esta técnica, o \emph{cache} de métodos do JOP continua a ter previsibilidade de tempo, pois, não houve alterações no núcleo do processador ou em seu \emph{pipeline}, mas somente na interface de memória. Após a detecção do erro, duas abordagens podem ser seguidas pelo projetista do sistema. Na primeira, o projetista pode optar por não tentar corrigir o método e levar imediatamente o sistema a um modo de falha segura. Numa segunda abordagem, indicada para sistemas de tempo real do tipo \emph{hard}, a análise de WCET deve considerar, além do tempo de cálculo do CRC, o tempo de correção do método, que pode ser feita, por exemplo, a partir de uma memória de programa secundária (externa ao JOP). Na primeira abordagem, o sistema tem um WCET menor que na segunda; em compensação possui uma confiabilidade menor do que o segundo caso, porém ainda maior que a \emph {cache} de métodos original do JOP.
+
+
+
+\subsection{Percepção da falha em nível sistêmico}
+	Uma falha de \emph{hardware} no JOP original, como por exemplo, um \emph{opcode} ilegal, leva o sistema a um \emph{shutdown} \cite{JopHandbook}. Neste trabalho, o processador foi modificado para que, na ocorrência de uma falha de \emph{hardware}, uma exceção seja gerada. Segue abaixo um exemplo de código de como o programador deve fazer o tratamento de uma falha de \emph{hardware}.
+\verbatiminput{exception}
+
+\section{Aplicabilidade das técnicas de TPI e TPM}
+
+As duas técnicas propostas neste Capíutlo (TPI e TPM) podem ser utilizadas para aumentar a confiabilidade do processador JOP, tanto em FPGA, como em tecnologia CMOS.
+No entanto, para o caso de FPGAs, é necessário aplicar em conjunto com as técnicas de TPI e/ou TPM, uma técnica que proteja a memória de configuração da FPGA contra SEUs, como por exemplo a técnica de \emph{scrubbing} \cite{Limabook}, ou ainda a técnica de votação de CRC de frames da FPGA,  proposta no trabalho desenvolvido por \cite{CRCFpga}. É importante ressaltar que estas duas últimas técnicas (\emph{scrubbing} e votação de CRCs) não protegem as memórias BRAMs (Bloco de memória RAM) da FPGA utilizadas pelo processador. Portanto, para o caso de FPGAs, as técnicas de proteção da \emph{cache} e de proteção de configuração da FPGA são complementares.
+Para o caso de tecnologia CMOS, as técnicas de TPI e TPM podem ser aplicadas diretamente.
+
+
+\section{Síntese do JOP em Silício}
+
+Até a escrita desse trabalho, apenas foi detectada a implementação do JOP para FPGAs. Neste sentido, uma outra contribuição deste trabalho é elencar as modificações necessárias e/ou desejáveis, nos códigos fontes do JOP, para a prototipação do JOP em tecnologia CMOS. Esta contribuição adicional representa um grande passo na evolução desse processador.
+
+\subsection {Sistema de verificação funcional}
+
+    Conforme visto no Capítulo \ref{Chapter:PCILD}, uma das etapas importantíssimas do fluxo de projeto de circuitos integrados é a verificação funcional do chip. Os códigos fontes do JOP incluem somente um \emph{testbench} de simulação para execução do programa HelloWorld discutido na Seção \ref{section:addcrc}. Neste sentido, para a prototipação do JOP em tecnologia CMOS, o primeiro passo é definir e implementar um sistema eficiente de verificação funcional. No Capítulo \ref{Chapter:PCILD} é feita uma descrição sucinta da metodologia BVM \emph{Brazil-IP Verification Methodology}, a qual poderia ser aplicada para o JOP.
+
+\subsection {Substituição das BRAMs}
+
+De acordo com o que foi visto nos Capítulos \ref{Chapter:PCILD} e \ref{Chapter:JOP}, a implementação do JOP em FPGA utiliza dois blocos de memória RAM disponíveis na FPGA, um para implementação do bloco \emph{stack} e outro para implementação da memória \emph{cache}. Além das duas memórias RAM, o JOP necessita de uma memória ROM para armazenamento da implementação e mapeamento de alguns \emph{bytecodes} Java em micro-código. Através do Serviço Mosis \cite{mosis} ou mesmo em contato direto com o manufaturador do chip, é possível conseguir os softwares geradores de memória para a tecnologia escolhida. Estes devem ser utilizados para gerar as memórias do JOP.
+
+Os softwares geradores de memória, além de gerarem os blocos de memória, geram um modelo (escrito em uma HDL) do bloco de memória gerado. Estas memórias são, possivelmente, diferentes em termos de lógica de acesso e temporização, daquelas encontradas nas FPGAs. Assim, faz-se necessário modificar o JOP para que este trabalhe corretamente com as memórias da tecnologia na qual será fabricado. Para realização desta tarefa, o modelo da memória gerado pelo \emph{software} será bastante útil.
+
+
+\subsection {Inicialização da \emph{Stack} RAM}
+
+    Para compreender a inicialização da \emph{stack} RAM, deve-se lembrar que para um sistema implementado em FPGAs baseadas em SRAM, é necessário gravar o \emph{bitstream} na FPGA sempre que o sistema inicializa. No caso do JOP, sua implementação se utiliza desta fase (inicialização) para, além de gravar a configuração da FPGA, inicializar a memória \emph{stack} RAM do JOP. Neste sentido, para a implementação do JOP em tecnologia CMOS, faz-se necessário projetar um circuito lógico capaz de inicializar a memória \emph{stack} RAM.
+
+\subsection {Adição de uma JTAG para gravação da Flash e RAM externas}
+    A implementação do JOP em FPGA utiliza a interface JTAG, disponível na FPGA, para realizar o carregamento do programa, na memória de código do processador. No caso do processador em tecnologia CMOS, é necessário o desenvolvimento da interface JTAG, assim como a funcionalidade de carregamento do programa através desta interface.
+
+\subsection {Adicionar registradores de configuração dos periféricos}
+    Processadores implementados em silício dispõem usualmente de vários registradores para configuração da funcionalidade de periféricos, tais como porta serial (USART - \emph{Universal Synchronous Asynchronous Receiver Transmitter}) e temporizadores. A configuração dos periféricos do processador JOP em FPGA é realizada de forma fixa (ou \emph{hard coded}) no próprio código VHDL. Isso é viável, pois, sistemas baseados em FPGA podem ser reconfigurados simplesmente através do carregamento de um novo \emph{bitstream}. No entanto, para a prototipação do JOP em silício, recomenda-se a criação de registradores e circuitos que permitam a configuração dos periféricos do JOP por \emph{software}.
+
+
+\subsection{Revisão do código RTL}
+    Observa-se no código do JOP original em FPGA alguns erros clássicos de co\-di\-fi\-ca\-ção de circuitos lógicos em FPGAs \cite{dezmandamentos,dezmandamentosvhdl}. Para ilustrar esta situação, toma-se como exemplo trechos do código onde o uso da estrutura de programação \texttt{case} da linguagem VHDL é utilizada, sem o devido cuidado de satisfazer todas as condições possíveis. Isto é inaceitável mesmo para circuitos implementados em FPGA, os quais podem ser facilmente reconfigurados. Em um circuito integrado, o problema agrava-se, podendo levar à remanufatura completa  do circuito integrado. Portanto, recomenda-se uma revisão completa do circuito do JOP em busca de erros clássicos de co\-di\-fi\-ca\-ção como o erro descrito acima.
+
+\subsection{Conclusão}
+
+    Três configurações do JOP são mostradas na Figura \ref{jopmodificado}: JOP Original, JOP Original modificado com TPI e JOP modificado com TPI e TPM. Como pode ser visto nesta Figura, em relação ao JOP original, a técnica de TPI adicionou três módulos de hardware. Em relação ao JOP modificado com a técnica de TPI, a técnica de TPM acrescenta um módulo de hardware, o verificador e corretor de métodos. Todos os módulos de \emph{hardware} (exceto bloco de memória) e software necessários para implementação de ambas as técnicas foram codificados, simulados e testados em FPGA, tanto de forma isolada, como de forma integrada.
+
+    Para não modificar o ciclo de execução do JOP, os três \emph{ip cores} (Codificador de Hamming, Decodificador de Hamming e CRC32) desenvolvidos neste trabalho  usam apenas lógica combinacional, e portanto são massivamente paralelos.
+
+%	Erros na memória de código de um sistema computacional são críticos por serem armazenados permanentemente e podem, portanto, %causarr sucessivos erros no processo de computação que fizer uso dos dados errôneos. 

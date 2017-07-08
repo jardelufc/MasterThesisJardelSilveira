@@ -1,0 +1,68 @@
+\chapter {Processador JOP}
+\label{Chapter:JOP}
+
+	\PARstartOne{U}m processador {J}ava é uma implementação da máquina virtual {J}ava. Essa implementação não é necessariamente completa em \emph{hardware}, pois uma Máquina Virtual {J}ava contém funções complexas como, por exemplo, escalonamento, gerenciamento e intercomunicação de processos. O custo de implementar todos esses recursos em \emph{hardware} pode tornar a implementação não viável. Portanto, o conceito de um processador {J}ava difere de um processador comum, onde apenas elementos de \emph{hardware} estão envolvidos. Dessa forma, um processador {J}ava é uma implementação baseada em \emph{hardware} e, possivelmente, em algum \emph{software}.
+
+	Para um processador {J}ava de tempo real, a característica de tempo real do processador deve permear tanto o \emph{software}, como o \emph{hardware} deste processador. O JOP (Java Optimized Processor) \cite{jop:jnl:jsa2007} é uma implementação em \emph{hardware} e  \emph{software} de uma máquina virtual {J}ava de tempo real, baseada no perfil J2ME (\emph{Java 2 Micro Edition}) CLDC (\emph{Connected Limited Device Configuration}) e na especificação SCJ (\emph{Safety Critical Java}). Este processador pode ser implementado como \emph {soft ip core} em FPGAs Xilinx ou Altera e, diferentemente da JVM (\emph{Java Virtual Machine}) que é uma máquina CISC (\emph{Complex Instruction Set Computer}), o JOP é, internamente, uma máquina  RISC (\emph{Reduced Instruction Set Computer}) \cite{jop:tecs:jhal,PattersonHSI},  e portanto, contém seu próprio conjunto de ins\-tru\-ções.
+
+\section{Implementação da JVM no JOP}
+	Os \emph{bytecodes} {J}ava são decodificados através de um \emph{pipeline} de ins\-tru\-ções equivalentes nativas do JOP. Para alguns \emph{bytecodes} {J}ava, existe uma equivalência biunívoca com ins\-tru\-ções nativas do JOP, as quais são executadas em um único ciclo de \emph{clock}. \emph{Bytecodes} de média complexidade são traduzidos em uma sequência de ins\-tru\-ções nativas do JOP, encontradas em uma tabela contida em um área de memória ROM (\emph{Read Only Memory}), chamada de \emph{JVM microcode} ou Micro-código da Máquina Virtual {J}ava. \emph{Bytecodes} mais complexos, como por exemplo, a instrução \texttt{new}, são implementados na própria linguagem {J}ava e, portanto, traduzidos para sequências dos demais \emph{bytecodes}, em tempo de exe\-cu\-ção. Para otimizar o desempenho de ins\-tru\-ções específicas, é possível implementar a mesma em \emph{hardware}. O JOP, assim como a JVM original, é uma ``\emph{stack machine}'', ou seja, ao invés de realizar operações sobre um conjunto de registradores, como ocorre em uma arquitetura x86, as operações são realizadas sobre os itens que estão no topo da pilha.
+
+
+\section{Entrada e saída}
+	Os dispositivos de E/S do JOP estão mapeados em memória e, do ponto de vista de \emph{software}, os pinos do JOP são acessados pelos métodos \texttt{Native.rdMem()} e \texttt{Native.wrMem()}. Do ponto de vista do \emph{hardware}, eles são implementados pelo \emph{soft ip core} \textbf{scio}, que pode ser visto na Figura \ref{bdjop}.
+
+\begin{figure}[!hb]
+\centering
+
+\includegraphics[width=4.5in]{arch_jop_block}
+
+\caption{diagrama de blocos do JOP, adaptado de \cite{JopHandbook}.}
+\label{bdjop}
+
+\end{figure}
+
+
+\section{Interrupções}
+	Interrupções são usadas para sinalizar eventos externos, como por exemplo, detectar que um botão foi pressionado. Quando uma interrupção ocorre, o processador simplesmente pára de executar o código atualmente apontado pelo registrador contador de programa, e desvia a exe\-cu\-ção para uma rotina de interrupção. Além disso, o ambiente do processo interrompido é salvo para que esse possa ser restaurado posteriormente. Isso inclui salvar os registros da CPU (\emph{Central Processing Unit}) e os registradores de \emph{status} do processador. Estas ações tornam possível o retorno da exe\-cu\-ção do código original quando a rotina de interrupção tiver finalizada.
+
+	No JOP, as interrupções geram \emph{bytecodes} especiais (\texttt{sys\underline{ }int}), os quais são inseridos pelo \emph{hardware} de forma transparente, na sequência de \emph{bytecodes} a serem executados. Manipuladores de interrupção podem ser implementados da mesma forma que os \emph{bytecodes}, ou seja, em micro-código ou em {J}ava \cite{jop:interrupt:handler}.
+
+
+\section{Requisitos de tempo real}
+	Aplicações de tempo real para o JOP são explicitamente separadas em duas partes: fase de inicialização e fase de missão. Na fase de inicialização são criados todos os objetos que serão usados durante toda a exe\-cu\-ção da aplicação e, portanto, áreas de memórias são alocadas e inicializadas. Nesta fase não existe garantia de tempo real. Na fase de missão, as \emph{threads} são executadas concorrentemente de acordo com o algoritmo de escalonamento.
+\subsection{Análise de WCET no JOP}
+	Por ter sido desenvolvido para ser usado em sistemas embarcados com aplicações de tempo real, a arquitetura do processador JOP permite calcular com facilidade o WCET (\emph{Worst Case Execution Time}) de uma tarefa.
+
+	A máquina virtual Java do JOP implementa classes que permitem desenvolver apli\-ca\-ções de tempo real. Essas classes não são compatíveis com o padrão RTSJ (\emph {Real Time Specification for Java}) \cite{onjava}, pois apenas um subconjunto deste padrão é implementado. Embora as áreas de código e de pilha do JOP utilizem memória de \emph{cache}, o modelamento do comportamento da memória \emph {cache} no JOP é perfeitamente previsível no tempo. Isso se deve ao fato de, diferentemente de outros processadores, não ocorrerem ``\emph{cache misses}'' na \emph{cache} do JOP, ou seja, cada instrução  solicitada pelo processador à \emph{cache} estará (exceto as instruções \texttt{invoke} e \texttt{return}) necessariamente previamente carregada na \emph{cache} \cite{jop:wcet:spe}.
+\subsection{Garantia de funcionamento}
+	O JOP não implementa em sua arquitetura técnicas de garantia de funcionamento. Portanto, para aplicações de tempo real do tipo \emph{hard}, ou seja, que envolvem riscos de vidas humanas, o projetista do sistema deverá assegurar a garantia de funcionamento em nível sistêmico. 	No JOP, uma falha de \emph{hardware}, como por exemplo, um \emph{opcode} ilegal ou um erro de paridade de memória, levará o sistema a um \emph{shutdown} \cite{JopHandbook}.
+\section{Arquitetura do JOP}
+	O JOP é composto de quatro blocos principais (ver Figura \ref{bdjop}): Interface de memória, \emph{core} do JOP, interface de E/S (\textbf{scio}) e ``extensões''. O bloco de interface de memória comunica-se com os controladores de memórias externas através do barramento de comunicação \textbf{simpcon}. Os controladores de memória, por sua vez, comunicam-se, através dos pinos do processador com as memórias SRAM e \emph{flash}. O bloco ``\emph{core} do JOP'' é responsável por de\-co\-di\-fi\-car e executar os \emph{bytecodes} fornecidos pela interface de memória e comandar as demais partes do processador. O bloco interface de E/S comunica-se com controladores de E/S, tais como porta USB e Serial RS232, através do barramento \textbf{simpcon}. Estes controladores de E/S, por sua vez, comunicam-se com os dispositivos do mundo externo através dos pinos do processador. O bloco de ``extensões'' serve para agregar funções de co-processadores matemáticos sem realizar modificações no núcleo do processador.
+
+\section{Cache de instruções de tempo previsível}
+
+	Em {J}ava, ou em qualquer linguagem orientada a objetos, um objeto é composto de dados (variáveis) e das funções que operam sobre seus dados, que são os métodos \cite{JavaOO}.
+
+	Soluções convencionais de \emph{cache}, como por exemplo aquelas baseadas em mapeamento direto ou em mapeamento associativo, introduzem uma imprevisibilidade da exe\-cu\-ção de um algoritmo, o que é incompatível com um sistema de tempo real. A solução de \emph{cache} de código do JOP, proposta por Schoeberl em \cite{jtrescache}, é completamente diferente das soluções convencionais e consiste em fazer \emph{cache} de métodos inteiros, e não de ins\-tru\-ções (\emph{bytecodes}) \cite{MartinThesis}.
+
+	No JOP, os bytecodes \texttt{invoke}, \texttt{return} e seus derivados são escritos em micro-código (uma sequência de instruções do processador RISC interno ao JOP). Essa sequência de ins\-tru\-ções contém uma chamada à instrução \texttt{stbcrd} e outra chamada à instrução \texttt{ldbcstart}, as quais disparam a atuação da \emph{cache} (cópia da memória RAM externa para memória RAM interna).
+
+	A instrução \texttt{ldbcstart} insere o endereço do início do método no topo da pilha. Em seguida, a instrução \texttt{sbtcrd} é executada e o valor do topo da pilha, o qual neste ins\-tan\-te contém o endereço e tamanho de um método, é transferido para o subsistema de memória. Essa operação inicia a transferência da memória principal para a memória \emph{cache}, através de um DMA (\emph{Direct Memory Access}). Ne\-nhum outro acesso à memória externa é permitido durante a leitura dos \emph{bytecodes} de um método.
+
+	Com essa abordagem, apenas os bytecodes \texttt{invoke} e \texttt{return} disparam a atuação da \emph{cache}. Portanto, os únicos \emph{bytecodes} que possivelmente terão um tempo de exe\-cu\-ção variável serão \texttt{invoke} e \texttt{return}. Essa variação do tempo de exe\-cu\-ção pode ser calculada em função do tamanho do método e das ca\-racte\-rís\-ti\-cas das memórias interna e externa. Essa abordagem facilita a análise do WCET das aplicações do JOP.
+\section{Montador de aplicações}
+	O processo de montagem de uma aplicação para o JOP é descrito no ramo direito da Figura \ref {jopflow}. Conforme pode ser visto no ramo direito desta Figura, após a compilação, usando o compilador \texttt{javac}, o aplicativo \texttt{jopizer} gera o programa a ser executado pelo JOP.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=4.5in]{jopflow}
+\caption{fluxo de montagem de aplicativo JOP, adaptado de \cite{JopHandbook}.}
+\label{jopflow}
+\end{figure}
+Este programa poderá ser gravado em uma memória \emph{Flash} (aplicação \emph{standalone}) conectada ao JOP ou enviado a este através da porta USB (\emph{Universal Serial Bus}) ou Serial RS232. No ramo esquerdo dessa Figura é apresentado o processo de montagem do hardware do JOP, ou seja, a criação de um arquivo de configuração de uma FPGA (\emph{bitstream}) contendo o \emph{soft ip core} JOP.
+
+
+
+\section{Documentação e portabilidade}	
+	Além das ca\-racte\-rís\-ti\-cas técnicas do JOP, descritas anteriormente, podemos destacar também a ampla documentação disponível, a sua portabilidade, pois já foi implementado em diversas placas de desenvolvimento de FPGA (Xilinx e Altera) disponíveis no mercado. Por último, mas não menos importante, a disponibilidade do código fonte  do JOP para \emph{download} pelo \emph{site} \url {http://www.opencores.org} e licenciado sob a GPL (\emph{Gnu Public License}) versão 3.
+ Atualmente o JOP é utilizado em dois sistemas comerciais, sendo um deles com requisito de tempo real, e em vários sistemas de pesquisa \cite{jop:jnl:jsa2007}. Portanto, o JOP se insere como uma excelente alternativa para plataforma base, de pesquisa e desenvolvimento, de novas técnicas de sistemas de tempo real.

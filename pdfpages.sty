@@ -1,0 +1,793 @@
+%%
+%% This is file `pdfpages.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% pdfpages.dtx  (with options: `package')
+%% 
+%% This is a pdfLaTeX package for including pages
+%% of external PDF documents.
+%% 
+%% This file is part of the pdfpages package.
+%% 
+
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pdfpages}[2001/11/21 v0.2a Insert pages of external PDF documents (AM)]
+\begingroup
+\@ifundefined{pdfoutput}
+    {\PackageError{pdfpages}
+             {You're either not using pdfLaTeX\MessageBreak
+              or have turn off PDF output.\MessageBreak
+              `pdfpages' only works with pdfLaTeX\MessageBreak
+              and PDF output}
+             {Use `pdflatex' instead of `latex'\MessageBreak
+              and set output to PDF (use: \pdfoutput = 1)!}
+     \endinput}
+    {\ifnum\pdfoutput=\z@
+       \PackageError{pdfpages}
+             {You don't produce PDF output, which\MessageBreak
+              is required for the `pdfpages' package}
+             {Set output to PDF. (use: \pdfoutput = 1)}
+       \expandafter\endinput
+     \fi}
+\endgroup
+\RequirePackage{ifthen, graphicx, calc, eso-pic}
+\def\AM@ifdriverlater{\@ifl@ter{def}}
+\AM@ifdriverlater{pdftex}{2000/05/12}{}{%
+    \PackageError{pdfpages}{%
+         You have an old `pdftex.def'.\MessageBreak%
+         There is no multipage support\MessageBreak%
+         in `pdftex.def' < 0.02u.\MessageBreak%
+         Update your `pdftex.def'}
+         {Update your `pdftex.def'!}}
+\AM@ifdriverlater{pdftex}{2000/09/14}{}{%
+    \PackageWarning{pdfpages}{%
+         You have an old `pdftex.def'.\MessageBreak%
+         There might be problems with\MessageBreak%
+         the `trim' and `clip' options.\MessageBreak%
+         Update your `pdftex.def'!\MessageBreak}}
+\def\AM@ifdriverlater{\@ifl@ter{sty}}
+\AM@ifdriverlater{eso-pic}{2001/07/20}
+  {\def\AM@AddToShipoutPicture{\AddToShipoutPicture*}%
+   \def\AM@ClearShipoutPicture{\relax}}
+  {\def\AM@AddToShipoutPicture{\AddToShipoutPicture}%
+   \def\AM@ClearShipoutPicture{\ClearShipoutPicture}}
+\newcommand*{\AM@draft}{false}
+\DeclareOption{draft}{\def\AM@draft{true}}
+\DeclareOption{final}{\def\AM@draft{false}}
+\ProcessOptions
+\newboolean{AM@openright}\setboolean{AM@openright}{false}
+\newboolean{AM@frame}\setboolean{AM@frame}{false}
+\newboolean{AM@landscape}\setboolean{AM@landscape}{false}
+\newboolean{AM@turn}\setboolean{AM@turn}{true}
+\newboolean{AM@thread}\setboolean{AM@thread}{false}
+\newboolean{AM@link}\setboolean{AM@link}{false}
+\newboolean{AM@linktodoc}\setboolean{AM@linktodoc}{false}
+\newboolean{AM@column}\setboolean{AM@column}{false}
+\newboolean{AM@columnstrict}\setboolean{AM@columnstrict}{false}
+\newboolean{AM@noautoscale}\setboolean{AM@noautoscale}{false}
+\newif\ifAM@linkfilename\AM@linkfilenamefalse
+\newcommand*{\AM@pagestemp}{1}
+\newcommand*{\AM@pagecommand}{\thispagestyle{empty}}
+\newcommand*{\AM@lscape@rot}{0}
+\newcommand*{\AM@threadname}{}\newcommand{\AM@linkname}{}
+\newcommand*{\AM@linkname@option}{}
+\newcommand*{\AM@linkfit}{fitr}\newcommand{\AM@linktodocfit}{/Fit}
+\newcommand*{\threadinfodict}{}
+\newif\ifAM@thumbpdf
+\newif\ifAM@pdflscape
+\newcommand*{\AM@setlscape}{}
+\AtBeginDocument{%
+  \@ifpackageloaded{thumbpdf}{\AM@thumbpdftrue}{\AM@thumbpdffalse}%
+  \@ifpackageloaded{pdflscape}{\AM@pdflscapetrue}{\AM@pdflscapefalse}%
+  \ifAM@thumbpdf
+    \ifAM@pdflscape
+      \def\AM@setlscape{\PLS@Rotate{90}}%
+    \else
+      \def\AM@setlscape{\pdfpageattr{/Rotate 90}\AM@thumbpdfwarning}%
+    \fi
+  \else
+    \def\AM@setlscape{\pdfpageattr{/Rotate 90}}%
+  \fi}
+\newif\ifAM@thumbpdfwarning
+\newcommand*{\AM@thumbpdfwarning}{%
+  \ifAM@thumbpdfwarning\else\global\AM@thumbpdfwarningtrue
+  \PackageWarning{pdfpages}{%
+    You are using `thumbpdf.sty' but not\MessageBreak
+    `pdflscape.sty'. \MessageBreak
+    Please insert `pdflscape.sty' in  your document\MessageBreak
+    to get a pleasant PDF document with thumbs.\MessageBreak}\fi}
+\newif\ifAM@integer
+\newcommand{\AM@checkinteger}{}
+\def\AM@checkinteger#1{%
+  \ifcat _\ifnum9<1#1_\else A\fi
+    \AM@integertrue
+  \else
+    \AM@integerfalse
+  \fi
+}
+\newcommand*{\includepdfset}[1]{\setkeys{Gin}{#1}}
+\newcommand*{\includepdf}[2][]{%
+  \begingroup
+  \filename@parse{#2}%
+  \def\AM@currentdocname{\filename@area\filename@base}%
+  \setkeys{Gin}{#1}%
+  \expandafter\AM@readlist\expandafter{\AM@pagestemp}%
+  \AM@output{#1}%
+  \endgroup
+  \AM@ClearShipoutPicture
+}
+\newcommand*{\includepdfmerge}[2][]{%
+  \begingroup
+  \def\AM@currentdocname{}%
+  \AM@readlist{#2}%
+  \AM@output{#1}%
+  \endgroup
+  \AM@ClearShipoutPicture
+}
+\newif\ifAM@defaultone
+\newcommand*{\AM@readlist}[1]{%
+  \AM@defaultonefalse
+  \def\AM@pagelist{}%
+  \def\AM@doclist{}%
+  \AM@readlisti#1,\END,
+  \ifAM@defaultone\AM@addtolist{1}\fi
+  \let\saveAM@doclist\AM@doclist
+  \edef\AM@doclist{\expandafter\@gobble\saveAM@doclist}%
+  \let\saveAM@pagelist\AM@pagelist
+  \edef\AM@pagelist{\expandafter\@gobble\saveAM@pagelist}%
+}
+\newcommand{\AM@readlisti}{}
+\def\AM@readlisti#1,{%
+  \def\AM@temp{#1}%
+  \ifx\END#1
+  \else
+    \AM@checkrange#1-\END
+    \expandafter\AM@readlisti
+  \fi
+}
+\newcommand{\AM@checkrange}{}
+\def\AM@checkrange#1-#2\END{%
+  \edef\AM@tempi{\AM@trim@space{#1}}%
+  \ifx\\#2\\%
+    \AM@checkinteger{\AM@tempi}%
+    \ifAM@integer\AM@addtolist{\AM@tempi}%
+    \else
+      \expandafter\ifx\expandafter\\\AM@tempi\\\AM@addtolist{}%
+      \else\AM@setnewdocname{\AM@tempi}\fi
+    \fi
+  \else
+    \expandafter\ifx\expandafter\\\AM@tempi\\%
+      \@tempcnta=1\relax
+      \AM@checklast#2\END
+    \else
+      \AM@checkinteger{\AM@tempi}%
+      \ifAM@integer
+        \@tempcnta=\AM@tempi\relax
+        \AM@checklast#2\END
+      \else
+        \AM@setnewdocname{\AM@temp}%
+      \fi
+    \fi
+  \fi
+}
+\newcommand{\AM@checklast}{}
+\def\AM@checklast#1-\END{%
+  \edef\AM@tempii{\AM@trim@space{#1}}%
+  \expandafter\ifx\expandafter\\\AM@tempii\\
+    \pdfximage{\AM@currentdocname.pdf}%
+    \@tempcntb=\the\pdflastximagepages\relax
+    \advance\@tempcntb\@ne
+    \whiledo{\@tempcnta<\@tempcntb}{%
+      \AM@addtolist{\the\@tempcnta}%
+      \advance\@tempcnta\@ne
+    }%
+  \else
+    \AM@checkinteger{\AM@tempii}%
+    \ifAM@integer
+      \@tempcntb=\AM@tempii\relax
+      \advance\@tempcntb\@ne
+      \whiledo{\@tempcnta<\@tempcntb}{%
+        \AM@addtolist{\the\@tempcnta}%
+        \advance\@tempcnta\@ne
+      }%
+    \else
+      \AM@setnewdocname{\AM@temp}%
+    \fi
+  \fi
+}
+\newcommand{\AM@setnewdocname}[1]{%
+  \ifAM@defaultone
+    \AM@addtolist{1}%
+  \fi
+  \edef\AM@temp{\AM@trim@space{#1}}%
+  \filename@parse{\AM@temp}%
+  \def\AM@currentdocname{\filename@area\filename@base}%
+  \AM@defaultonetrue
+}
+\newcommand{\AM@addtolist}[1]{%
+  \let\saveAM@doclist\AM@doclist
+  \edef\AM@doclist{\saveAM@doclist,\AM@currentdocname}%
+  \let\saveAM@pagelist\AM@pagelist
+  \edef\AM@pagelist{\saveAM@pagelist,#1}%
+  \AM@defaultonefalse
+}
+\newboolean{AM@endoflist}\setboolean{AM@endoflist}{false}
+\newcommand{\AM@getfirst}{}
+\def\AM@getfirst#1{\expandafter\AM@getfirsti#1,\END#1\END}
+\newcommand{\AM@getfirsti}{}
+\def\AM@getfirsti#1,#2\END#3\END{%
+  \edef#3{#2}%
+  \ifx\\#2\\%
+    \setboolean{AM@endoflist}{true}%
+    \def#3{}%
+  \else
+    \edef#3{\AM@getfirstii#2\END}%
+  \fi
+  \toks@{#1}%
+}
+\newcommand{\AM@getfirstii}{}
+\def\AM@getfirstii#1,\END{#1}
+\newcommand{\AM@readfirst}{}
+\newcommand{\AM@readfirsti}{}
+\def\AM@readfirst#1{\expandafter\AM@readfirsti#1,\END}
+\def\AM@readfirsti#1,#2\END{\toks@{#1}}
+\newcommand{\AM@getlast}{}
+\def\AM@getlast#1{%
+  \let\AM@temp\relax
+  \expandafter\AM@getlasti#1,\END
+  \@ifundefined{AM@temp}{\def#1{}}{\edef#1{\AM@temp}}%
+}
+\newcommand{\AM@getlasti}{}
+\def\AM@getlasti#1,#2\END{%
+  \ifx\\#2\\%
+    \def\AM@lastitem{#1}%
+  \else
+    \@ifundefined{AM@temp}
+      {\edef\AM@temp{#1}}
+      {\edef\AM@temp{\AM@temp,#1}}%
+    \AM@getlasti#2\END
+  \fi
+}
+\newcommand{\AM@getlastn}{}
+\def\AM@getlastn#1#2{%
+  \let\AM@templist\relax
+  \@tempcnta=\z@
+  \loop
+  \ifnum\@tempcnta<#2
+    \AM@getlast{#1}%
+    \@ifundefined{AM@templist}
+      {\edef\AM@templist{\AM@lastitem}}
+      {\edef\AM@templist{\AM@lastitem,\AM@templist}}%
+    \advance\@tempcnta\@ne
+  \repeat
+  \edef\AM@lastnitems{\AM@templist}%
+}
+\newif\ifAM@again\AM@againtrue
+\newcommand{\AM@count}{}
+\def\AM@count#1{%
+  \edef\AM@templist{#1}%
+  \loop
+    \AM@getlast{\AM@templist}%
+    \expandafter\ifx\expandafter\\\AM@lastitem\\%
+    \else
+      \AM@againfalse
+      \expandafter\ifx\expandafter\\\AM@templist\\%
+        \edef\AM@templist{\AM@lastitem}%
+      \else
+        \edef\AM@templist{\AM@templist,\AM@lastitem}%
+      \fi
+      \@tempcnta=\z@
+      \expandafter\AM@counti\AM@templist,\END,
+    \fi
+  \ifAM@again
+  \repeat
+}
+\newcommand{\AM@counti}{}
+\def\AM@counti#1,{%
+  \ifx\END#1
+  \else
+    \advance\@tempcnta\@ne
+    \expandafter\AM@counti
+  \fi
+}
+\newboolean{AM@resort@end}\setboolean{AM@resort@end}{false}
+\newcommand{\AM@resort}{}
+\def\AM@resort{%
+  \def\AM@resortedpagelist{}%
+  \def\AM@resorteddoclist{}%
+  \def\AM@xnupi{\@ne}%
+  \def\AM@ynupi{\@ne}%
+  \AM@count{\AM@lastnpages}%
+  \def\AM@xnuplast{%
+    \the\@tempcnta - (\the\@tempcnta / \AM@xnup * \AM@xnup) + 1}%
+  \def\AM@ynuplast{1 + (\the\@tempcnta / \AM@xnup)}%
+  \setlength{\@tempdima}{\p@*(\AM@xnuplast)}%
+  \edef\AM@xnuplast{\strip@pt\@tempdima}%
+  \setlength{\@tempdima}{\p@*(\AM@ynuplast)}%
+  \edef\AM@ynuplast{\strip@pt\@tempdima}%
+  \whiledo{\not\boolean{AM@resort@end}}{%
+    \@tempcnta=\AM@ynupi\relax
+    \@tempcntb=\AM@ynuplast\relax
+    \ifnum\@tempcnta=\@tempcntb
+        \@tempcnta=\AM@xnupi\relax
+        \@tempcntb=\AM@xnuplast\relax
+        \ifnum\@tempcnta<\@tempcntb
+          \AM@getfirst{\AM@lastndocs}%
+          \edef\AM@firstdocitem{\the\toks@}%
+          \AM@getfirst{\AM@lastnpages}%
+          \edef\AM@resortedpagelist{\AM@resortedpagelist,\the\toks@}%
+          \edef\AM@resorteddoclist{%
+            \AM@resorteddoclist,\AM@firstdocitem}%
+        \else
+          \edef\AM@resortedpagelist{\AM@resortedpagelist,}%
+          \edef\AM@resorteddoclist{\AM@resorteddoclist,\AM@phantomdoc}%
+        \fi
+    \else
+      \ifnum\@tempcnta<\@tempcntb
+        \AM@getfirst{\AM@lastndocs}%
+        \edef\AM@firstdocitem{\the\toks@}%
+        \AM@getfirst{\AM@lastnpages}%
+        \edef\AM@resortedpagelist{\AM@resortedpagelist,\the\toks@}%
+        \edef\AM@resorteddoclist{\AM@resorteddoclist,\AM@firstdocitem}%
+      \else
+        \edef\AM@resortedpagelist{\AM@resortedpagelist,}%
+        \edef\AM@resorteddoclist{\AM@resorteddoclist,\AM@phantomdoc}%
+      \fi
+    \fi
+    \@tempcnta=\AM@ynupi\relax
+    \advance\@tempcnta\@ne
+    \edef\AM@ynupi{\the\@tempcnta}%
+    \@tempcntb=\AM@ynup\relax
+    \ifnum\@tempcnta>\@tempcntb
+      \@tempcntb=\AM@xnupi\relax
+      \advance\@tempcntb\@ne
+      \edef\AM@xnupi{\the\@tempcntb}%
+      \def\AM@ynupi{\@ne}%
+      \@tempcnta=\AM@xnup\relax
+      \ifnum\@tempcntb>\@tempcnta
+        \setboolean{AM@resort@end}{true}%
+      \fi
+    \fi
+  }%
+  \edef\AM@resortedpagelist{\expandafter\@gobble\AM@resortedpagelist}%
+  \edef\AM@resorteddoclist{\expandafter\@gobble\AM@resorteddoclist}%
+}
+\newcommand{\AM@output}[1]{%
+  \@ifundefined{AM@xnup}
+    {\def\AM@xnup{\@ne}\def\AM@ynup{\@ne}%
+     \def\AM@xnupminusi{\z@}\def\AM@ynupminusi{\@ne}}{}%
+  \@ifundefined{AM@deltax}
+    {\def\AM@deltax{\z@}\def\AM@deltay{\z@}}{}%
+  \@ifundefined{AM@xoffset}
+    {\def\AM@xoffset{\z@}\def\AM@yoffset{\z@}}{}%
+  \def\AM@xpos{\z@}\def\AM@ypos{\z@}%
+  \let\AM@linkname@option\relax
+  \setkeys{Gin}{draft=\AM@draft, #1}%
+  \AM@setphantom
+  \AM@filluppagelist
+  \ifthenelse{\boolean{AM@landscape}}
+    {\@ifundefined{AM@shortnupsyntax}{}
+       {\let\AM@temp\AM@xnup
+        \let\AM@xnup\AM@ynup
+        \let\AM@ynup\AM@temp}%
+    }{}
+  \ifthenelse{\boolean{AM@column}%
+              \and\not\boolean{AM@columnstrict}}
+         {\AM@getlastn{\AM@doclist}{\AM@nup}%
+          \edef\AM@lastndocs{\AM@lastnitems}%
+          \AM@getlastn{\AM@pagelist}{\AM@nup}%
+          \edef\AM@lastnpages{\AM@lastnitems}%
+          \AM@resort
+          \AM@count{\AM@pagelist}%
+          \expandafter\ifx\expandafter\\\AM@pagelist\\%
+            \edef\AM@pagelist{\AM@resortedpagelist}%
+            \edef\AM@doclist{\AM@resorteddoclist}%
+          \else
+            \edef\AM@pagelist{\AM@pagelist,\AM@resortedpagelist}%
+            \edef\AM@doclist{\AM@doclist,\AM@resorteddoclist}%
+          \fi}{}
+  \ifthenelse{\boolean{AM@frame}}
+         {\let\AM@fbox\fbox}
+         {\let\AM@fbox\relax
+          \setlength{\fboxrule}{\z@}}%
+  \ifthenelse{\boolean{AM@openright}}
+         {\AM@openright}{}%
+  \ifthenelse{\boolean{AM@column}}
+         {\def\AM@xnupi{\@ne}
+          \def\AM@ynupi{\z@}}
+         {\def\AM@xnupi{\z@}
+          \def\AM@ynupi{\@ne}}%
+  \setlength{\fboxsep}{\z@}%
+    \AM@readfirst{\AM@pagelist}
+    \edef\AM@page{\the\toks@}
+    \AM@readfirst{\AM@doclist}
+    \edef\AM@docname{\the\toks@}
+    \ifAM@noautoscale
+      \def\AM@scale{1}
+    \else
+      \AM@remove@scale{#1}
+      \AM@isphantom
+      \toks@\expandafter{\AM@options}
+      \setbox\@tempboxa=\hbox{%
+        \expandafter\includegraphics\expandafter[\the\toks@,
+           page=\AM@page, angle=\AM@lscape@rot]{\AM@docname}}%
+      \def\AM@xscale{%
+        (\paperwidth - \tw@\fboxrule*\AM@xnup
+         - (\AM@deltax-\fboxrule) * \AM@xnupminusi) /
+        (\AM@xnup * \real{\strip@pt\wd\@tempboxa})
+      }%
+      \setlength{\@tempdima}{\AM@xscale}%
+      \edef\AM@xscale{\strip@pt\@tempdima}%
+      \setlength{\@tempdimb}{\ht\@tempboxa + \dp\@tempboxa}%
+      \def\AM@yscale{
+        (\paperheight - \tw@\fboxrule*\AM@ynup
+         - (\AM@deltay-\fboxrule) *\AM@ynupminusi) /
+        (\AM@ynup * \real{\strip@pt\@tempdimb})
+      }%
+      \setlength{\@tempdima}{\AM@yscale}%
+      \edef\AM@yscale{\strip@pt\@tempdima}%
+      \@tempdima=\AM@xscale\p@
+      \@tempdimb=\AM@yscale\p@
+      \ifdim\@tempdima<\@tempdimb
+        \let\AM@scale\AM@xscale
+      \else
+        \let\AM@scale\AM@yscale
+      \fi
+    \fi
+    \let\AM@filelist@save\@filelist
+    \setbox\@tempboxa=\hbox{%
+      \includegraphics[page=\AM@page,
+                       scale=\AM@scale,
+                       angle=\AM@lscape@rot, #1]{\AM@docname}}%
+    \let\@filelist\AM@filelist@save
+    \setlength{\@tempdimb}{\ht\@tempboxa + \dp\@tempboxa}%
+    \def\AM@xmargin{%
+      (\paperwidth - (\wd\@tempboxa+\tw@\fboxrule)*\AM@xnup
+       - (\AM@deltax - \fboxrule) * \AM@xnupminusi) * \real{.5}
+    }%
+    \def\AM@ymargin{%
+      (\paperheight - (\@tempdimb+\tw@\fboxrule)*\AM@ynup
+       - (\AM@deltay - \fboxrule) * \AM@ynupminusi) * \real{.5}
+    }%
+    \setlength{\@tempdima}{\AM@xmargin}%
+    \edef\AM@xmargin{\the\@tempdima}%
+    \setlength{\@tempdima}{\AM@ymargin}%
+    \edef\AM@ymargin{\the\@tempdima}%
+    \ifthenelse{\boolean{AM@landscape}}
+         {\edef\AM@temp{\AM@xnup}
+          \edef\AM@xnup{\AM@ynup}
+          \edef\AM@ynup{\AM@temp}}
+         {}%
+  \setboolean{AM@endoflist}{false}%
+  \whiledo{\not\boolean{AM@endoflist}}{%
+    \AM@getfirst{\AM@pagelist}%
+      \edef\AM@page{\the\toks@}%
+      \AM@isphantom
+      \@tempcnta=\AM@page\relax
+      \advance\@tempcnta\m@ne
+      \edef\AM@page@linktodoc{\the\@tempcnta}%
+    \AM@getfirst{\AM@doclist}%
+      \edef\AM@docname{\the\toks@.pdf}%
+      \ifAM@linkfilename
+      \else
+        \let\AM@linkfilename\AM@docname
+      \fi
+      \@ifundefined{AM@linkname@option}
+        {\edef\AM@linkname{\the\toks@}}
+        {\edef\AM@linkname{\AM@linkname@option}}%
+    \newpage
+    \ifthenelse{\boolean{AM@column}}
+      {\@tempcnta=\AM@ynupi\relax
+       \@tempcntb=\AM@ynup\relax
+       \advance\@tempcnta\@ne
+       \ifnum\@tempcnta>\@tempcntb
+         \@tempcnta=\@ne
+         \@tempcntb=\AM@xnupi\relax
+         \advance\@tempcntb\@ne
+         \edef\AM@xnupi{\the\@tempcntb}%
+       \fi
+       \edef\AM@ynupi{\the\@tempcnta}%
+       \@tempcnta=\AM@xnupi\relax
+       \@tempcntb=\AM@xnup\relax
+       \ifnum\@tempcnta>\@tempcntb
+         \def\AM@xnupi{\@ne}%
+       \fi
+      }
+      {\@tempcnta=\AM@xnupi\relax
+       \@tempcntb=\AM@xnup\relax
+       \advance\@tempcnta\@ne
+       \ifnum\@tempcnta>\@tempcntb
+         \@tempcnta=\@ne
+         \@tempcntb=\AM@ynupi\relax
+         \advance\@tempcntb\@ne
+         \edef\AM@ynupi{\the\@tempcntb}%
+       \fi
+       \edef\AM@xnupi{\the\@tempcnta}%
+
+       \@tempcnta=\AM@ynupi\relax
+       \@tempcntb=\AM@ynup\relax
+       \ifnum\@tempcnta>\@tempcntb
+         \def\AM@ynupi{\@ne}%
+       \fi
+      }%
+    \def\AM@add{+}%
+    \if@twoside\ifodd\value{page}\else\def\AM@add{-}\fi\fi
+    \setlength{\@tempdimb}{\ht\@tempboxa + \dp\@tempboxa}%
+    \ifthenelse{\boolean{AM@landscape}}
+      {\def\AM@xpos{%
+         \AM@xmargin \AM@add\AM@xoffset +
+         (\wd\@tempboxa + \AM@deltax + \fboxrule)*(\AM@ynupi - 1)
+       }%
+       \def\AM@ypos{%
+         \AM@ymargin + \AM@yoffset +
+         (\@tempdimb + \AM@deltay + \fboxrule)*(\AM@xnupi - 1)
+       }%
+      }
+      {\def\AM@xpos{%
+         \AM@xmargin \AM@add\AM@xoffset +
+         (\wd\@tempboxa + \AM@deltax + \fboxrule)*(\AM@xnupi - 1)
+       }%
+       \def\AM@ypos{%
+         \AM@ymargin + \AM@yoffset +
+         (\@tempdimb + \AM@deltay + \fboxrule)*(\AM@ynup - \AM@ynupi)
+       }%
+      }%
+    \setlength{\@tempdima}{\AM@xpos}%
+    \edef\AM@xpos{\strip@pt\@tempdima}%
+    \setlength{\@tempdima}{\AM@ypos}%
+    \edef\AM@ypos{\strip@pt\@tempdima}%
+    \setlength{\fboxsep}{\z@}%
+    \ifAM@phantompage
+      \def\AM@shippage{}%
+    \else
+      \toks@{#1}%
+      \edef\AM@shippage{%
+        \noexpand\put(\AM@xpos,\AM@ypos){%
+        \noexpand\raisebox{\dp\@tempboxa}{%
+        \AM@hyper\noexpand\AM@fbox{%
+        \noexpand\includegraphics[%
+                    page=\AM@page,scale=\AM@scale,
+                    angle=\AM@lscape@rot, \the\toks@]{\AM@docname}}}}%
+      }%
+    \fi
+    \AM@AddToShipoutPicture{\setlength{\unitlength}{\p@}%
+      \global\let\AM@filelist@save\@filelist}%
+    \expandafter\AM@AddToShipoutPicture\expandafter{%
+      \AM@shippage
+      \global\let\@filelist\AM@filelist@save
+    }%
+    \ifnum\AM@xnupi=\AM@xnup\relax
+      \ifnum\AM@ynupi=\AM@ynup\relax
+        \begingroup\AM@pagecommand\endgroup
+        \hskip\z@
+        \ifthenelse{\boolean{AM@turn}}
+          {\ifthenelse{\boolean{AM@landscape}}
+             {\AM@setlscape}{}}
+          {}%
+        \newpage
+        \ifAM@pdflscape\PLS@Rotate{0}\fi
+        \AM@ClearShipoutPicture
+      \fi
+    \fi
+  }% whiledo
+}% AM@output
+
+\newif\ifAM@scale
+\newcommand{\AM@remove@scale}{}
+\def\AM@remove@scale#1{%
+  \def\AM@options{}%
+  \AM@remove@scalei#1,\END,
+}
+\newcommand{\AM@remove@scalei}{}
+\def\AM@remove@scalei#1,{%
+  \ifx\END#1
+  \else
+    \AM@scalefalse
+    \AM@remove@scaleii#1=\END
+    \ifAM@scale
+    \else
+      \ifx\empty
+        \AM@options\edef\AM@options{#1}%
+      \else
+        \toks@\expandafter{\AM@options,#1}%
+        \edef\AM@options{\the\toks@}%
+      \fi
+    \fi
+    \expandafter\AM@remove@scalei
+  \fi
+}
+\newcommand{\AM@remove@scaleii}{}
+\def\AM@remove@scaleii#1=#2\END{%
+  \ifx\\#2\\%
+  \else
+    \def\AM@temp{#1}%
+    \edef\AM@temp{\AM@trim@space{\AM@temp}}%
+    \ifthenelse{\equal{scale}{\AM@temp}}{\AM@scaletrue}{}%
+  \fi
+}
+\newcommand{\AM@trim@space}{}\newcommand{\AM@trim@spacei}{}
+\newcommand{\AM@trim@spaceii}{}
+\def\AM@trim@space#1{%
+  \expandafter\AM@trim@spacei\expandafter{\ifdim\z@=0pt#1}\fi}
+\def\AM@trim@spacei#1{%
+\AM@trim@spaceii#1 \END}
+\def\AM@trim@spaceii#1 #2\END{#1}
+\newif\ifAM@phantompage
+\newcommand*{\AM@isphantom}{%
+  \expandafter\ifx\expandafter\\\AM@page\\%
+    \let\AM@page\AM@phantompage
+    \let\AM@ph\phantom
+    \AM@phantompagetrue
+  \else
+    \let\AM@ph\relax
+    \AM@phantompagefalse
+  \fi
+}
+\newcommand{\AM@hyper}{%
+  \ifAM@link
+    \pdfdest name {\AM@linkname.\AM@page} \AM@linkfit%
+  \fi
+  \ifAM@linktodoc
+    \pdfannot width \wd\@tempboxa
+              height \ht\@tempboxa
+              depth \dp\@tempboxa
+              {/Subtype /Link /Border [0 0 0]
+               /A << /S /GoToR
+                     /F (\AM@linkfilename)
+                     /D [\AM@page@linktodoc \AM@linktodocfit]
+                     /NewWindow true >>}%
+  \fi
+  \ifAM@thread
+      \pdfthread width \wd\@tempboxa
+                 height \ht\@tempboxa
+                 depth \dp\@tempboxa
+                 attr {\threadinfodict}%
+                 name {\AM@threadname}%
+  \fi
+}
+\newcommand{\AM@openright}{}
+\def\AM@openright{%
+  \edef\AM@pagelist{,\AM@pagelist}%
+  \edef\AM@doclist{\AM@phantomdoc,\AM@doclist}%
+}
+\newcommand{\AM@countpagelist}{}
+\def\AM@countpagelist{%
+  \@tempcnta=\z@
+  \expandafter\AM@countpagelisti\AM@pagelist,\END,
+}
+\newcommand{\AM@countpagelisti}{}
+\def\AM@countpagelisti#1,{%
+  \ifx\END#1
+  \else
+    \advance\@tempcnta\@ne
+    \expandafter\AM@countpagelisti
+  \fi
+}
+\newcommand{\AM@filluppagelist}{}
+\def\AM@filluppagelist{%
+  \@tempcnta=\AM@xnup\relax
+  \@tempcntb=\AM@ynup\relax
+  \multiply\@tempcnta\@tempcntb
+  \edef\AM@nup{\the\@tempcnta}%
+  \AM@countpagelist
+  \@tempcntb=\@tempcnta
+  \divide\@tempcntb\AM@nup
+  \multiply\@tempcntb\AM@nup
+  \advance\@tempcnta-\@tempcntb
+  \ifnum\@tempcnta=\z@
+    \else
+      \advance\@tempcnta-\AM@nup
+      \multiply\@tempcnta\m@ne
+  \fi
+  \whiledo{\@tempcnta > \z@}{%
+    \let\saveAM@pagelist\AM@pagelist
+    \edef\AM@pagelist{\saveAM@pagelist,}%
+    \advance\@tempcnta\m@ne
+    \let\saveAM@doclist\AM@doclist
+    \edef\AM@doclist{\saveAM@doclist,\AM@phantomdoc}%
+  }%
+}
+\newcommand*{\AM@setphantom}{%
+  \expandafter\AM@setphantompage\AM@pagelist,\END,
+  \expandafter\AM@setphantomdoc\AM@doclist,\END
+}
+\newcommand{\AM@setphantompage}{}
+\def\AM@setphantompage#1,{%
+  \def\AM@gobble##1\END,{}
+  \ifx\\#1\\%
+    \expandafter\AM@setphantompage
+  \else
+    \def\AM@phantompage{#1}%
+    \expandafter\AM@gobble
+  \fi
+}
+\newcommand{\AM@setphatomdoc}{}
+\def\AM@setphantomdoc#1,#2\END{\edef\AM@phantomdoc{#1}}
+\define@key{Gin}{pages}{\def\AM@pagestemp{#1}}
+\define@key{Gin}{nup}{\AM@parse@nup#1x\END}
+\define@key{Gin}{deltax}{\AM@parse@deltax#1 \\}
+\define@key{Gin}{deltay}{\AM@parse@deltay#1 \\}
+\define@key{Gin}{delta}{\AM@parse@delta#1 \\}
+\define@key{Gin}{offset}{\AM@parse@offset#1 \\}
+\define@key{Gin}{frame}[true]{\setboolean{AM@frame}{#1}}
+\define@key{Gin}{openright}[true]{\setboolean{AM@openright}{#1}}
+\define@key{Gin}{pagecommand}{\def\AM@pagecommand{#1}}
+\define@key{Gin}{landscape}[true]{\setboolean{AM@landscape}{#1}%
+                                  \def\AM@lscape@rot{90}}
+\define@key{Gin}{turn}[true]{\setboolean{AM@turn}{#1}}
+\define@key{Gin}{column}[true]{\setboolean{AM@column}{#1}}
+\define@key{Gin}{columnstrict}[true]{\setboolean{AM@columnstrict}{#1}}
+\define@key{Gin}{noautoscale}[true]{\setboolean{AM@noautoscale}{#1}}
+\define@key{Gin}{thread}[true]{\setboolean{AM@thread}{#1}}
+\define@key{Gin}{threadname}{\def\AM@threadname{#1}}
+\define@key{Gin}{link}[true]{\setboolean{AM@link}{#1}}
+\define@key{Gin}{linkfit}{\def\AM@linkfit{#1}}
+\define@key{Gin}{linkname}{\def\AM@linkname@option{#1}}
+\define@key{Gin}{linktodoc}[true]{\setboolean{AM@linktodoc}{#1}}
+\define@key{Gin}{linktodocfit}{\def\AM@linktodocfit{#1}}
+\define@key{Gin}{linkfilename}{\pdfstringdef\AM@linkfilename{#1}%
+                               \AM@linkfilenametrue}
+\newcommand{\AM@parse@nup}{}
+\def\AM@parse@nup#1x#2\END{%
+  \ifx\\#2\\%
+    \def\AM@shortnupsyntax{}%
+    \def\AM@xnup{\@ne}%
+    \def\AM@ynup{\@ne}%
+    \ifnum#1=\tw@
+      \def\AM@xnup{\tw@}%
+      \def\AM@ynup{\@ne}%
+    \fi
+    \ifnum#1=4
+      \def\AM@xnup{\tw@}%
+      \def\AM@ynup{\tw@}%
+    \fi
+  \else
+    \def\AM@xnup{#1}%
+    \AM@parse@nupi#2%
+  \fi
+  \@tempcnta=\AM@xnup\relax \advance\@tempcnta\m@ne
+  \edef\AM@xnupminusi{\the\@tempcnta}%
+  \@tempcnta=\AM@ynup\relax \advance\@tempcnta\m@ne
+  \edef\AM@ynupminusi{\the\@tempcnta}%
+}
+\def\AM@parse@nupi#1x{\def\AM@ynup{#1}}
+\def\AM@parse@deltax#1 #2\\{\AMGin@defaultbp\AM@deltax{#1}}
+\def\AM@parse@deltay#1 #2\\{\AMGin@defaultbp\AM@deltay{#1}}
+\def\AM@parse@delta#1 #2 #3\\{%
+  \AMGin@defaultbp\AM@deltax{#1}%
+  \AMGin@defaultbp\AM@deltay{#2}}
+\def\AM@parse@offset#1 #2 #3\\{%
+  \AMGin@defaultbp\AM@xoffset{#1}%
+  \AMGin@defaultbp\AM@yoffset{#2}}
+\def\AMGin@defaultbp#1#2{%
+  \afterassignment\AMGin@def@bp\dimen@#2bp\relax{#1}{#2}}
+\def\AMGin@def@bp#1\relax#2#3{%
+   \if!#1!%
+     \def#2{#3bp}%
+    \else
+      \dimen@.99626\dimen@
+      \edef#2{\strip@pt\dimen@ bp}%
+    \fi
+}
+\endinput
+%%
+%% End of file `pdfpages.sty'.

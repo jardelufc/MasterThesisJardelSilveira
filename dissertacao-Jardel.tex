@@ -1,0 +1,290 @@
+% ------------------------------------------------------------------------
+% AMS-LaTeX definitions:     Thesis ++++ Alex, September 1994 ************
+% ------------------------------------------------------------------------
+% Ph.D. Thesis Defended on November 25, 1994
+% ------------------------------------------------------------------------
+\documentclass[12pt]{report_ppgeti}
+
+\usepackage{ppgeti} %DAL Thesis Style
+
+\usepackage[latin1]{inputenc} % para acentuação no texto comum
+\usepackage[brazil]{babel}
+
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage{newlfont}
+
+\usepackage{verbatim}
+\usepackage{url}
+
+%\usepackage{fancyhdr}
+
+%\usepackage[hmargin=3cm,vmargin=3.5cm]{geometry}
+%\geometry{a4paper,left=3cm,right=3cm,top=3.5cm,bottom=3cm}
+
+\usepackage[a4paper,left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+
+\usepackage[hang,small,bf]{caption}
+
+\usepackage{acronym}% acronimos
+\usepackage{listacronyms}% acronimos
+\usepackage[alf,abnt-repeated-title-omit=yes]{abntcite}%citação abntex
+
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png, .jpg}
+
+%\usepackage{hyphenat}
+%\usepackage{multicol}% multicolunas
+
+\usepackage{ifthen}
+%\usepackage{cite}%citação anterior
+\usepackage{calc}
+\usepackage{amstext}
+\usepackage[center,footnotesize]{subfigure}
+%\usepackage{epsfig}%citação anterios
+%\usepackage{multirow}% mesclar cel.
+%\usepackage{bigstrut}% mesclar cel.
+
+\usepackage{rangecite}
+
+%\usepackage[center]{caption2}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+%\input{epsf.tex}
+\usepackage{makeidx}
+
+
+\usepackage{here}
+\usepackage{psfrag}
+
+%\RequirePackage{graphicx}
+%\RequirePackage{subfigure}
+
+%\usepackage[active]{srcltx}  %SRC Specials for DVI search
+% Fuzz -------------------------------------------------------------------
+\hfuzz2pt % Don't bother to report over-full boxes if over-edge is < 2pt
+% Line spacing -----------------------------------------------------------
+\newlength{\defbaselineskip}
+\setlength{\defbaselineskip}{\baselineskip}
+\newcommand{\setlinespacing}[1]%
+           {\setlength{\baselineskip}{#1 \defbaselineskip}}
+\newcommand{\doublespacing}{\setlength{\baselineskip}%
+                           {2.0 \defbaselineskip}}
+\newcommand{\singlespacing}{\setlength{\baselineskip}{\defbaselineskip}}
+
+\def\PARstart#1#2{\begingroup\def\par{\endgraf\endgroup\lineskiplimit=0pt}
+    \setbox2=\hbox{\uppercase{#2} }\newdimen\tmpht \tmpht \ht2
+    \advance\tmpht by \baselineskip\font\hhuge=cmr10 at \tmpht
+    \setbox1=\hbox{{\hhuge #1}}
+    \count7=\tmpht \count8=\ht1\divide\count8 by 1000 \divide\count7 by\count8
+    \tmpht=.001\tmpht\multiply\tmpht by \count7\font\hhuge=cmr10 at \tmpht
+    \setbox1=\hbox{{\hhuge #1}} \noindent \hangindent1.05\wd1
+    \hangafter=-2 {\hskip-\hangindent \lower1\ht1\hbox{\raise1.0\ht2\copy1}%
+    \kern-0\wd1}\copy2\lineskiplimit=-1000pt}
+
+\def\PARstartOne#1#2{\begingroup\def\par{\endgraf\endgroup\lineskiplimit=0pt}
+    \setbox2=\hbox{#2\hspace{0.4em}}\newdimen\tmpht \tmpht \ht2
+    \advance\tmpht by \baselineskip\font\hhuge=cmr10 at \tmpht
+    \setbox1=\hbox{{\hhuge #1}}
+    \count7=\tmpht \count8=\ht1\divide\count8 by 1000 \divide\count7 by\count8
+    \tmpht=.001\tmpht\multiply\tmpht by \count7\font\hhuge=cmr10 at \tmpht
+    \setbox1=\hbox{{\hhuge #1}} \noindent \hangindent1.05\wd1
+    \hangafter=-2 {\hskip-\hangindent \lower1\ht1\hbox{\raise1.0\ht2\copy1}%
+    \kern-0\wd1}\copy2\lineskiplimit=-1000pt}
+
+% MATH -------------------------------------------------------------------
+
+\begin{document}
+
+%\nobib
+%\versaoparcial  % versão parcial
+%\nofront   % caso colocado não põe as páginas referentes a tabelas, figuras e permissão
+
+
+
+\newcommand{\abrevitem}[3]{\noindent\makebox[6em][l]{#1}%
+\parbox[t]{\textwidth-6em}{#2 ({\it{#3}})}\par}
+
+\newcommand{\abrevitemOnePort}[2]{\noindent\makebox[6em][l]{#1}\parbox[t]{\textwidth-6em}{#2}\par}
+\newcommand{\abrevitemOneEng}[2]{\noindent\makebox[6em][l]{#1}\parbox[t]{\textwidth-6em}{\it #2}\par}
+
+
+% THEOREMS ---------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+%
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+%
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+%
+\hyphenation{a-pre-sen-ta-do re-co-nhe-ci-men-to en-ca-psu-la-do
+ca-rac-te-res con-su-mi-do-res i-ma-gem e-ner-gia re-sul-ta-do
+re-a-li-za-das ca-rac-te-ri-za ou-tras cor-res-pon-de
+a-pre-sen-ta-da es-pa-lha-men-to po-pu-lar a-na-li-sa-do di-gi-tal
+ve-ri-fi-ca-dos in-tui-to pro-ble-mas e-fe-tu-ar al-ga-ris-mos
+li-mi-ar a-pre-sen-ta re-a-li-za-da al-ga-ris-mo i-ma-gens
+e-xis-ten-tes es-co-lher me-di-ci-na des-co-ber-ta
+ra-di-o-lo-gis-tas gi-ne-co-lo-gi-a es-pa-lha-men-to fo-ca-li-za-do
+di-fe-ren-te-men-te va-lo-res fi-na-li-da-des ca-rac-te-ri-za-da
+re-a-li-za-da di-mi-nu-in-do e-xem-plo An-te-ri-or-men-te
+ra-dio-lo-gis-ta rea-li-za-dos  mo-de-los ho-ri-zon-tal
+qua-li-ta-ti-va a-na-li-sar o-ri-en-ta-dos bi-di-men-sio-na-is
+tra-ba-lhos in-ters-ti-ci-al di-fe-ren-tes vi-su-a-li-za-do
+re-a-li-za con-si-de-ra-dos re-le-van-tes ca-mi-nho de-ta-lhes
+Obs-tru-ti-va sub-di-ag-nos-ti-ca-da re-a-li-za-do pro-ces-as-men-to
+sub-di-a-g-nos-ti-ca-da vo-lu-me com-se-cu-ti-vos di-gi-ta-dos
+co-lu-na o-pe-ra-dor me-mo-ry ma-nu-fac-tu-ring apre-sen-ta-dos au-xi-liam ope-rar
+to-le-ran-te pro-ble-ma con-fia-bi-li-da-de
+en-tre-te-ni-men-to di-gi-tais tec-no-lo-gia exis-tem su-ge-re
+fa-bri-ca-do co-mer-ci-ais pro-ba-bi-li-da-de des-ta-car schoeberl mo-di-fi-ca-do
+ori-gi-nal re-gis-tra-do-res re-lia-bi-li-ty ba-se-ada priori-da-de tem-po}
+
+
+\permissionfalse    % não põe a página de permissão para publicação
+
+\dedicate{Ao Super-Ícaro.}
+
+
+%\phd
+\msc
+
+%\tipo{Tese}
+\tipo{Dissertação}
+
+%\twosupervisors % necessário somente se existir dois orientadores
+
+\copyrightyear{2010}
+
+\submitdate{Agosto - 2010} % entrega
+
+ \convocation{Agosto}{2010} % mês da defesa
+ \data_aprovacao{27/08/2010} % dia da aprovação
+
+% ------------------------------------------------------------------------
+
+\title{FT-JOP: Um Processador Java para Aplicações de Tempo Real em Sistemas Embarcados Tolerantes a Falhas}
+
+\author{Ricardo Jardel Nunes da Silveira}
+
+
+
+\area_concentracao{Sinais e Sistemas}
+
+\curso{Programa de Pós-Graduação em Engenharia de Teleinformática}
+
+\address{Fortaleza - Ceará}
+
+\university{Universidade Federal do Ceará}
+
+\supervisor{Prof. Dr. Helano de Sousa Castro}{Orientador}
+
+\cosupervisor{}{}
+\firstreader{Prof. Dr. Elmar Uwe Kurt Melcher}
+\secondreader{Prof. Dr. Paulo Cesar Cortez}
+\thirdreader{Prof. Dr. Giovanni Cordeiro Barroso}
+
+
+% ------------------------------------------------------------------------
+{
+\typeout{:?0000} % Don't bother with over/under-full boxes
+\beforepreface
+\typeout{:?1111} % Process All Errors from Here on
+}
+%\setcounter{page}{15}
+%\addtocounter{page}{1}
+\newpage
+\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
+\newpage
+\addcontentsline{toc}{chapter}{\listtablename}\listoftables
+
+
+\include{AcronismoJardel}
+
+
+% ------------------------------------------------------------------------
+%
+% ------------------------------------------------------------------------
+{
+\def\baselinestretch{1}
+\setlinespacing{1.50} % espaço 1,5 entre linhas
+\typeout{Resumo}
+\include{Resumo_Jardel}
+}
+
+{
+\def\baselinestretch{1}
+\setlinespacing{1.50} % espaço 1,5 entre linhas
+\typeout{Abstract}
+\include{Abstract_Jardel}
+}
+
+%
+% ------------------------------------------------------------------------
+
+%{ \typeout{Abstract}
+%\include{Abstract_Jardel}
+
+%}
+
+{ \typeout{Agradecimentos}
+\include{Agradecimentos_Jardel}
+}
+
+
+%\include{simbolos}  % no arquivo simbolos.tex e coloque todos os seus
+                    % definido da mesma forma que o resumo, agradecimentos.
+
+%\include{epigrafe}
+
+% ------------------------------------------------------------------------
+\afterpreface
+% ------------------------------------------------------------------------
+
+{ \typeout{Introduction}
+\include{Cap1_Jardel}
+}
+% ------------------------------------------------------------------------
+
+\include{Cap2_Jardel} %cap 2
+
+\include{Cap3_Jardel} %cap 3
+
+\include{Cap4_Jardel} %cap 4
+
+\include{Cap5_Jardel} %cap 5
+
+\include{Cap6_Jardel} % cap 6
+
+\include{cap7_jardel} % cap 7
+
+\pagestyle{headings}
+
+\bibliographystyle{abnt-alf}
+
+
+\bibliography{biblio}
+
+%\chapter*{Apêndices}
+%\appendix
+%\include{ApendiceA} %Usar este ao invés do Cap2_John
+
+\anex
+\chapter*{Anexo 1 - Publicações Relacionadas a Esta Dissertação}
+\addcontentsline{toc}{chapter}{Anexo 1 - Publicações Relacionadas a Esta Dissertação}
+
+
+%\anex
+%\chapter*{Anexo 2 - Proposta Aprovada pelo Mosis}
+%\addcontentsline{toc}{chapter}{Anexo 2 - Proposta Aprovada pelo Mosis}
+%\setcounter{page}{78}
+%%%\include{ApendiceB_John}
+\end{document}
+
+% ------------------------------------------------------------------------
+

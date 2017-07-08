@@ -1,0 +1,1255 @@
+% $Id: io.bib,v 1.1 2003/04/10 23:12:59 gweber Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Base Bibliográfica
+%% Copyright 2003 Dehon Charles Regis Nogueira.
+%% Este documento é distribuído nos termos da licença
+%% descrita no arquivo LICENCA que o acompanha.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@article{jop:tecs:jhal,
+  author = {Martin Schoeberl and Stephan Korsholm and Tomas Kalibera and Anders P. Ravn},
+  title = {A Hardware Abstraction Layer in Java},
+  journal = {Trans. on Embedded Computing Sys.},
+  publisher = {ACM},
+  year = {2010},
+  volume = {accepted},
+  url = {http://www.jopdesign.com/doc/jhal.pdf}
+}
+
+
+@article{jop:tecs:nbgc,
+  author = {Martin Schoeberl and Wolfgang Puffitsch},
+  title = {Non-blocking Real-Time Garbage Collection},
+  journal = {Trans. on Embedded Computing Sys.},
+  publisher = {ACM},
+  year = {2010},
+  volume = {accepted for publication},
+  url = {http://www.jopdesign.com/doc/nbgc.pdf}
+}
+
+
+@article{jop:wcet:spe,
+  author = {Martin Schoeberl and Wolfgang Puffitsch and Rasmus Ulslev Pedersen and Benedikt Huber},
+  title = {Worst-case execution time analysis for a Java processor},
+  journal = {Software: Practice and Experience},
+  year = {2010},
+  volume = {40/6},
+  pages = {507--542},
+  url = {http://www.jopdesign.com/doc/wcetana.pdf},
+  doi = {http://dx.doi.org/10.1002/spe.968}
+}
+
+
+@INPROCEEDINGS{tpi,
+  AUTHOR =       {R. J. N. da Silveira and D. Viana and H. S. Castro and A. A. P. Coelho and J. A. N. Silveira},
+  TITLE =        {Técnica de Proteção de Bytecodes para Processador Java em Tecnologia CMOS},
+  BOOKTITLE =    {Anais do WSCAD SSC 2009: X Simpósio em Sistemas Computacionais},
+  YEAR =         {2009},
+  PUBLISHER = {SBC (Sociedade Brasileira de Computação)},
+  ADDRESS={São Paulo, SP, Brasil},
+  ISSN={21762074}
+
+}
+
+
+@INPROCEEDINGS{ipsoc2006,
+  AUTHOR =       {E. U. K. MELCHER, and A. K. ROCHA and P. LIRA and Y. YUN JU and E. BARROS},
+  TITLE =        {Silicon validated IP cores designed by the Brazil IP Network},
+  BOOKTITLE =    {IP-SOC 2006 conference proceedings},
+  YEAR =         {2006},
+  pages =        {437-441},
+  address =      {Grenoble, France},
+  PUBLISHER ={Design and Reuse}
+
+}
+
+
+
+@TECHREPORT{dezmandamentosvhdl,
+  AUTHOR =       {Peter Chambers},
+  TITLE =        {The Ten Commandments of Excellent Design VHDL Code Examples},
+  INSTITUTION =  {VLSI Technology},
+  ADDRESS = {USA},
+  PUBLISHER = {VLSI Technology},
+  YEAR =         {1997}
+}
+
+@TECHREPORT{dezmandamentos,
+  AUTHOR =       {Peter Chambers},
+  TITLE =        {The Ten Commandments of Excellent Design},
+  INSTITUTION =  {VLSI Technology},
+  PUBLISHER = {VLSI Technology},
+  ADDRESS = {USA},
+  YEAR =         {1997}
+}
+
+
+@ARTICLE{flashseu,
+  AUTHOR =       {Tiao-yuan Huang and Fuh-Cheng Jong and Horng-Chih Lin and Len-Yi Leu and Konrad Young and Chen-Hsi Lin and Kuang Y. Chiu},
+  TITLE =        {Improving Radiation Hardness of EEPROM/Flash Cell By N O Annealing},
+  JOURNAL =      {IEEE ELECTRON DEVICE LETTERS},
+  YEAR =         {1998},
+  volume =       {19},
+  number =       {7},
+  pages =        {256--258},
+  month =        {July}
+  }
+
+@INPROCEEDINGS{ipprocess,
+  AUTHOR =       {F. Santos and A. Aziz and M. Gomes and E. Barros},
+  TITLE =        {ipPROCESS: A Usage of an IP-core Development Process to Achieve Time-to-Market and Quality Assurance in a Multi Project Environment},
+  BOOKTITLE =    {Proceedings of IP 2008 - IP based System Design Conference},
+  address =      {Grenoble, France},
+  PUBLISHER ={Design and Reuse},
+  YEAR =         {2008}
+}
+
+
+@inproceedings{atienza,
+ author = {Atienza, David and De Micheli, Giovanni and Benini, Luca and Ayala, Jos\'{e} L. and Valle, Pablo G. Del and DeBole, Michael and Narayanan, Vijay},
+ title = {Reliability-aware design for nanometer-scale devices},
+ booktitle = {ASP-DAC '08: Proceedings of the 2008 Asia and South Pacific Design Automation Conference},
+ year = {2008},
+ isbn = {978-1-4244-1922-7},
+ pages = {549--554},
+ location = {Seoul, Korea},
+ publisher = {IEEE Computer Society Press},
+ address = {Los Alamitos, CA, USA},
+ }
+
+
+@INPROCEEDINGS{nicolaidis,
+  AUTHOR =       {M. Nicolaidis},
+  TITLE =        {GRAAL: A New Fault Tolerant Design Paradigm for Mitigating the Flaws of Deep Nanometric Technologies},
+  BOOKTITLE =    {Proceedings of IEEE INTERNATIONAL TEST CONFERENCE},
+  Address = {Santa Clara, CA, USA},
+  Publisher = {IEEE Press},
+  YEAR =         {2007}
+}
+
+@ARTICLE{mudge,
+  AUTHOR =       {D. Roberts and N. S. Kim and T. Mudge},
+  TITLE =        {On-chip cache device limits and effective fault repair techniques in future nanoscale technology},
+  JOURNAL =      {Microprocessors and Microsystems Journal},
+  YEAR =         {2008},
+  pages =        {244-253}
+}
+
+@MANUAL{ug130,
+  TITLE =        {Spartan-3 Starter Kit Board User Guide},
+%  author =       {},
+  organization = {Xilinx, Inc.},
+  address =      {},
+  series = {ug130},
+  edition =      {},
+  month =        {May},
+  year =         {2005},
+  note =         {v1.2},
+  abstract =     {},
+  keywords =     {}
+}
+
+
+@inproceedings{radhardbylayout,
+ author = {Leo Huf Campos Braga and Suzana Domingues and Milton F. Rocha and Leonardo Bruno S\'{a} and Fernando Campos and Filipe V. Santos and Antonio Carneiro Mesquita and M\'{a}rio Vaz Silva and Jacobus W. Swart},
+ title = {Layout techniques for radiation hardening of standard CMOS active pixel sensors},
+ booktitle = {SBCCI '07: Proceedings of the 20th annual conference on Integrated circuits and systems design},
+ year = {2007},
+ isbn = {978-1-59593-816-9},
+ pages = {257--262},
+ location = {Copacabana, Rio de Janeiro},
+ publisher = {ACM},
+ address = {New York, NY, USA}
+ }
+
+
+
+@inproceedings{kohout,
+ author = {Paul Kohout and Brinda Ganesh and Bruce Jacob},
+ title = {Hardware Support For Real-Time Operating Systems},
+ booktitle = {CODES+ISSS '03: Proceedings of the 1st IEEE/ACM/IFIP International Conference on Hardware/Software Codesign and System Synthesis},
+ year = {2003},
+ isbn = {1-58113-742-7},
+ pages = {45--51},
+ location = {Newport Beach, CA, USA},
+ publisher = {ACM},
+ address = {New York, NY, USA}
+ }
+
+@ARTICLE{t800,
+title={The IMS T800 Transputer},
+author={Homewood, M. and May, D. and Shepherd, D. and Shepherd, R.},
+journal={Micro, IEEE},
+year={1987},
+month={Oct. },
+volume={7},
+number={5},
+pages={10-26},
+abstract={The IMS T800, a complete scientific computer on a single chip, forms the basis of the most powerful supercomputer in Europe.},
+doi={10.1109/MM.1987.305012},
+ISSN={0272-1732} }
+
+@inproceedings{t9000,
+title={The T9000 transputer},
+author={May, D. and Shepherd, R. and Thompson, P.},
+booktitle={Computer Design: VLSI in Computers and Processors, 1992. ICCD '92. Proceedings., IEEE 1992 International Conference on},
+year={1992},
+month={Oct},
+pages={209-212},
+abstract={Some of the issues arising in the design of the T9000 transputer, which integrates a complete computer in a single VLSI chip of over two million transistors, are discussed. High performance has been achieved by extensive use of caching and a novel processor implementation. The processor uses a fat pipeline and dispatches several dependent instructions into the pipeline each cycle. The resulting processor is able to saturate a 25-MFLOP floating-point unit. The processor is supported by a communications system that supports communications at high speed and low latency},
+keywords={ VLSI, digital arithmetic, transputers 25-MFLOP floating-point unit, T9000 transputer, caching, communications system, fat pipeline, high speed, low latency, single VLSI chip},
+doi={10.1109/ICCD.1992.276250},
+ISBN={0-8186-3110-4 } }
+
+@ARTICLE{uRT51,
+  AUTHOR =       {R. Cayssials and M. Duval and E. Ferro and O. Alimenti},
+  TITLE =        {uRT51: An Embedded Real-Time Processor Implemented on Fpga Devices},
+  JOURNAL =      {Latin American Applied Research},
+  YEAR =         {2007},
+  volume =       {37},
+  issn =         {0327-0793},
+  number =       {1},
+  pages =        {35--40},
+  month =        {mar},
+  note =         {},
+  abstract =     {},
+  keywords =     {},
+  source =       {}
+}
+@BOOK{radhardcoldwar,
+  AUTHOR =       {Daniel M. Fleetwood},
+  editor =       {R. D. Schrimpf},
+  TITLE =        {Radiation Effects And Soft Errors In Integrated Circuits And Electronic Devices (Selected Topics in Electronics and Systems)},
+  PUBLISHER =    {World Scientific Publishing Company},
+  YEAR =         {2004},
+  edition =      {1},
+  month =        {August},
+    address =      {Hackensack, NJ, USA},
+  isbn =         {9812389407}
+}
+
+@BOOK{formalverification,
+  AUTHOR =       {Rolf Drechsler},
+  TITLE =        {Advanced Formal Verification},
+  PUBLISHER =    {Springer US},
+  YEAR =         {2010},
+  month =        {February},
+  isbn =         {1441954201},
+    address =      {New York, NY, USA}
+}
+
+
+@BOOK{veriloghdl,
+  AUTHOR =       {Joseph Cavanagh},
+  editor =       {},
+  TITLE =        {Verilog HDL: Digital Design and Modeling},
+  PUBLISHER =    {CRC Press},
+  YEAR =         {2007},
+  volume =       {},
+  number =       {},
+  series =       {},
+  address =      {Boca Raton, FL, USA},
+  edition =      {1},
+  month =        {february},
+  note =         {},
+  abstract =     {},
+  isbn =         {1420051547},
+  price =        {},
+  keywords =     {},
+  source =       {}
+}
+
+
+@ARTICLE{moorelaw,
+  AUTHOR =       {Gordon E. Moore},
+  TITLE =        {Cramming More Components Onto Integrated Circuits},
+  JOURNAL =      {Electronics},
+  YEAR =         {1965},
+  volume =       {38},
+  number =       {8},
+  pages =        {114--117},
+  month =        {April}
+}
+
+
+
+@inproceedings{CRCFpga,
+ author = {Helano Castro and Alexandre Augusto Coelho and Ricardo Jardel Silveira},
+ title = {Fault-tolerance in FPGA's through CRC voting},
+ booktitle = {SBCCI '08: Proceedings of the 21st Annual Symposium on Integrated Circuits And System Design},
+ year = {2008},
+ isbn = {978-1-60558-231-3},
+ pages = {188--192},
+ location = {Gramado, Brazil},
+ publisher = {ACM},
+ address = {New York, NY, USA}
+ }
+
+@phdthesis{ HelanoThesis,
+   author 	= {Helano de Sousa Castro},
+   title 	= {Fault Tolerance Through Reconfigurability: Applications In Space Instrumentation},
+   school 	= {The University of Sussex},
+   year    = {1992},
+   month   = {June},
+   type    = {Phd Thesis}
+}
+
+
+@article{HelanoArtigo,
+ author = {H. D. S. Castro and M. P. Gough},
+ title = {A Fault-Tolerant Multi-Transputer System For Space Applications},
+ journal = {Microprocess. Microsyst.},
+ volume = {15},
+ number = {7},
+ year = {1991},
+ issn = {0141-9331},
+ pages = {361--367},
+ publisher = {Elsevier Science Publishers B. V.},
+ address = {Amsterdam, The Netherlands, The Netherlands}
+ }
+
+
+
+
+@INPROCEEDINGS{leon3ftufrgs,
+title={Recovery scheme for hardening system on programmable chips},
+author={Meinhardt, C. and Reis, R. and Violante, M. and Reorda, M.S.},
+booktitle={Test Workshop, 2009. LATW '09. 10th Latin American},
+year={2009},
+month={March},
+volume={},
+number={},
+pages={1-6},
+keywords={checkpointing, processor scheduling, software fault tolerance, system recovery, system-on-chiperror correction, error detection, hardening system, programmable chips, recovery scheme},
+doi={10.1109/LATW.2009.4813816},
+
+PUBLISHER={IEEE Press},
+
+ADDRESS={Buzios, RJ, Brasil},
+
+ISSN={} }
+
+
+@inproceedings{leon3ft,
+ author = {Jiri Gaisler},
+ title = {A Portable and Fault-Tolerant Microprocessor Based on the SPARC V8 Architecture},
+ booktitle = {DSN '02: Proceedings of the 2002 International Conference on Dependable Systems and Networks},
+ year = {2002},
+ isbn = {0-7695-1597-5},
+ pages = {409--415},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA}
+ }
+
+ @INPROCEEDINGS{erc32a,
+author={Gaisler, J.}, booktitle={Fault-Tolerant Computing, 1994. FTCS-24.
+Digest of Papers., Twenty-Fourth International Symposium on},
+title={Concurrent error-detection and modular fault-tolerance in a 32-bit
+processing core for embedded space flight applications}, year={1994},
+month={15-17}, volume={}, number={}, pages={128 -130}, keywords={ 32 bit;
+32-bit processing core; ERC32; concurrent error-detection; embedded space
+FLIGHT applications; floating point unit; instruction retry; integer unit;
+latched errors; master/checker mode; memory controller; modular
+fault-tolerance; program flow control mechanism; transient errors; aerospace
+computing; error detection; microprocessor chips;},
+doi={10.1109/FTCS.1994.315650}, ISSN={}, publisher={IEEE Press},
+address={Austin, TX} }
+
+
+@inproceedings{erc32b,
+title={Evaluation of a 32-bit microprocessor with built-in concurrent error-detection},
+author={Gaisler, J.},
+booktitle={Fault-Tolerant Computing, 1997. FTCS-27. Digest of Papers., Twenty-Seventh Annual International Symposium on},
+year={1997},
+month={Jun},
+pages={42--46},
+keywords={VLSI, combinational circuits, computer testing, error detection, integrated circuit testing, microprocessor chips32-bit microprocessor, ERC32, SEU errors, VLSI devices, built-in concurrent error-detection, combinational logic, heavy ion testing, on-chip concurrent error-detection, parity based error-detection mechanisms, space applications, test results},
+doi={10.1109/FTCS.1997.614076},
+location = {Seattle, WA},
+ISBN={0-8186-7831-3 }}
+
+  	
+@article{erc32c,
+ author = {T. Vardanega and J. Gaisler},
+ title = {Lessons Learned from the Implementation of On-Board Tolerance to Physical Faults in Ada},
+ journal = {International Journal of Computer Systems Science and Engineering},
+ volume = {15},
+ number = {1},
+ year = {2000},
+ issn = {2070-3945},
+ pages = {19--32},
+ publisher = {WASET},
+  doi = {},
+ address = {}
+ }
+
+@inproceedings{liden,
+title={On latching probability of particle induced transients in combinational networks},
+author={Liden, P. and Dahlgren, P. and Johansson, R. and Karlsson, J.},
+booktitle={Fault-Tolerant Computing, 1994. FTCS-24. Digest of Papers., Twenty-Fourth International Symposium on},
+year={1994},
+month={Jun},
+pages={340-349},
+keywords={ CMOS integrated circuits, circuit reliability, combinatorial circuits, flip-flops, logic testing, probability CMOS circuit, bit flips, combinational logic, combinational networks, heavy-ion hits, high-level simulations, latching probability, memory elements, particle induced transients, transistor stages, voltage pulse},
+doi={10.1109/FTCS.1994.315626},
+ISBN={0-8186-5520-8},
+location={Austin, TX, USA}
+ }
+
+
+@article{itaniumft,
+ author = {Nhon Quach},
+ title = {High Availability and Reliability in the Itanium Processor},
+ journal = {IEEE Micro},
+ volume = {20},
+ number = {5},
+ year = {2000},
+ issn = {0272-1732},
+ pages = {61--69},
+ publisher = {IEEE Computer Society Press},
+ address = {Los Alamitos, CA, USA}
+ }
+
+
+@ARTICLE{ibms390,
+  AUTHOR =       {M. A. Check and T. J. Slegel},
+  TITLE =        {Custom S/390 G5 and G6 microprocessors},
+  JOURNAL =      {IBM J. RES. DEVELOP},
+  YEAR =         {1999},
+  volume =       {43},
+  number =       {5/6},
+  month =        {SEPTEMBER/NOVEMBER},
+  pages =        {671--680}
+}
+
+
+
+@article{8051radhard,
+ author = {\'{E}rika Cota and Fernanda Lima and Sana Rezgui and Luigi Carro and Raoul Velazco and Marcelo Lubaszewski and Ricardo Reis},
+ title = {Synthesis of an 8051-Like Micro-Controller Tolerant to Transient Faults},
+ journal = {J. Electron. Test.},
+ volume = {17},
+ number = {2},
+ year = {2001},
+ issn = {0923-8174},
+ pages = {149--161},
+ publisher = {Kluwer Academic Publishers},
+ address = {Norwell, MA, USA}
+ }
+
+
+% 2007; v.2 / n.1:14-21
+
+@inproceedings{openriscft,
+ author = {Ganesh T. S. and Viswanathan Subramanian and Arun Somani},
+ title = {SEU Mitigation Techniques for Microprocessor Control Logic},
+ booktitle = {EDCC '06: Proceedings of the Sixth European Dependable Computing Conference},
+ year = {2006},
+ isbn = {0-7695-2648-9},
+ pages = {77--86},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA}
+ }
+
+
+@MISC{Ipen,
+%  author =       {},
+  title =        {Instituto de Pesquisas Energéticas e Nucleares},
+  howpublished = {},
+  url ={http://www.ipen.br},
+  year =         {2008}
+}
+
+
+
+
+@MISC{88inchcyclotron,
+%  author =       {},
+  title =        {The 88-Inch Cyclotron},
+  howpublished = {},
+  url ={http://cyclotron.lbl.gov/},
+  year =         {2008},
+  note =         {Lawrence Berkeley National Laboratory}
+}
+
+
+@MISC{crockerlab,
+%  author =       {},
+  title =        {Crocker Nuclear Laboratory},
+  howpublished = {},
+  url ={http://crocker.ucdavis.edu/},
+  year =         {2008}
+}
+
+
+@MISC{linlab,
+%  author =       {},
+  title =        {Laboratorio de Instrumentacao Nuclear},
+  howpublished = {},
+  url ={http://www.lin.ufrj.br},
+  year =         {2008}
+}
+
+
+@MISC{crclab,
+%  author =       {},
+  title =        {Cyclotron Research Centre},
+  howpublished = {},
+  url = {http://www.cyc.ucl.ac.be},
+  year =         {2008}
+}
+
+
+@BOOK{realtimedef,
+  AUTHOR =       {Jack Ganssle and Michael Barr},
+  TITLE =        {Embedded Systems Dictionary},
+  PUBLISHER =    {CMP Books},
+  YEAR =         {2003},
+  edition =      {1},
+  month =        {July},
+  isbn =         {978-1578201204},
+  address =      {Gilroy, CA, USA}
+}
+
+
+@INPROCEEDINGS{jop:scjava,
+  author = {Martin Schoeberl and Hans Sondergaard and Bent Thomsen and Anders
+	P. Ravn},
+  title = {A Profile for Safety Critical {J}ava},
+  booktitle = {10th IEEE International Symposium on Object And Component-Oriented
+	Real-Time Distributed Computing (ISORC'07)},
+  year = {2007},
+  pages = {94--101},
+  address = {Santorini Island, Greece},
+  month = {May},
+  publisher = {IEEE Computer Society},
+  isbn = {0-7695-2765-5}
+}
+
+
+@MISC{opencores,
+  title =        {opencores.org},
+  url = {http://www.opencores.org}
+}
+
+
+@MISC{osu,
+  title =        {Oklahoma State University Standard Cells},
+  organization = {OSU},
+  url = {http://vcag.ecen.okstate.edu/projects/scells/},
+  year = {2010}
+}
+
+@MISC{ncsu,
+  title =        {North Carolina State University (NCSU) Cadence Design Kit},
+  organization = {NCSU},
+  url = {http://www.eda.ncsu.edu/wiki/NCSU\underline{ }CDK},
+  year = {2010}
+}
+
+@MISC{vtvt,
+  title =        {Virgina Technology VLSI for Telecommunications Standard Cells},
+  organization = {VTVT},
+  url = {http://www.vtvt.ece.vt.edu/vlsidesign/cell.php},
+  year = {2010}
+}
+
+@article{ednasicfpga,
+  author = {David Bursky},
+  title = {Understanding The Options Lets You Optimize System Performance},
+  journal = {Electronic Design},
+  year = {2004},
+  month={may}
+}
+
+@misc{computationallithography,
+
+  title = {Computational Lithography},
+  author ={Jack Horgan},
+  organization = {EDACafé Weekly},
+  ee = {http://www10.edacafe.com/nbc/articles/view_weekly.php?articleid=611156},
+  month = {Novembro},
+  year	=  {2008}}
+
+@misc{mosis,
+  title = {The Mosis Service},
+  organization = {USC},
+  url = {http://www.mosis.com},
+  year = {2010}
+}
+
+
+@inproceedings {jtrescache,
+  author = {Martin Schoeberl},
+  title = {A Time Predictable Instruction Cache for a {J}ava Processor},
+  booktitle = {On the Move to Meaningful Internet Systems 2004: Workshop on {J}ava Technologies for Real-Time and Embedded Systems (JTRES 2004)},
+  year = {2004},
+  volume = {3292},
+  series = {LNCS},
+  pages = {371--382},
+  address = {Agia Napa, Cyprus},
+  month = {October},
+  publisher = {Springer},
+  issn = {0302-9743}
+ }
+
+@ARTICLE{jop:jnl:jsa2007,
+  author = {Martin Schoeberl},
+  title = {A {Java} Processor Architecture for Embedded Real-Time Systems},
+  journal = {Journal of Systems Architecture},
+  year = {2008},
+  volume = {doi:10.1016/j.sysarc.2007.06.001},
+  doi = {10.1016/j.sysarc.2007.06.001}
+}
+
+
+@INPROCEEDINGS{jopjtres,
+  author = {Martin Schoeberl},
+  title = {{JOP}: {A} {J}ava Optimized Processor},
+  booktitle = {On the Move to Meaningful Internet Systems 2003: Workshop on {J}ava
+	Technologies for Real-Time and Embedded Systems (JTRES 2003)},
+  year = {2003},
+  volume = {2889},
+  series = {LNCS},
+  pages = {346--359},
+  address = {Catania, Italy},
+  month = {November},
+  publisher = {Springer},
+  coden = {LNCSD9},
+  doi = {10.1007/b94345},
+  isbn = {3-540-20494-6},
+  issn = {0302-9743}}
+
+
+@INPROCEEDINGS{pjfpga,
+  author = {Wolfgang Puffitsch and Martin Schoeberl},
+  title = {{picoJava-II} in an {FPGA}},
+  booktitle = {Proceedings of the 5th 5th International Workshop on Java Technologies for Real-time and Embedded Systems (JTRES 2007)},
+  year = {2007},
+  pages = {213--221},
+  address = {Vienna, Austria},
+  month = {September},
+  publisher = {ACM Press}
+}
+
+@ARTICLE{komodo2003,
+  author = {J. Kreuzinger and U. Brinkschulte and M. Pfeffer and S. Uhrig and	Th. Ungerer},
+  title = {Real-time Event-Handling and Scheduling on a Multithreaded {J}ava	microcontroller},
+  journal = {Microprocessors and Microsystems},
+  year = {2003},
+  volume = {27},
+  pages = {19--31},
+  number = {1},
+  owner = {admin},
+  timestamp = {2007.04.16}
+}
+
+@ARTICLE{Cjip,
+  author = {Tom R. Halfhill},
+  title = {Imsys Hedges Bets on {J}ava},
+  journal = {Microprocessor Report},
+  year = {2000},
+  month = {August},
+  owner = {admin},
+  timestamp = {2007.04.16},
+  pages = {1--4},
+}
+
+@incollection {femto2003,
+   author = {Beck, Antonio and Cairo, Luigi},
+   affiliation = {Universidade Federal do Rio Grande do Sul Institute de Informática Av. Bento Gonçalves, 9500 - Campus do Vale Porto Alegre Brasil Av. Bento Gonçalves, 9500 - Campus do Vale Porto Alegre Brasil},
+   title = {Low Power {J}ava Processor for Embedded Applications},
+   booktitle = {VLSI-SOC: From Systems to Chips},
+   series = {IFIP International Federation for Information Processing},
+   editor = {Glesner, Manfred and Reis, Ricardo and Indrusiak, Leandro and Mooney, Vincent and Eveking, Hans},
+   publisher = {Springer Boston},
+   isbn = {},
+   pages = {213-228},
+   volume = {200},
+   year = {2006},
+   address = {Boston, MA, USA}
+}
+
+
+
+@article{liulayland,
+
+  author = {C. Liu and J. Layland},
+  title = {Scheduling Algorithms For Multiprogramming In Hard Real-Time Environment},
+  journal = {JACM},
+  year = {1973},
+  pages = {46--61}
+}
+
+
+@misc{jsr302,
+
+  title = {Java Specification Request 302},
+  organization = {Java Community Process},
+  url = {http://jcp.org/en/jsr/detail?id=302},
+  month = {Setembro},
+  year	=  {2008}}
+
+
+@misc{onjava,
+AUTHOR= {Peter Mikhalenko},
+  title = {Real-Time Java: An Introduction},
+  organization = {ONJava.com},
+  url = {http://www.onjava.com/pub/a/onjava/2006/05/10/real-time-java-introduction.html?page=1},
+  month = {September},
+  year	=  {2008}}
+
+
+@BOOKLET{TimeSys,
+  Author =       {TimeSys},
+  TITLE =        {The Concise Handbook Of Real-Time Systems},
+  publisher	=    {TimeSys Corporation},
+  year =         {2002},
+  edition	=    {1.3},
+  author =       {},
+  howpublished = {},
+  address =      {Pittsburgh, PA, USA},
+  month =        {},
+  note =         {},
+  abstract =     {},
+  keywords =     {},
+  source =       {}
+}
+
+
+@misc{spiritconsortium,
+
+  title = {The SPIRIT Consortium},
+  organization = {SPIRIT Consortium},
+  url = {http://www.spiritconsortium.org},
+  month = {Agosto},
+  year	=  {2008}}
+
+@misc{vsia,
+
+  title = {VSI Alliance},
+  organization = {VSI Alliance},
+  url = {http://vsi.org/},
+  month = {Agosto},
+  year	=  {2008}
+}
+
+@book{Hodges,
+author		= {David A. Hodges},
+title		= {Analysis and Design of Digital Integrated Circuits},
+publisher	= {Oxford Press},
+edition		= {1},
+year		= {2003},
+  address =      {Oxford, UK}
+}
+
+
+@book{CMOSICLayout,
+author		= {Dan Clein},
+title		= {CMOS IC Layout : Concepts, Methodologies, and Tools},
+publisher	= {Newnes},
+edition		= {1},
+year		= {1999},
+  address =      {London, UK}
+}
+
+@BOOK{baker,
+  AUTHOR =       {Jacob Baker},
+  TITLE =        {CMOS Circuit Design, Layout, and Simulation},
+  PUBLISHER =    {Wiley-IEEE Press},
+  YEAR =         {2007},
+  edition =      {2nd},
+  address =      {Somerset, NJ, USA}
+
+}
+
+
+
+@book{Razavi,
+author		= {Behzad Razavi},
+title		= {Design of Analog CMOS Integrated Circuits},
+publisher	= {McGraw-Hill},
+edition		= {1},
+year		= {2000},
+  address =      {Burr Ridge, Il, USA}
+}
+
+@book{Rabaey,
+author		= {Jan Rabaey and Gary Pollice and David West},
+title		= {Digital Integrated Circuits},
+publisher	= {Prentice Hall},
+edition		= {2},
+year		= {2003},
+  address =      {Upper Saddle River, NJ, USA}
+}
+
+@book{Harris,
+author		= {Neil Weste and David Money Harris},
+title		= {CMOS VLSI Design: A Circuits and Systems Perspective},
+publisher	= {Addison Wesley},
+edition		= {3},
+year		= {2004},
+  address =      {Upper Saddle River, NJ, USA}
+}
+
+@article{crc1,
+
+  author = {Michael Sprachmann},
+  title = {Automatic generation of parallel CRC circuits},
+  journal = {IEEE Design and Test of Computers},
+  year = {2001},
+  volume = {18},
+  pages = {108--114},
+  month = {May-June}}
+
+
+@INPROCEEDING{crc2,
+
+  author = {Sanjay M. Joshi and Pradeep K. Dubey and Marc A. Kaplan},
+  title = {A new parallel algorithm for CRC generation},
+  booktitle = {Communications, 2000. ICC 2000. 2000 IEEE International Conference on},
+  year = {2000},
+  volume = {3},
+  pages = {1764--1768},
+  month = {June}}
+
+@misc{bcel,
+
+  title = {Byte Code Engineering Library},
+  organization = {The Apache Jakarta Project},
+  url = {http://jakarta.apache.org/bcel/},
+  month = {August},
+  year	=  {2008}}
+
+
+@INPROCEEDINGS{jop:interrupt:handler,
+  author = {Stephan Korsholm and Martin Schoeberl and Anders P. Ravn},
+  title = {{Java} Interrupt Handling},
+  booktitle = {Proceedings of the 11th IEEE International Symposium on Object/component/service-oriented Real-time distributed Computing (ISORC 2008)},
+  year = {2008},
+  address = {Orlando, Florida, USA},
+  month = {May},
+  publisher = {IEEE Computer Society}
+}
+
+@book{JavaOO,
+author		= {Brett McLaughlin and Gary Pollice and David West},
+title		= {Head First Object-Oriented Analysis and Design},
+publisher	= {O'Reilly},
+edition		= {1},
+year		= {2006},
+  address =      {Sebastopol, CA, USA}
+}
+
+@book{PattersonHSI,
+author		= {David A. Patterson and John L. Hennessy},
+title		= {Computer Organization and Design: The Hardware/Software Interface},
+publisher	= {Morgan Kaufmann},
+edition		= {3},
+year		= {2007},
+  address =      {California, USA}
+}
+
+@book{RTProgLang,
+author		= {Alan Burns and Andy Wellings},
+title		= {Real-Time Systems and Their Programming Languages},
+publisher	= {Addison-Wesley},
+year		= {1991},
+  address =      {Upper Saddle River, NJ, USA}}
+
+
+
+@BOOK{JopHandbook,
+  AUTHOR =       {Martin Schoeberl},
+  TITLE =        {JOP Reference Handbook: Building Embedded Systems with a Java Processor},
+  PUBLISHER =    {CreateSpace},
+  YEAR =         {2009},
+  address =      {Scotts Valley, CA, USA},
+  month =        {August},
+  isbn =         {1438239696}
+}
+
+
+
+@book{TanenbaumModernOS, author		= {Andrew S. Tanenbaum}, title		=
+{Modern Operating Systems}, edition		= {3}, publisher	= {Pearson
+Education}, year		= {2008}, address =      {Upper Saddle River, NJ,
+USA} }
+
+
+
+@article{RSAFaultAttack,
+author          = {Carlos R. Moratelli and Erika Cota and Marcelo S. Lubaszewski},
+title           = {A Cryptography Core Tolerant to DFA Fault Attacks},
+journal         = {Journal Integrated Circuits and Systems},
+year            = {2007},
+volume          = {2},
+number          = {1},
+pages           = {14--21}
+}
+
+
+
+@book{Limabook, author		= {Fernanda Lima Kastensmidt and Luigi Carro and
+Ricardo Reis}, title		= {Fault-Tolerance Techniques for SRAM-based
+FPGAs}, edition		= {1}, publisher	= {Springer}, address		= {New
+York, NY, USA}, year		= {2006}}
+
+@misc{microitronspec,
+
+  title = {Micro-Itron 4.0 Specification},
+  organization = {ITRON committee, TRON ASSOCIATION},
+  url = {http://www.sakamura-lab.org/TRON/ITRON/SPEC/mitron4-e.html},
+  month = {June},
+  year	=  {1999}}
+
+@INPROCEEDINGS{Takahara,
+  author          = {T. Takahara and Y. Yanagawa and T. Mizuno and H. Saito and N.tomia},
+  title           = {Embedded Computer System With Soft Core CPU For Space Application},
+  BOOKTITLE       = {MAPLD '03: Proceedings of The Military and Aerospace Programmable Logic Device International Conference},
+  year            = {2003},
+  number          = {P70},
+  pages           = {1--6},
+  month           = {September},
+  organization = {NASA Office of Logic Design},
+  publisher =    {NASA}
+}
+
+@INPROCEEDINGS{JWilliamsMAPLD04,
+  author          = {John Williams and Neil Bergmann},
+  title           = {Reconfigurable Linux for Spaceflight Applications},
+  BOOKTITLE       = {MAPLD '04: Proceedings of The Military and Aerospace Programmable Logic Device International Conference},
+  year            = {2004},
+  number          = {P1014},
+  pages           = {1--2},
+  month           = {September},
+  organization = {NASA Office of Logic Design},
+  publisher =    {NASA},
+  url             = {},
+  editor =       {},
+  volume =       {},
+  series =       {},
+  address =      {},
+  note =         {},
+  abstract =     {},
+  keywords =     {}
+}
+
+@INPROCEEDINGS{Gokhale,
+title={Dynamic Reconfiguration For Management of Radiation-Induced Faults in FPGAs},
+author={Gokhale, M. and Graham, P. and Johnson, E. and Rollins, N. and Wirthlin, M.},
+BOOKTITLE       = {IPDPS '04: Proceedings of the 18th International Parallel and Distributed Processing Symposium },
+year={2004},
+month={April},
+volume={153},
+number={3},
+pages={145--150},
+keywords={ fault simulation, field programmable gate arrays, reconfigurable architectures Xilinx Virtex 1000 FPGA, fault injection technique, field programmable gate arrays, on-orbit fault detection, radiation-hardened reconfiguration controller, radiation-induced fault, single event upset fault, space-based reconfigurable computing, transient fault},
+doi={10.1109/IPDPS.2004.1303127},
+ISBN={0-7695-2132-0}}
+
+
+
+@article{Lima04,
+ author = {Fernanda Gusmao de Lima Kastensmidt and Gustavo Neuberger and Renato Fernandes Hentschke and Luigi Carro and Ricardo Reis},
+ title = {Designing Fault-Tolerant Techniques for SRAM-Based FPGAs},
+ journal = {IEEE Des. Test},
+ volume = {21},
+ number = {6},
+ year = {2004},
+ issn = {0740-7475},
+ pages = {552--562},
+ publisher = {IEEE Computer Society Press},
+ address = {Los Alamitos, CA, USA}
+ }
+
+
+
+@INPROCEEDINGS{Hyder06,
+title={Defect Tolerance In Multiple-FPGA Systems},
+author={Hyder, Z. and Wawrzynek, J.},
+  BOOKTITLE       = {FPL '05: Proceedings of the International Conference on Field Programmable Logic and Applications},
+year={2005},
+month={August},
+volume={},
+number={},
+pages={247--254},
+keywords={ SRAM chips, fault tolerance, field programmable gate arrays, integrated circuit interconnections, integrated circuit reliability, integrated circuit testing SRAM-based FPGA, bitstream mapping, defect tolerance, interconnection topologies, multiple FPGA systems},
+doi={10.1109/FPL.2005.1515730},
+ISBN={0-7803-9362-7} }
+
+@ARTICLE{Sedcole06,
+title={Modular Dynamic Reconfiguration In Virtex FPGAs},
+author={Sedcole, P. and Blodget, B. and Becker, T. and Anderson, J. and Lysaght, P.},
+journal={Computers and Digital Techniques, IEE Proceedings -},
+year={2006},
+month={May},
+volume={153},
+number={3},
+pages={ 157-164},
+keywords={ field programmable gate arrays, reconfigurable architectures Spartan FPGA, Virtex FPGA, configuration architecture, dynamic partial reconfiguration, field programmable gate array, modular dynamic reconfiguration, modular reconfiguration system, module allocation, resource allocation model},
+doi={10.1049/ip-cdt:20050176},
+ISSN={1350-2387} }
+
+@masterthesis{ MollerMasterThesis,
+   author 	= {Leandro Heleno Moller},
+   title 	= {Sistemas Dinamicamente Reconfiguráveis com Comunicação Via Redes Intra-Chip},
+   school 	= {Pontífica Universidade Católica do Rio Grande do Sul},
+   year    = {2005},
+   month   = {Dezembro},
+   address = {Porto Alegre, RS, Brasil},
+   type    = {Dissertação de mestrado}
+}
+@masterthesis{ bvm,
+   author 	= {Helder Fernando de Araújo Oliveira},
+   title 	= {BVM: Reformulação da metodologia de verificação funcional VeriSC},
+   school 	= {Universidade Federal de Campina Grande},
+   year    = {2010},
+   month   = {Junho},
+   address = {Campina Grande, PB, Brasil},
+   publisher = {UFCG},
+   type    = {Dissertação de mestrado}
+}
+
+
+
+@masterthesis{ SoaresMasterThesis,
+   author 	= {Rafael Iankowski Soares},
+   title 	= {Infra-Estrutura e Implementação de Controle de Configurações em Software para Hardware Reconfigurável},
+   school 	= {Pontífica Universidade Católica do Rio Grande do Sul},
+   year    = {2006},
+   month   = {Maio},
+   address = {Porto Alegre, RS, Brasil},
+   type    = {Dissertação de mestrado}
+}
+@phdthesis{ SedcolePhdThesis,
+   author 	= {Nicholas Peter Sedcole},
+   title 	= {Reconfigurable Platform-Based Design in FPGAs for Video Image Processing},
+   school 	= {Imperial College of Science, Technology and Medicine},
+   year    = {2006},
+   month   = {January},
+   type    = {Phd Thesis}
+}
+
+@techreport  {lesc,
+   title = {Leiaute do JOP em tecnologia CMOS},
+   author = {Caio Cesar Leite Ramos},
+   organization = {LESC/DETI/UFC},
+   month = {Junho},
+   Address = {Fortaleza, CE, Brasil},
+   year  = {2010}
+   }
+
+
+@techreport  {xapp216,
+   title = {Correcting Single-Event Upset Through Virtex Partial Reconfiguration},
+   author = {Carl Carmichael and Michael Caffrey and Anthony Salazar},
+   organization = {Xilinx, Inc. and Los Alamos National Laboratories},
+   series = {xapp216},
+   month = {June},
+   note = {application note, v1.0},
+   year  = {2000}
+   }
+
+@techreport  {xapp197,
+   title = {Triple Module Redundancy Design Techniques for Virtex FPGAs},
+   author = {Carl Carmichael},
+   organization = {Xilinx, Inc.},
+   series = {xapp197},
+   month = {July},
+   note = {application note, v1.0.1},
+   year  = {2006}
+   }
+@techreport  {xapp662,
+   title = {In-Circuit Partial Reconfiguration of RocketIO Attributes},
+   author = {Vince Eck and Punit Kalra and Rick LeBlanc and Jim McManus},
+   organization = {Xilinx, Inc.},
+   series = {xapp662},
+   note = {application note, v2.4},
+   month = {May},
+   year  = {2004}
+   }
+@techreport  {xapp290,
+   title = {Two Flows for Partial Reconfiguration: Module Based or Difference Based},
+   organization = {Xilinx, Inc.},
+   series = {xapp290},
+   month = {September},
+   note = {application note, v1.2},
+   year  = {2004}
+   }
+@techreport  {wp245,
+   title = {Achieving Higher System Performance with the Virtex-5 Family of FPGAs},
+   author = {Adrian Cosoroaba and Frédéric Rivoallon},
+   organization = {Xilinx, Inc.},
+   series = {wp245},
+   month = {July},
+   note = {white paper, v1.1.1},
+   year  = {2006}
+   }
+
+@manual  {modulardesign,
+   title = {Development System Reference Guide - ISE},
+   organization = {Xilinx, Inc.},
+   note = {Chapter 3 (Modular Design)}
+   }
+@article  {uclinuxforprog,
+   title = {uClinux for programmers},
+   author = {David McCullough},
+   Journal = {Linux Journal},
+   url = {http://www.linuxjournal.com/article/7221},
+   month = {July},
+   year  = {2004}
+   }
+@techreport  {modulebasedtut,
+   title = {Module Based Partial Reconfiguration: a quick tutorial},
+   author = {Geert Braeckman and Gerd Van Den Branden and Abdellah Touhafi and Geoffroy Van Dessel},
+   address = {http://elektronica.ehb.be/reco/PartialTutorial.htm},
+   month = {July},
+   year  = {2004}
+   }
+@techreport  {mermoudtut,
+   title = {A Module-Based Dynamic Partial Reconfiguration tutorial},
+   author = {Grégory Mermoud},
+   address = {http://ic2.epfl.ch/~gmermoud/files/publications/DPRtutorial.pdf},
+   month = {November},
+   year  = {2004}
+   }
+
+@manual  {ug12,
+   title = {Virtex-II Pro and Virtex-II Pro X FPGA User Guide},
+   organization = {Xilinx, Inc.},
+   month = {March},
+   year  = {2005},
+   series = {ug012},
+   note = {v1.2, Chapter 4 (Configuration Details)}
+   }
+
+@manual  {tmrtool,
+   title = {TMRTool user guide},
+   organization = {Xilinx, Inc.},
+   month = {September},
+   year  = {2004},
+   series = {ug156},
+   note = {TMRTool Software V6.2.03i}
+   }
+
+@inproceedings{UpeguiSanchez06b,
+    Author = {Upegui, A. and Sanchez, E.},
+    Title = {Evolving Hardware with Self-Reconfigurable Connectivity in {Xilinx} {FPGA}s},
+    Pages = {153--160},
+    Booktitle = {Proceedings of the 1$^{st}$ NASA /ESA Conference on Adaptive Hardware and Systems(AHS-2006)},
+    Editor = {A. Stoica et al.},
+    publisher = {{IEEE} Computer Society},
+    address = {Los Alamitos, CA, USA},
+    Year = {2006} }
+
+@MastersThesis{DW02,
+  author = 	 {Matthias Dyer, Macro Wirz},
+  title = 	 {Reconfigurable System on FPGA},
+  school = 	 {ETH Zurich},
+  year = 	 {2002},
+  key = 	 {DW02},
+  address = 	 {Computer Engineering and Networks Lab},
+  month = 	 {March}}
+
+@phdthesis{ WigleyPhdThesis,
+   author 	= {Grant Brian Wigley},
+   title 	= {An Operating System for Reconfigurable Computing},
+   school 	= {University of South Australia},
+   year    = {2005},
+   month   = {April},
+   type    = {Phd Thesis}
+}
+
+@phdthesis{ MartinThesis,
+   author 	= {Martin Schoeberl},
+   title 	= {JOP: A Java Optimized Processor for Embedded Real-Time Systems},
+   school 	= {Vienna University of Technology},
+   year    = {2005},
+   type    = {Phd Thesis}
+}
+@masterthesis{ ValdivinoMasterThesis,
+   author 	= {Valdivino Alexandre de Santiago Júnior},
+   title 	= {Software Gerenciador Básico para Sistemas Críticos Embcarcados},
+   school 	= {Universidade Federal do Ceará},
+   year    = {1999},
+   month   = {Setembro},
+   address = {Fortaleza, CE, Brasil},
+   type    = {Dissertação de mestrado}
+}
+
+@masterthesis{ FrandbertoMasterThesis,
+   author 	= {Frandberto de Castro Façanha Júnior},
+   title 	= {Mecanismo de Gerenciamento de Falhas para Corba},
+   school 	= {Universidade Federal do Ceará},
+   year    = {2000},
+   month   = {Setembro},
+   address = {Fortaleza, CE, Brasil},
+   type    = {Dissertação de mestrado}
+}
+
+@book{shoomanbook,
+author		= {Martin L. Shooman},
+title		= {Reliability of Computer Systems and Networks},
+edition		= {1},
+publisher	= {Wiley},
+year		= {2002},
+   address = {Somerset, NJ, USA}
+}
+
+@book{anderson81,
+author		= {T. Anderson and P. A. Lee},
+title		= {Fault Tolerance: Principles and Pratctice},
+publisher	= {Prentice-Hall},
+year		= {1981},
+   address = {Upper Saddle River, NJ, USA}
+}
+
+@book{engineeringreliability,
+author		= {R. Ramakumar},
+title		= {Engineering Reliability: Fundamentals and Applications},
+edition		= {1},
+publisher	= {Wiley},
+year		= {1993},
+   address = {Somerset, NJ, USA}
+}
+
+@inproceedings{Upegui05,
+    author  =   {Andres Upegui and Eduardo Sanchez},
+    title   =   {Evolving hardware by dynamically reconfiguring {Xilinx} {FPGA}s},
+    booktitle   =   {ICES '08: Proceedings of the International Conference on Evolvable Systems},
+    series  =   {LNCS},
+    Volume =    {3637},
+    editor  =   {J.M. Moreno},
+    Pages   =   {56--65},
+    publisher   =   {Springer-Verlag},
+    address     =   {Berlin Heidelberg},
+    year    =   {2005} }
+
+
+@inproceedings{Williams04,
+  author    = {John W. Williams and Neil Bergmann},
+  title     = {Embedded Linux as a Platform for Dynamically Self-Reconfiguring Systems-on-Chip},
+  booktitle = {ERSA '04: Proceedings of the International Conference on Engineering of Reconfigurable Systems and Algorithms},
+  address     	= {Las Vegas, Nevada, USA},
+  year      = {2004},
+  pages     = {163--169},
+  month           = {June},
+  ISBN={1-932415-42-4},
+  editor    = {Toomas P. Plaks},
+  publisher = {CSREA Press}
+}
+
+
+@ARTICLE{Steiger04,
+title={Operating Systems For Reconfigurable Embedded Platforms: Online Scheduling Of Real-Time Tasks},
+author={Steiger, C. and Walder, H. and Platzner, M.},
+journal={Computers, IEEE Transactions on},
+year={2004},
+month={Nov.},
+volume={53},
+number={11},
+pages={1393--1407},
+keywords={ embedded systems, field programmable gate arrays, multiprogramming, network operating systems, processor scheduling, reconfigurable architectures, resource allocation field programmable gate arrays, online scheduling, operating systems, real-time tasks, reconfigurable embedded platforms, reconfigurable hardware devices, resource management},
+doi={10.1109/TC.2004.99},
+ISSN={0018-9340}}

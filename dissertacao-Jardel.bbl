@@ -1,0 +1,385 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{1.1 }
+
+\bibitem[Anderson e Lee 1981]{anderson81}
+\abntrefinfo{Anderson e Lee}{ANDERSON; LEE}{1981}
+{ANDERSON, T.; LEE, P.~A. \emph{Fault Tolerance: Principles and Pratctice}.
+  Upper Saddle River, NJ, USA: Prentice-Hall, 1981.}
+
+\bibitem[Atienza et al. 2008]{atienza}
+\abntrefinfo{Atienza et al.}{ATIENZA et al.}{2008}
+{ATIENZA, D. et al. Reliability-aware design for nanometer-scale devices. In:
+  \emph{ASP-DAC '08: Proceedings of the 2008 Asia and South Pacific Design
+  Automation Conference}. Los Alamitos, CA, USA: IEEE Computer Society Press,
+  2008. p. 549--554.
+ISBN 978-1-4244-1922-7.}
+
+\bibitem[Baker 2007]{baker}
+\abntrefinfo{Baker}{BAKER}{2007}
+{BAKER, J. \emph{CMOS Circuit Design, Layout, and Simulation}. 2nd. ed.
+  Somerset, NJ, USA: Wiley-IEEE Press, 2007.}
+
+\bibitem[Beck e Cairo 2006]{femto2003}
+\abntrefinfo{Beck e Cairo}{BECK; CAIRO}{2006}
+{BECK, A.; CAIRO, L. Low power {J}ava processor for embedded applications. In:
+  GLESNER, M. et al. (Ed.). \emph{VLSI-SOC: From Systems to Chips}. Boston, MA,
+  USA: Springer Boston, 2006,  (IFIP International Federation for Information
+  Processing, v.~200). p. 213--228.}
+
+\bibitem[Burns e Wellings 2009]{RTProgLang}
+\abntrefinfo{Burns e Wellings}{BURNS; WELLINGS}{2009}
+{BURNS, A.; WELLINGS, A. \emph{Real-Time Systems and Programming Languages:
+  Ada, Real-Time Java and C/Real-Time POSIX}. Upper Saddle River, NJ, USA:
+  Addison-Wesley, 2009.}
+
+\bibitem[Bursky 2004]{ednasicfpga}
+\abntrefinfo{Bursky}{BURSKY}{2004}
+{BURSKY, D. Understanding the options lets you optimize system performance.
+\emph{Electronic Design}, may 2004.}
+
+\bibitem[Castro, Coelho e Silveira 2008]{CRCFpga}
+\abntrefinfo{Castro, Coelho e Silveira}{CASTRO; COELHO; SILVEIRA}{2008}
+{CASTRO, H.; COELHO, A.~A.; SILVEIRA, R.~J. Fault-tolerance in fpga's through
+  crc voting. In:  \emph{SBCCI '08: Proceedings of the 21st Annual Symposium on
+  Integrated Circuits And System Design}. New York, NY, USA: ACM, 2008. p.
+  188--192.
+ISBN 978-1-60558-231-3.}
+
+\bibitem[Castro 1992]{helanothesis}
+\abntrefinfo{Castro}{CASTRO}{1992}
+{CASTRO, H. de S.
+\emph{Fault Tolerance Through Reconfigurability: Applications In Space
+  Instrumentation}.
+Tese (Phd Thesis) --- The University of Sussex, June 1992.}
+
+\bibitem[Chambers 1997]{dezmandamentos}
+\abntrefinfo{Chambers}{CHAMBERS}{1997a}
+{CHAMBERS, P. \emph{The Ten Commandments of Excellent Design}.
+USA, 1997.}
+
+\bibitem[Chambers 1997]{dezmandamentosvhdl}
+\abntrefinfo{Chambers}{CHAMBERS}{1997b}
+{\underline{\ \ \ \ \ \ \ \ }. \emph{The Ten Commandments of Excellent Design
+  VHDL Code Examples}.
+USA, 1997.}
+
+\bibitem[Check e Slegel 1999]{ibms390}
+\abntrefinfo{Check e Slegel}{CHECK; SLEGEL}{1999}
+{CHECK, M.~A.; SLEGEL, T.~J. Custom s/390 g5 and g6 microprocessors.
+\emph{IBM J. RES. DEVELOP}, v.~43, n.~5/6, p. 671--680, SEPTEMBER/NOVEMBER
+  1999.}
+
+\bibitem[Cota et al. 2001]{8051radhard}
+\abntrefinfo{Cota et al.}{COTA et al.}{2001}
+{COTA \'{E}rika et al. Synthesis of an 8051-like micro-controller tolerant to
+  transient faults.
+\emph{J. Electron. Test.}, Kluwer Academic Publishers, Norwell, MA, USA, v.~17,
+  n.~2, p. 149--161, 2001.
+ISSN 0923-8174.}
+
+\bibitem[Drechsler 2010]{formalverification}
+\abntrefinfo{Drechsler}{DRECHSLER}{2010}
+{DRECHSLER, R. \emph{Advanced Formal Verification}. New York, NY, USA: Springer
+  US, 2010.
+ISBN 1441954201.}
+
+\bibitem[Fleetwood 2004]{radhardcoldwar}
+\abntrefinfo{Fleetwood}{FLEETWOOD}{2004}
+{FLEETWOOD, D.~M. \emph{Radiation Effects And Soft Errors In Integrated
+  Circuits And Electronic Devices (Selected Topics in Electronics and
+  Systems)}. 1. ed. Hackensack, NJ, USA: World Scientific Publishing Company,
+  2004.
+ISBN 9812389407.}
+
+\bibitem[Gaisler 1994]{erc32a}
+\abntrefinfo{Gaisler}{GAISLER}{1994}
+{GAISLER, J. Concurrent error-detection and modular fault-tolerance in a 32-bit
+  processing core for embedded space flight applications. In:
+  \emph{Fault-Tolerant Computing, 1994. FTCS-24. Digest of Papers.,
+  Twenty-Fourth International Symposium on}. Austin, TX: IEEE Press, 1994. p.
+  128 --130.}
+
+\bibitem[Gaisler 2002]{leon3ft}
+\abntrefinfo{Gaisler}{GAISLER}{2002}
+{\underline{\ \ \ \ \ \ \ \ }. A portable and fault-tolerant microprocessor
+  based on the sparc v8 architecture. In:  \emph{DSN '02: Proceedings of the
+  2002 International Conference on Dependable Systems and Networks}.
+  Washington, DC, USA: IEEE Computer Society, 2002. p. 409--415.
+ISBN 0-7695-1597-5.}
+
+\bibitem[Ganssle e Barr 2003]{realtimedef}
+\abntrefinfo{Ganssle e Barr}{GANSSLE; BARR}{2003}
+{GANSSLE, J.; BARR, M. \emph{Embedded Systems Dictionary}. 1. ed. Gilroy, CA,
+  USA: CMP Books, 2003.
+ISBN 978-1578201204.}
+
+\bibitem[Halfhill 2000]{Cjip}
+\abntrefinfo{Halfhill}{HALFHILL}{2000}
+{HALFHILL, T.~R. Imsys hedges bets on {J}ava.
+\emph{Microprocessor Report}, p.~1--4, August 2000.}
+
+\bibitem[Horgan 2008]{computationallithography}
+\abntrefinfo{Horgan}{HORGAN}{2008}
+{HORGAN, J. \emph{Computational Lithography}. Novembro 2008.}
+
+\bibitem[Huang et al. 1998]{flashseu}
+\abntrefinfo{Huang et al.}{HUANG et al.}{1998}
+{HUANG, T. yuan et al. Improving radiation hardness of eeprom/flash cell by n o
+  annealing.
+\emph{IEEE ELECTRON DEVICE LETTERS}, v.~19, n.~7, p. 256--258, July 1998.}
+
+\bibitem[Java Community Process 2008]{jsr302}
+\abntrefinfo{Java Community Process}{JAVA COMMUNITY PROCESS}{2008}
+{JAVA COMMUNITY PROCESS. \emph{Java Specification Request 302}. Setembro 2008.
+Dispon{\'\i}vel em: $<$http://jcp.org/en/jsr/detail?id=302$>$.}
+
+\bibitem[Joshi, Dubey e Kaplan 2000]{crc2}
+\abntrefinfo{Joshi, Dubey e Kaplan}{JOSHI; DUBEY; KAPLAN}{2000}
+{JOSHI, S.~M.; DUBEY, P.~K.; KAPLAN, M.~A. \emph{A new parallel algorithm for
+  CRC generation}. June 2000.
+1764--1768~p.}
+
+\bibitem[Kastensmidt, Carro e Reis 2006]{Limabook}
+\abntrefinfo{Kastensmidt, Carro e Reis}{KASTENSMIDT; CARRO; REIS}{2006}
+{KASTENSMIDT, F.~L.; CARRO, L.; REIS, R. \emph{Fault-Tolerance Techniques for
+  SRAM-based FPGAs}. 1. ed. New York, NY, USA: Springer, 2006.}
+
+\bibitem[Korsholm, Schoeberl e Ravn 2008]{jop:interrupt:handler}
+\abntrefinfo{Korsholm, Schoeberl e Ravn}{KORSHOLM; SCHOEBERL; RAVN}{2008}
+{KORSHOLM, S.; SCHOEBERL, M.; RAVN, A.~P. {Java} interrupt handling. In:
+  \emph{Proceedings of the 11th IEEE International Symposium on
+  Object/component/service-oriented Real-time distributed Computing (ISORC
+  2008)}. Orlando, Florida, USA: IEEE Computer Society, 2008.}
+
+\bibitem[Kreuzinger et al. 2003]{komodo2003}
+\abntrefinfo{Kreuzinger et al.}{KREUZINGER et al.}{2003}
+{KREUZINGER, J. et al. Real-time event-handling and scheduling on a
+  multithreaded {J}ava microcontroller.
+\emph{Microprocessors and Microsystems}, v.~27, n.~1, p. 19--31, 2003.}
+
+\bibitem[Liu e Layland 1973]{liulayland}
+\abntrefinfo{Liu e Layland}{LIU; LAYLAND}{1973}
+{LIU, C.; LAYLAND, J. Scheduling algorithms for multiprogramming in hard
+  real-time environment.
+\emph{JACM}, p. 46--61, 1973.}
+
+\bibitem[McLaughlin, Pollice e West 2006]{JavaOO}
+\abntrefinfo{McLaughlin, Pollice e West}{MCLAUGHLIN; POLLICE; WEST}{2006}
+{MCLAUGHLIN, B.; POLLICE, G.; WEST, D. \emph{Head First Object-Oriented
+  Analysis and Design}. 1. ed. Sebastopol, CA, USA: O'Reilly, 2006.}
+
+\bibitem[Meinhardt et al. 2009]{leon3ftufrgs}
+\abntrefinfo{Meinhardt et al.}{MEINHARDT et al.}{2009}
+{MEINHARDT, C. et al. Recovery scheme for hardening system on programmable
+  chips. In:  \emph{Test Workshop, 2009. LATW '09. 10th Latin American}.
+  Buzios, RJ, Brasil: IEEE Press, 2009. p.~1--6.}
+
+\bibitem[MELCHER et al. 2006]{ipsoc2006}
+\abntrefinfo{MELCHER et al.}{MELCHER et al.}{2006}
+{MELCHER, E. U.~K. et al. Silicon validated ip cores designed by the brazil ip
+  network. In:  \emph{IP-SOC 2006 conference proceedings}. Grenoble, France:
+  Design and Reuse, 2006. p. 437--441.}
+
+\bibitem[Mikhalenko 2008]{onjava}
+\abntrefinfo{Mikhalenko}{MIKHALENKO}{2008}
+{MIKHALENKO, P. \emph{Real-Time Java: An Introduction}. September 2008.
+Dispon{\'\i}vel em:
+  $<$http://www.onjava.com/pub/a/onjava/2006/05/10/real-time-java-introduction%
+.html?page=1$>$.}
+
+\bibitem[Moore 1965]{moorelaw}
+\abntrefinfo{Moore}{MOORE}{1965}
+{MOORE, G.~E. Cramming more components onto integrated circuits.
+\emph{Electronics}, v.~38, n.~8, p. 114--117, April 1965.}
+
+\bibitem[NCSU 2010]{ncsu}
+\abntrefinfo{NCSU}{NCSU}{2010}
+{NCSU. \emph{North Carolina State University (NCSU) Cadence Design Kit}. 2010.
+Dispon{\'\i}vel em: $<$http://www.eda.ncsu.edu/wiki/NCSU\underline{ }CDK$>$.}
+
+\bibitem[Nicolaidis 2007]{nicolaidis}
+\abntrefinfo{Nicolaidis}{NICOLAIDIS}{2007}
+{NICOLAIDIS, M. Graal: A new fault tolerant design paradigm for mitigating the
+  flaws of deep nanometric technologies. In:  \emph{Proceedings of IEEE
+  INTERNATIONAL TEST CONFERENCE}. Santa Clara, CA, USA: IEEE Press, 2007.}
+
+\bibitem[Oliveira 2010]{bvm}
+\abntrefinfo{Oliveira}{OLIVEIRA}{2010}
+{OLIVEIRA, H.~F. de A.
+Dissertação de mestrado, \emph{BVM: Reformulação da metodologia de verificação
+  funcional VeriSC}. Campina Grande, PB, Brasil: UFCG, Junho 2010.}
+
+\bibitem[OSU 2010]{osu}
+\abntrefinfo{OSU}{OSU}{2010}
+{OSU. \emph{Oklahoma State University Standard Cells}. 2010.
+Dispon{\'\i}vel em: $<$http://vcag.ecen.okstate.edu/projects/scells/$>$.}
+
+\bibitem[Patterson e Hennessy 2008]{PattersonHSI}
+\abntrefinfo{Patterson e Hennessy}{PATTERSON; HENNESSY}{2008}
+{PATTERSON, D.~A.; HENNESSY, J.~L. \emph{Computer Organization and Design: The
+  Hardware/Software Interface}. 4. ed. California, USA: Morgan Kaufmann, 2008.}
+
+\bibitem[Puffitsch e Schoeberl 2007]{pjfpga}
+\abntrefinfo{Puffitsch e Schoeberl}{PUFFITSCH; SCHOEBERL}{2007}
+{PUFFITSCH, W.; SCHOEBERL, M. {picoJava-II} in an {FPGA}. In:
+  \emph{Proceedings of the 5th 5th International Workshop on Java Technologies
+  for Real-time and Embedded Systems (JTRES 2007)}. Vienna, Austria: ACM Press,
+  2007. p. 213--221.}
+
+\bibitem[Quach 2000]{itaniumft}
+\abntrefinfo{Quach}{QUACH}{2000}
+{QUACH, N. High availability and reliability in the itanium processor.
+\emph{IEEE Micro}, IEEE Computer Society Press, Los Alamitos, CA, USA, v.~20,
+  n.~5, p. 61--69, 2000.
+ISSN 0272-1732.}
+
+\bibitem[Rabaey, Pollice e West 2003]{rabaey}
+\abntrefinfo{Rabaey, Pollice e West}{RABAEY; POLLICE; WEST}{2003}
+{RABAEY, J.; POLLICE, G.; WEST, D. \emph{Digital Integrated Circuits}. 2. ed.
+  Upper Saddle River, NJ, USA: Prentice Hall, 2003.}
+
+\bibitem[Ramos et al. 2010]{lesc}
+\abntrefinfo{Ramos et al.}{RAMOS et al.}{2010}
+{RAMOS, C. C.~L. et al. \emph{Leiaute do JOP em tecnologia CMOS - Projeto
+  LESC/Brazil IP}.
+Fortaleza, CE, Brasil, Junho 2010.}
+
+\bibitem[Razavi 2000]{razavi}
+\abntrefinfo{Razavi}{RAZAVI}{2000}
+{RAZAVI, B. \emph{Design of Analog CMOS Integrated Circuits}. 1. ed. Burr
+  Ridge, Il, USA: McGraw-Hill, 2000.}
+
+\bibitem[Roberts, Kim e Mudge 2008]{mudge}
+\abntrefinfo{Roberts, Kim e Mudge}{ROBERTS; KIM; MUDGE}{2008}
+{ROBERTS, D.; KIM, N.~S.; MUDGE, T. On-chip cache device limits and effective
+  fault repair techniques in future nanoscale technology.
+\emph{Microprocessors and Microsystems Journal}, p. 244--253, 2008.}
+
+\bibitem[S., Subramanian e Somani 2006]{openriscft}
+\abntrefinfo{S., Subramanian e Somani}{S.; SUBRAMANIAN; SOMANI}{2006}
+{S., G.~T.; SUBRAMANIAN, V.; SOMANI, A. Seu mitigation techniques for
+  microprocessor control logic. In:  \emph{EDCC '06: Proceedings of the Sixth
+  European Dependable Computing Conference}. Washington, DC, USA: IEEE Computer
+  Society, 2006. p. 77--86.
+ISBN 0-7695-2648-9.}
+
+\bibitem[Santos et al. 2008]{ipprocess}
+\abntrefinfo{Santos et al.}{SANTOS et al.}{2008}
+{SANTOS, F. et al. ipprocess: A usage of an ip-core development process to
+  achieve time-to-market and quality assurance in a multi project environment.
+  In:  \emph{Proceedings of IP 2008 - IP based System Design Conference}.
+  Grenoble, France: Design and Reuse, 2008.}
+
+\bibitem[Schoeberl 2003]{jopjtres}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2003}
+{SCHOEBERL, M. {JOP}: {A} {J}ava optimized processor. In:  \emph{On the Move to
+  Meaningful Internet Systems 2003: Workshop on {J}ava Technologies for
+  Real-Time and Embedded Systems (JTRES 2003)}. Catania, Italy: Springer, 2003.
+   (LNCS, v.~2889), p. 346--359.
+ISBN 3-540-20494-6.
+ISSN 0302-9743.}
+
+\bibitem[Schoeberl 2004]{jtrescache}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2004}
+{\underline{\ \ \ \ \ \ \ \ }. A time predictable instruction cache for a
+  {J}ava processor. In:  \emph{On the Move to Meaningful Internet Systems 2004:
+  Workshop on {J}ava Technologies for Real-Time and Embedded Systems (JTRES
+  2004)}. Agia Napa, Cyprus: Springer, 2004.  (LNCS, v.~3292), p. 371--382.
+ISSN 0302-9743.}
+
+\bibitem[Schoeberl 2005]{MartinThesis}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2005}
+{SCHOEBERL, M.
+\emph{JOP: A Java Optimized Processor for Embedded Real-Time Systems}.
+Tese (Phd Thesis) --- Vienna University of Technology, 2005.}
+
+\bibitem[Schoeberl 2008]{jop:jnl:jsa2007}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2008}
+{\underline{\ \ \ \ \ \ \ \ }. A {Java} processor architecture for embedded
+  real-time systems.
+\emph{Journal of Systems Architecture}, 2008.}
+
+\bibitem[Schoeberl 2009]{JopHandbook}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2009}
+{\underline{\ \ \ \ \ \ \ \ }. \emph{JOP Reference Handbook: Building Embedded
+  Systems with a Java Processor}. Scotts Valley, CA, USA: CreateSpace, 2009.
+ISBN 1438239696.}
+
+\bibitem[Schoeberl 2010]{jop:rtsgc:rts}
+\abntrefinfo{Schoeberl}{SCHOEBERL}{2010}
+{\underline{\ \ \ \ \ \ \ \ }. Scheduling of hard real-time garbage collection.
+\emph{Real-Time Systems}, accepted, 2010.
+Dispon{\'\i}vel em: $<$http://www.jopdesign.com/doc/hrtsgc.pdf$>$.}
+
+\bibitem[Schoeberl et al. 2010]{jop:tecs:jhal}
+\abntrefinfo{Schoeberl et al.}{SCHOEBERL et al.}{2010}
+{SCHOEBERL, M. et al. A hardware abstraction layer in java.
+\emph{Trans. on Embedded Computing Sys.}, ACM, 2010.}
+
+\bibitem[Schoeberl e Puffitsch 2010]{jop:tecs:nbgc}
+\abntrefinfo{Schoeberl e Puffitsch}{SCHOEBERL; PUFFITSCH}{2010}
+{SCHOEBERL, M.; PUFFITSCH, W. Non-blocking real-time garbage collection.
+\emph{Trans. on Embedded Computing Sys.}, ACM, 2010.}
+
+\bibitem[Schoeberl et al. 2010]{jop:wcet:spe}
+\abntrefinfo{Schoeberl et al.}{SCHOEBERL et al.}{2010}
+{SCHOEBERL, M. et al. Worst-case execution time analysis for a java processor.
+\emph{Software: Practice and Experience}, v.~40/6, p. 507--542, 2010.}
+
+\bibitem[Schoeberl et al. 2007]{jop:scjava}
+\abntrefinfo{Schoeberl et al.}{SCHOEBERL et al.}{2007}
+{\underline{\ \ \ \ \ \ \ \ }. A profile for safety critical {J}ava. In:
+  \emph{10th IEEE International Symposium on Object And Component-Oriented
+  Real-Time Distributed Computing (ISORC'07)}. Santorini Island, Greece: IEEE
+  Computer Society, 2007. p. 94--101.
+ISBN 0-7695-2765-5.}
+
+\bibitem[Shooman 2002]{shoomanbook}
+\abntrefinfo{Shooman}{SHOOMAN}{2002}
+{SHOOMAN, M.~L. \emph{Reliability of Computer Systems and Networks}. 1. ed.
+  Somerset, NJ, USA: Wiley, 2002.}
+
+\bibitem[Silveira et al. 2009]{tpi}
+\abntrefinfo{Silveira et al.}{SILVEIRA et al.}{2009}
+{SILVEIRA, R. J.~N. da et al. Técnica de proteção de bytecodes para processador
+  java em tecnologia cmos. In:  \emph{Anais do WSCAD SSC 2009: X Simpósio em
+  Sistemas Computacionais}. São Paulo, SP, Brasil: SBC (Sociedade Brasileira de
+  Computação), 2009.
+ISSN 21762074.}
+
+\bibitem[Sprachmann 2001]{crc1}
+\abntrefinfo{Sprachmann}{SPRACHMANN}{2001}
+{SPRACHMANN, M. Automatic generation of parallel crc circuits.
+\emph{IEEE Design and Test of Computers}, v.~18, p. 108--114, May-June 2001.}
+
+\bibitem[Tanenbaum 2008]{TanenbaumModernOS}
+\abntrefinfo{Tanenbaum}{TANENBAUM}{2008}
+{TANENBAUM, A.~S. \emph{Modern Operating Systems}. 3. ed. Upper Saddle River,
+  NJ, USA: Pearson Education, 2008.}
+
+\bibitem[TimeSys 2002]{TimeSys}
+\abntrefinfo{TimeSys}{TIMESYS}{2002}
+{TIMESYS. \emph{The Concise Handbook Of Real-Time Systems}. 1.3. ed.
+  Pittsburgh, PA, USA, 2002.}
+
+\bibitem[USC 2010]{mosis}
+\abntrefinfo{USC}{USC}{2010}
+{USC. \emph{The Mosis Service}. 2010.
+Dispon{\'\i}vel em: $<$http://www.mosis.com$>$.}
+
+\bibitem[VTVT 2010]{vtvt}
+\abntrefinfo{VTVT}{VTVT}{2010}
+{VTVT. \emph{Virgina Technology VLSI for Telecommunications Standard Cells}.
+  2010.
+Dispon{\'\i}vel em: $<$http://www.vtvt.ece.vt.edu/vlsidesign/cell.php$>$.}
+
+\bibitem[Weste e Harris 2004]{harris}
+\abntrefinfo{Weste e Harris}{WESTE; HARRIS}{2004}
+{WESTE, N.; HARRIS, D.~M. \emph{CMOS VLSI Design: A Circuits and Systems
+  Perspective}. 3. ed. Upper Saddle River, NJ, USA: Addison Wesley, 2004.}
+
+\end{thebibliography}

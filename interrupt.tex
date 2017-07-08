@@ -1,0 +1,22 @@
+
+
+Public class CACHEReceiveInterruptHandler
+extends InterruptHandler {
+
+    private CRCCACHE crccache;
+    private InterruptCtl interruptCtrl;
+
+    public CRCCACHEInterruptHandler
+    (CRCCACHE crcache,InterruptCtrl interruptCtrl)
+    {
+        // Registra manipulador
+        // de Interrupção
+        super(INT_CRCCACHE);
+        this.crccache = crccache;
+        this.interruptCtrl = interruptCtrl;
+    }
+    protected void handleInterrupt() {
+        // Levar o sistema a um
+        // modo de falha seguro
+    }
+}

@@ -1,0 +1,88 @@
+\select@language {brazil}
+\contentsline {chapter}{Lista de Figuras}{viii}
+\contentsline {chapter}{Lista de Tabelas}{ix}
+\contentsline {chapter}{Lista de Siglas}{x}
+\contentsline {chapter}{Resumo}{xiii}
+\contentsline {chapter}{Abstract}{xv}
+\contentsline {chapter}{Agradecimentos}{xvii}
+\contentsline {chapter}{\numberline {1}Introdu\c c\~ao}{1}
+\contentsline {section}{\numberline {1.1}Motiva\c c\~ao}{1}
+\contentsline {section}{\numberline {1.2}Objetivos}{3}
+\contentsline {section}{\numberline {1.3}Resumo das Contribui\c c\~oes}{3}
+\contentsline {section}{\numberline {1.4}Organiza\c c\~ao}{4}
+\contentsline {chapter}{\numberline {2}Sistemas Embarcados de Tempo Real}{5}
+\contentsline {section}{\numberline {2.1}Introdu\c c\~ao}{5}
+\contentsline {section}{\numberline {2.2}Determinismo e an\'alise temporal}{7}
+\contentsline {section}{\numberline {2.3}Hardware de tempo real}{8}
+\contentsline {section}{\numberline {2.4}Escalonamento de processos em sis\penalty \@M \hskip \z@skip \discretionary {-}{}{}\penalty \@M \hskip \z@skip te\penalty \@M \hskip \z@skip \discretionary {-}{}{}\penalty \@M \hskip \z@skip mas de tem\penalty \@M \hskip \z@skip \discretionary {-}{}{}\penalty \@M \hskip \z@skip po re\penalty \@M \hskip \z@skip \discretionary {-}{}{}\penalty \@M \hskip \z@skip al}{9}
+\contentsline {subsection}{\numberline {2.4.1}Ciclo de execu\c c\~ao}{9}
+\contentsline {subsection}{\numberline {2.4.2}Prioridade fixa / peri\'odicos}{9}
+\contentsline {subsubsection}{\numberline {2.4.2.1}Problema da invers\~ao de prioridade e solu\c c\~ao}{10}
+\contentsline {subsection}{\numberline {2.4.3}Algoritmo do \emph {deadline} mais pr\'oximo}{11}
+\contentsline {subsection}{\numberline {2.4.4}Escalonamento de tarefas aperi\'odicas}{11}
+\contentsline {section}{\numberline {2.5}Gerenciamento de mem\'oria}{12}
+\contentsline {section}{\numberline {2.6}Toler\^ancia a falhas}{12}
+\contentsline {subsection}{\numberline {2.6.1}C\'alculo de confiabilidade}{13}
+\contentsline {subsection}{\numberline {2.6.2}Detec\c c\~ao e corre\c c\~ao de erros em uma sequ\^encia de dados}{14}
+\contentsline {subsubsection}{\numberline {2.6.2.1}Checagem por redund\^ancia c\IeC {\'\i }clica}{14}
+\contentsline {subsubsection}{\numberline {2.6.2.2}Algoritmo de Hamming}{14}
+\contentsline {subsubsection}{\numberline {2.6.2.3}Outros algoritmos de corre\c c\~ao de erros}{15}
+\contentsline {section}{\numberline {2.7}Java para sistemas de tempo real}{16}
+\contentsline {subsection}{\numberline {2.7.1}Sistemas atuais}{16}
+\contentsline {subsection}{\numberline {2.7.2}Vantagens da linguagem Java}{16}
+\contentsline {subsection}{\numberline {2.7.3}Desvantagens da linguagem Java}{16}
+\contentsline {subsection}{\numberline {2.7.4}Especifica\c c\~ao Java para sistemas de tempo real}{17}
+\contentsline {subsection}{\numberline {2.7.5}Especifica\c c\~ao Java para sistemas cr\IeC {\'\i }ticos de tempo real}{18}
+\contentsline {section}{\numberline {2.8}Conclus\~ao}{19}
+\contentsline {chapter}{\numberline {3}Projeto de Circuitos Integrados L\'ogicos Digitais}{20}
+\contentsline {section}{\numberline {3.1}Introdu\c c\~ao}{20}
+\contentsline {section}{\numberline {3.2}Estado da Arte e Desafios do \emph {Deep Sub Micron}}{22}
+\contentsline {section}{\numberline {3.3}Requisitos de Projeto}{23}
+\contentsline {section}{\numberline {3.4}Projeto e Processo de Fabrica\c c\~ao}{24}
+\contentsline {section}{\numberline {3.5}Fluxos de Projeto}{25}
+\contentsline {subsection}{\numberline {3.5.1}\emph {Standard Cells}}{25}
+\contentsline {subsection}{\numberline {3.5.2}\emph {Full Custom}}{28}
+\contentsline {section}{\numberline {3.6}Reuso de m\'odulos}{29}
+\contentsline {chapter}{\numberline {4}Processador JOP}{31}
+\contentsline {section}{\numberline {4.1}Implementa\c c\~ao da JVM no JOP}{31}
+\contentsline {section}{\numberline {4.2}Entrada e sa\IeC {\'\i }da}{32}
+\contentsline {section}{\numberline {4.3}Interrup\c c\~oes}{33}
+\contentsline {section}{\numberline {4.4}Requisitos de tempo real}{33}
+\contentsline {subsection}{\numberline {4.4.1}An\'alise de WCET no JOP}{33}
+\contentsline {subsection}{\numberline {4.4.2}Garantia de funcionamento}{34}
+\contentsline {section}{\numberline {4.5}Arquitetura do JOP}{34}
+\contentsline {section}{\numberline {4.6}Cache de instru\c c\~oes de tempo previs\IeC {\'\i }vel}{34}
+\contentsline {section}{\numberline {4.7}Montador de aplica\c c\~oes}{35}
+\contentsline {section}{\numberline {4.8}Documenta\c c\~ao e portabilidade}{36}
+\contentsline {chapter}{\numberline {5}JOP Tolerante a Falhas}{37}
+\contentsline {section}{\numberline {5.1}Ocorr\^encia de evento SEU na mem\'oria \emph {cache} interna ao JOP}{38}
+\contentsline {section}{\numberline {5.2}T\'ecnica de Prote\c c\~ao de Instru\c c\~oes (TPI)}{39}
+\contentsline {subsection}{\numberline {5.2.1}Fluxo dos \emph {Bytecodes} no JOP x Fluxo dos \emph {Bytecodes} no FT-JOP}{39}
+\contentsline {subsection}{\numberline {5.2.2}Codificador de Hamming}{40}
+\contentsline {subsection}{\numberline {5.2.3}Bloco extra de mem\'oria}{41}
+\contentsline {subsubsection}{\numberline {5.2.3.1}Decodificador de Hamming}{41}
+\contentsline {section}{\numberline {5.3}Ocorr\^encia de evento SEU na mem\'oria externa ao JOP}{41}
+\contentsline {section}{\numberline {5.4}T\'ecnica de prote\c c\~ao de m\'etodos}{42}
+\contentsline {subsection}{\numberline {5.4.1}Software para adicionar CRC aos m\'etodos}{42}
+\contentsline {subsection}{\numberline {5.4.2}Verificador da integridade dos m\'etodos}{44}
+\contentsline {subsection}{\numberline {5.4.3}Percep\c c\~ao da falha em n\IeC {\'\i }vel sist\^emico}{45}
+\contentsline {section}{\numberline {5.5}Aplicabilidade das t\'ecnicas de TPI e TPM}{45}
+\contentsline {section}{\numberline {5.6}S\IeC {\'\i }ntese do JOP em Sil\IeC {\'\i }cio}{46}
+\contentsline {subsection}{\numberline {5.6.1}Sistema de verifica\c c\~ao funcional}{46}
+\contentsline {subsection}{\numberline {5.6.2}Substitui\c c\~ao das BRAMs}{46}
+\contentsline {subsection}{\numberline {5.6.3}Inicializa\c c\~ao da \emph {Stack} RAM}{47}
+\contentsline {subsection}{\numberline {5.6.4}Adi\c c\~ao de uma JTAG para grava\c c\~ao da Flash e RAM externas}{47}
+\contentsline {subsection}{\numberline {5.6.5}Adicionar registradores de configura\c c\~ao dos perif\'ericos}{47}
+\contentsline {subsection}{\numberline {5.6.6}Revis\~ao do c\'odigo RTL}{48}
+\contentsline {subsection}{\numberline {5.6.7}Conclus\~ao}{48}
+\contentsline {chapter}{\numberline {6}Resultados}{49}
+\contentsline {section}{\numberline {6.1}Resultados dos Testes de inje\c c\~ao de falhas em simula\c c\~ao}{49}
+\contentsline {section}{\numberline {6.2}Resultados da s\IeC {\'\i }ntese f\IeC {\'\i }sica em FPGA}{49}
+\contentsline {section}{\numberline {6.3}Descri\c c\~ao e Resultados dos Testes de inje\c c\~ao de falhas em FPGA}{50}
+\contentsline {section}{\numberline {6.4}Discuss\~ao dos Resultados}{51}
+\contentsline {subsection}{\numberline {6.4.1}Aumento de \'area de sil\IeC {\'\i }cio do JOP}{51}
+\contentsline {subsection}{\numberline {6.4.2}Efic\'acia dos testes}{51}
+\contentsline {subsection}{\numberline {6.4.3}Temporiza\c c\~ao}{51}
+\contentsline {chapter}{\numberline {7}Conclus\~oes e Trabalhos Futuros}{52}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{54}
+\contentsline {chapter}{Anexo 1 - Publica\c c\~oes Relacionadas a Esta Disserta\c c\~ao}{60}

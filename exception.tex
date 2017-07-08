@@ -1,0 +1,13 @@
+
+
+static int saved_sp;
+// Executado em caso de uma exceção
+// gerada pelo hardware
+static void except() {
+    saved_sp = Native.getSP();
+    if (Native.rdMem(Const.IO_EXCPT)==Const.EXC_CRCCACHE)
+    {
+        // Tratamento da exceção
+        handleException();
+    }
+}

@@ -1,0 +1,23 @@
+\select@language {brazil}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces implementa\c c\~ao em camadas de um sistema de tempo real.}}{7}
+\contentsline {subfigure}{\string \numberline {2.1(a)}{\ignorespaces }}{7}
+\contentsline {subfigure}{\string \numberline {2.1(b)}{\ignorespaces }}{7}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ciclo executivo, adaptado de \cite {TimeSys}.}}{9}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces invers\~ao de prioridades, adaptado de \cite {TimeSys}.}}{11}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces sequ\^encia de falha, erro e defeito, adaptado de \cite {helanothesis}.}}{12}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces fases de execu\c c\~ao de uma aplica\c c\~ao com modelo da especifica\c c\~ao SCJ, adaptado de \cite {jop:scjava}.}}{19}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces consumo x desempenho das tecnologias para implementa\c c\~ao de sistemas computacionais.}}{21}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces n\IeC {\'\i }veis de projeto de circuitos integrados, adaptado de \cite {rabaey}.}}{22}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces fluxo de desenvolvimento de um circuito l\'ogico integrado digital, baseado em \emph {standard cells}.}}{26}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces fluxo de desenvolvimento de um circuito integrado (l\'ogico digital ou anal\'ogico) em n\IeC {\'\i }vel de transistores (\emph {full custom}).}}{29}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces diagrama de blocos do JOP, adaptado de \cite {JopHandbook}.}}{32}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces fluxo de montagem de aplicativo JOP, adaptado de \cite {JopHandbook}.}}{36}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces \emph {floorplan} do JOP original, adaptado de \cite {lesc}.}}{38}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Configura\c c\~oes do JOP - (A) JOP original (B) JOP Original e TPI (C) JOP Original, TPI e TPM.}}{40}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

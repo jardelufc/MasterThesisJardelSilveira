@@ -1,0 +1,131 @@
+\chapter{Projeto de Circuitos Integrados Lógicos Digitais}
+\label{Chapter:PCILD}
+
+\PARstartOne{O}s equipamentos de tecnologia da informação e comunicação estão presentes no cotidiano do homem, seja quando utiliza um celular para se comunicar ou um \emph{laptop} para ler os \emph{emails}, dentre outros exemplos existentes. Os dispositivos semicondutores, tais como transistores, diodos e circuitos integrados são itens necessários para cons\-tru\-ção dos equipamentos eletrônicos. Destes itens, os circuitos integrados merecem atenção especial por terem embutido, em um único chip, inúmeras funções e dispositivos eletrônicos.
+
+\section{Introdução}
+	O projeto de um circuito integrado tem elevado custo de desenvolvimento e de prototipação. A decisão por iniciar o projeto de um novo circuito integrado deve passar por uma análise detalhada de viabilidade técnica e mercadológica. Do ponto de vista técnico, esta decisão está associada aos requisitos da aplicação, tais como desempenho e consumo. Ao se comparar na ordem decrescente de consumo e de aumento de desempenho, conforme mostra a Figura \ref{asicfit}, tem-se processadores de uso geral, processadores de uso específico, FPGAs (\emph{Field-Programmable Gate Arrays}), CPLDs (\emph{Complex Programmable Logic Device}) e ASICs (\emph{Application-Specific Integrated Circuit}). Os ASICs apresentam o menor consumo e o maior desempenho, justamente por serem específicos para uma determinada aplicação \cite{ednasicfpga}.  	
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.5in]{asicfit}
+
+\caption{consumo x desempenho das tecnologias para implementação de sistemas computacionais.}
+\label{asicfit}
+
+\end{figure}
+
+	Do ponto de vista mercadológico, as principais variáveis são: o volume de produção esperado, o tempo e o custo necessários para o desenvolvimento. O custo do desenvolvimento deverá ser diluído no volume de produção. Entretanto, se o tempo necessário para desenvolver o CI se sobrepuser muito à janela de oportunidade de vendas do produto, então não valeria a pena iniciar seu projeto. Destacam-se dois exemplos que estão nos extremos da relação volume de produção x custo de desenvolvimento.
+	Considere, primeiramente, a decisão que foi tomada para se projetar um CI para aplicação em tocadores portáteis MP3. Do ponto de vista técnico, apenas um ASIC poderia atingir os requisitos de baixo consumo de um dispositivo dedicado a esta aplicação. O volume de produção esperado seria muito grande e um CI para esta aplicação não possui um custo de projeto tão elevado. Logo, a decisão por iniciar este CI é óbvia.
+	Agora, considere um projeto de um equipamento para interfacear com redes óticas e que precisa manipular um volume de dados da ordem de dezenas de Gigahertz. Este equipamento é utilizado por operadoras de telecomunicações e tem uma produção esperada de poucas centenas de unidades e, além disso, tem um custo de produção da ordem de dezenas de milhares de dólares. Neste caso, o projeto de um CI para manipular esse volume de dados é não trivial. Mesmo usando as tecnologias mais modernas de fabricação para viabilizar a operação nesta frequência, o leiaute deverá ser muito otimizado e, portanto completamente manual. Logo, teria o projeto um custo muito elevado e longo tempo de desenvolvimento. Neste sentido, a decisão pelo uso de uma FPGA de alto desempenho e o não início de um novo projeto de CI seria a mais acertada.
+	Circuitos eletrônicos podem ser projetados em vários níveis e em ordem decrescente de complexidade, tem-se: sistema, módulo, porta lógica, circuito e processo \cite{rabaey}, conforme mostra a Figura \ref{designlevel}.
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=3.0in]{designlevel}
+
+\caption{níveis de projeto de circuitos integrados, adaptado de \cite{rabaey}.}
+\label{designlevel}
+
+\end{figure}
+
+\section{Estado da Arte e Desafios do \emph{Deep Sub Micron}}
+	Em função do volume de produção, os processos de fabricação para circuitos digitais (ou quase totalmente digitais) baseados em tecnologia CMOS (\emph{Complementary Metal-Oxide-Semiconductor}) dominaram o mercado, sobrepondo-se à tecnologia bipolar. Para circuitos digitais, a vantagem da tecnologia CMOS está no consumo reduzido de energia.
+	Por outro lado, os projetistas de circuitos analógicos, além de trabalharem com a tecnologia CMOS para desenvolverem seus circuitos, que é menos adequada do que a tecnologia bipolar, são obrigados a se adequar a uma redução contínua da tensão de operação (de 12V da tecnologia bipolar para os 3.3V da tecnologia CMOS atual). A faixa de operação pequena de tensão (0-3.3V) exige circuitos analógicos com uma melhor tolerância a ruídos \cite{razavi}.
+
+	Nos dias atuais, existem disponíveis processos BICMOS (\emph{Bipolar Junction Transistors and CMOS}), os quais permitem ter no mesmo circuito integrado, circuitos desenvolvidos em tecnologia bipolar e circuitos desenvolvidos em tecnologia CMOS. O processador Pentium Pro, por exemplo, foi desenvolvido usando esta tecnologia.
+	De acordo com o ITRS (\emph{The International Technology Roadmap for Semiconductors}), não existe uma alternativa com condições reais para substituir a tecnologia CMOS, pelo menos para os próximos 15 anos, o que nos permite prever que a dimensão da tecnologia de fabricação dos transistores (comprimento do gate e outros), irá cair de 32nm em 2005 (nó tecnológico de 90nm), para 6nm em 2020 (nó tecnológico de 14nm), permitindo um salto sem precedentes em termos de desempenho e complexidade.
+
+O tamanho da tecnologia de manufatura de circuitos integrados foi reduzido, com o passar dos anos, seguindo uma progressão geométrica de razão aproximadamente 0,7: 1$\mu$m, 0,7$\mu$m, 0,5$\mu$m, 0,35$\mu$m, 0,25$\mu$m, 180nm, 130nm, 90nm, 65nm, 45nm, 32nm, 22nm \cite{baker}. Este quadro sugere que nos próximos anos, a taxa de redução poderá gerar transistores ainda menores (15nm, 10nm, 7nm, 3,5nm, 2,5nm, 1,8nm, 1,3nm, 0,9nm). Bastante interessante é o fato de que isto é consistente com a lei de Moore \cite{moorelaw}.
+	Como resultado da redução contínua das dimensões (inclusive espessura das camadas de silício, dióxido de silício e metal) e da tensão de operação dos dispositivos de silício, o custo da lógica e o consumo de energia diminuem significativamente a cada geração, enquanto a velocidade de operações dos transistores aumenta. Na era sub-micron (tecnologia de manufatura com característica menor do que 1$\mu$m), acreditava-se que o processo de litografia não avançaria além do limite de 0,35$\mu$m (era do \emph{deep sub micron}), pelo fato de esta dimensão ser próxima do comprimento de onda da luz \cite{computationallithography}.
+	O processo de litografia avançou muito além e hoje, dispositivos comerciais são fabricados na tecnologia de 65nm. Assim, como consequência da redução contínua das dimensões das estruturas dos CIs, problemas relacionados à confiabilidade têm sido cada vez mais críticos.  Dois problemas são apontados pelo ITRS como desafios para as próximas gerações de circuitos integrados: projeto para testabilidade e projeto para confiabilidade.
+
+A preocupação em garantir a testabilidade e a confiabilidade dos CIs é parcialmente transferida do nível de processo para o nível de projeto  \cite{atienza}.
+	Antes, apenas sistemas com altos requisitos de confiabilidade precisavam de técnicas de tolerância a falhas, pois, os dispositivos recebidos pelo integrador eram em sua maioria sem falhas. No novo cenário que se apresenta, devido ao tamanho dos canais de transistores e conexões estarem abaixo do comprimento de onda da luz, o controle das variações de processo é cada vez mais complexo. Por isto, o processo de fabricação necessita de  auxílio do projetista do circuito integrado para que, ainda que exista alguma falha no circuito integrado devido ao processo de fabricação, este opere normalmente, graças a um projeto tolerante a falhas. Neste sentido, mesmo para uma aplicação do cotidiano, a falha será um evento considerado normal e o circuito integrado deverá ser capaz de detectar e corrigir a falha \cite{nicolaidis,mudge,atienza}. Além disso, deseja-se que o preço pago, em termos de área de silício e de desempenho, seja o mínimo possível. 	
+\section{Requisitos de Projeto}
+	Os requisitos de projeto de um circuito integrado constituem o ponto de partida para o desenvolvimento do mesmo. É necessário que todos os requisitos sejam especificados antes da fase de planejamento do projeto.
+	Requisitos específicos da aplicação, tais como: tempo de execução de uma operação; testabilidade; classe de temperatura; consumo; proteção contra ESD (\emph{Electrostatic Discharge}); imunidade a ruído conduzido e irradiado; tolerância a radiação; segurança dos dados; suporte a \emph{debug}, entre outros, deverão ser explicitamente declarados no documento de requisitos \cite{harris}.
+Os requisitos de funcionamento lógico de um circuito, ou seja, a relação entre sinais de entrada e de saída, pode ser feita em forma de um documento de especificação de requisitos ou ainda através da implementação da funcionalidade deste circuito em \emph{software}. Neste caso, um programa executável, e possivelmente seu código fonte, são fornecidos como ponto de entrada para o projetista de circuitos lógicos digitais.
+
+\section{Projeto e Processo de Fabricação}
+	Baseado nos requisitos, a tecnologia de fabricação deverá ser selecionada. Vários arquivos de tecnologia usualmente fornecidos pelos ma\-nu\-fa\-tu\-ra\-do\-res de circuitos integrados são necessários para a continuação do projeto: DK (\emph{Design Kit}), \emph{standard cells}, \emph{PAD Cells} e Gerador de Memórias.
+	Uma Biblioteca de \emph{standard cells} é um conjunto de portas lógicas desenvolvidas e testadas para um determinado processo de fabricação. Para cada porta lógica, têm-se esquemático, leiaute, características temporais e elétricas.
+	O leiaute de cada porta lógica é desenhado dentro de uma área retangular e a altura desse retângulo é a mesma para todas as portas lógicas. Os pontos de conexão para alimentação da porta lógica estão sempre no topo e na base da célula \cite{harris}.
+ 	No caso de uma memória, cada \emph{bit} é formado por 6 (seis) ou mais transistores.
+
+ Esses \emph{bits} estão dispostos em forma de uma matriz bidimensional e representam estruturas de silício extremamente regulares, e por isso existem \emph{softwares} para geração automática de módulos de memória. Esses \emph{softwares} são conhecidos como geradores de memória ou ainda compiladores de memória. São específicos para o processo de fabricação e podem ser fornecidos pelo manufaturador do circuito integrado.
+	O processo de fabricação determina regras para o desenvolvimento do leiaute, tais como: espaçamento mínimo entre conexões e dimensões mínimas das conexões. Essas regras são passadas ao projetista por escrito e em forma de arquivos de tecnologia. Esses arquivos são específicos para o \emph{software} de leiaute. Para o \emph{software} da Cadence, por exemplo, esses arquivos estão armazenados na forma de um Kit que é conhecido como CDK. A partir das informações disponíveis no CDK, o \emph{software} de leiaute é capaz de auxiliar o engenheiro de leiaute, alertando-o sempre que uma regra de leiaute for violada. \emph{Softwares} automáticos de leiaute também fazem uso do CDK para gerarem leiautes compatíveis com o processo selecionado \cite{harris}.
+
+	Para universidades, pequenas empresas e centros de projetos de circuitos integrados, o caminho mais rápido para se ter acesso a esses kits é através de instituições que oferecem serviços de MPW (\emph{Multi Project Wafer}), como por exemplo, o serviço Mosis da Universidade da Carolina do Norte. Para preservar a propriedade intelectual, as células fornecidas pela fábrica não contêm informações a respeito do leiaute interno das células, pois são somente \emph{front-end kits}\cite{mosis}.
+	Para alguns processos de manufatura, existem kits e bibliotecas de \emph{standard cells}, desenvolvidas por universidades e que são inteiramente abertas e gratuitas \cite{ncsu,vtvt,osu}. Para fins de aprendizado, esses kits são, sem dúvidas, extremamente úteis. Para fins de desenvolvimento, esses kits não são, possivelmente, tão otimizados como os kits fornecidos pelos manufaturadores de CIs.
+
+\section{Fluxos de Projeto}
+	Dois fluxos principais de projeto se distinguem: \emph{full custom} e \emph{standard cells}. No fluxo de projeto baseado em \emph{standard cells}, um circuito definido utilizando uma HDL (\emph{Hardware Description Language}) é sintetizado em termos de portas lógicas, que são as \emph{standard cells}, enquanto que no fluxo de projeto \emph{full custom}, os circuitos são desenhados em nível de transistores. Em um mesmo projeto, podem-se utilizar ambos os fluxos, porém em partes diferentes do projeto. No projeto de processadores, é comum desenvolver o bloco de controle utilizando \emph{standard cells} e desenvolver a unidade de execução em um fluxo \emph{full custom}, o que permite otimizar em termos de área e de desempenho esta unidade. Nesta seção, descrevem-se ambos os fluxos de projeto. Nessa descrição, serão mencionadas ferramentas como exemplo.
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=5.0in]{devflow}
+
+\caption{fluxo de desenvolvimento de um circuito lógico integrado digital, baseado em \emph{standard cells}.}
+\label{devflow}
+
+\end{figure}
+
+
+\subsection{\emph{Standard Cells}}
+	A Figura \ref{devflow} mostra o fluxo de desenvolvimento, baseado em \emph{standard cells} de um circuito lógico integrado digital. Conforme mostrado nesta figura, a saída de cada fase, sempre que possível, é confrontada com a especificação original ou com a saída de fase anterior, de forma a tornar o fluxo de desenvolvimento mais robusto.
+
+	Após gerar a especificação de requisitos, conforme descrito anteriormente, o projetista lógico descreverá o circuito lógico, para fins de síntese, em nível RTL (\emph{Register Transfer Level}), na linguagem de sua escolha, VHDL, Verilog ou outra.
+
+	Utilizando-se uma metodologia de verificação funcional, a implementação desse circuito lógico deve ser verificada contra a especificação original . Uma metodologia de verificação que se provou eficaz é a metodologia VeriSC \cite{ipsoc2006}, tendo esta metodologia evoluído  para a metodologia BVM (\emph{Brazil-IP Verification Me\-tho\-do\-lo\-gy}), que substituiu com vantagens a metodologia VeriSC. Esta metodologia (BVM) foi implementada na linguagem SystemVerilog, utilizando conceitos e biblioteca de OVM (\emph{Open Verification Me\-tho\-do\-lo\-gy}). Esta metodologia tem como objetivo aumentar a produtividade do engenheiro na realização no processo verificação funcional \cite{bvm}.
+
+	O circuito lógico deve ser testado em FPGA, e todo o fluxo de projetos para FPGA deverá ser seguido antes de continuar a sequência deste fluxo.
+	Na fase de síntese as restrições temporais dos sinais, incluindo frequência de operação do circuito, são definidas. A saída desta fase é um arquivo de descrição de \emph{hardware} estrutural, baseado nos modelos de portas lógicas disponíveis na biblioteca de \emph{standard cells}, que consiste de um \emph{netlist} em formato Verilog.
+	Duas ações podem ser tomadas para garantir que a síntese lógica seja realizada com sucesso: uma simulação em nível de portas lógicas e uma verificação formal.
+
+A verificação formal é um processo rápido e simples do ponto de vista do usuário, realizado, por exemplo, com o auxílio da ferramenta Conformal \cite{formalverification}. A simulação em nível de portas lógicas é lenta, por consumir muitos recursos computacionais, tendo em vista que cada porta lógica (podem ser milhares ou milhões) será simulada como uma chave, levando em consideração características como atraso que estão disponíveis no arquivo SDF (\emph{Standard Delay Format}), fornecido junto com as \emph{standard cells}. O projetista poderá optar por não realizar esta simulação, desde que a ferramenta de síntese garanta que as restrições temporais dos sinais sejam cumpridas.
+	Para o leiaute do circuito integrado, utiliza-se, por exemplo, a ferramenta Encounter e as seguintes etapas são realizadas:
+\begin{itemize}
+\item primeiramente, a área de silício ocupada é definida;
+\item os \emph{pads} são posicionados nas bordas da região de silício;
+\item anéis de alimentação (vcc e gnd) são desenhados com espaçamento, posicionamento e camada de metal definidos pelo usuário;
+    \item as portas lógicas são posicionadas, manual ou automaticamente;
+    \item a árvore de \emph{clock} é sintetizada, automática ou manualmente; e
+    \item finalmente as conexões entre as portas lógicas são realizadas, manual ou automaticamente, utilizando área e camadas de metal indicadas pelo usuário.
+\end{itemize}
+	A inserção de portas lógicas de reserva (\emph{spare gates}) poderá representar um ganho de tempo e de recursos financeiros, caso algum erro seja detectado durante a fase de testes.  Para a manufatura de uma segunda versão, ao invés se alterar todas as máscaras, é possível que se precise alterar apenas algumas delas, portanto reduzindo o custo da prototipação da segunda versão do silício.
+	É importante lembrar que na etapa de síntese lógica, as características elétricas das conexões são consideradas ideais. Ao fazer o leiaute, estas conexões ideais passam a ser reais. Neste sentido, as características dessas conexões devem ser então consideradas para verificar se as restrições temporais e elétricas estão sendo cumpridas. Isto é feito com o auxílio da ferramenta Celt IC.
+
+	Uma vez que as células fornecidas pela fábrica, para universidades e pequenas empresas, não contém informações a respeito do leiaute interno das células (pois são somente \emph{front-end kits}), torna-se mais complicado fazer o processo de verificação final LVS (\emph{Layout Versus Schematics}), que verifica o esquemático gerado pela síntese lógica contra o circuito lógico extraído a partir do leiaute final (usando o \emph{software} Virtuoso). Um outro processo final de checagem, o DRC (\emph{Design Rule Check}), o qual verifica se as restrições de leiaute impostas pelo arquivo de tecnologia estão sendo seguidas, não pode ser realizado integralmente devido à falta do leiaute interno das células. Portanto, o processo como um todo depende das fases anteriores e deve ser correto por construção.
+	Todos os passos acima podem ser realizados utilizando interfaces gráficas e inserindo os dados de entrada manualmente, ou de forma completamente automatizada através de scripts em TCL (\emph{Tool Control Language}) e Makefile. Este último é particularmente interessante para refazer o projeto inteiro, após uma modificação, com apenas um único comando.
+	Então o arquivo de manufatura no formato GDSII (\emph{Gerber Data Stream Information Interchange II})  é gerado e pode ser enviado por exemplo, ao Mosis, o serviço de manufatura da universidade Carolina do Norte para universidades e pequenas empresas. No Mosis, as células serão instanciadas, ou seja, o leiaute interno das \emph{standard cells} serão combinados com o leiaute do circuito integrado. Finalmente, o arquivo de leiaute é enviado para o manufaturador do circuito integrado.
+
+\subsection{\emph{Full Custom}}
+	No fluxo \emph{full custom}, o circuito lógico e o leiaute são inteiramente desenvolvidos em nível de transistor. Com este fluxo de projeto, é necessária uma equipe de engenharia, pois cada parte do circuito deve ser manualmente projetada. Como resultado, obtém-se um projeto muito otimizado em termos de área e velocidade de execução. A Figura \ref{devflowfullcustom} mostra o fluxo de desenvolvimento de um módulo ou de um circuito integrado utilizando um fluxo \emph{full custom}.
+
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.5in]{devflowfullcustom}
+
+\caption{fluxo de desenvolvimento de um circuito integrado (lógico digital ou analógico) em nível de transistores (\emph{full custom}).}
+\label{devflowfullcustom}
+
+\end{figure}
+
+
+
+
+	Após a especificação, que deve ser elaborada em forma de um documento de especificação de requisitos, seleciona-se o processo no qual o módulo ou CI será fabricado. Selecionada a tecnologia, a fábrica que detém a mesma deverá fornecer um kit de desenvolvimento, que contém células básicas, como transistores, resistores, capacitores e \emph{pads}. Essas células são usualmente conhecidas como PCELLs ou células parametrizáveis. São parametrizáveis porquê é possível escolher o comprimento e largura de um transistor antes de instanciá-lo em um circuito.
+
+De posse do kit de desenvolvimento, e a partir da especificação, o circuito eletrônico será projetado utilizando as PCELLs disponíveis no kit de desenvolvimento. Para cada PCELL, o projetista do circuito eletrônico deverá informar os parâmetros da referida célula (W, a largura, e L, o comprimento, no caso de transistores). Em função do circuito eletrônico, incluindo-se os parâmetros e modelos das PCELLs, uma simulação do circuito descrito em linguagem SPICE (\emph{Simulated Program with Integrated Circuits Emphasis}) deverá ser realizada para verificar se o projeto está de acordo com as especificações. O passo seguinte é a elaboração do leiaute, que compõe-se do posicionamento das PCELLs e roteamento das conexões entre estas. Após o leiaute, faz-se uma re-simulação do circuito, porém agora incluindo-se as ca\-racte\-rís\-ti\-cas elétricas dos componentes parasitas \footnote{Os finos ``fios" metálicos usados para as conexões, assim como o acoplamento eletromagnético das camadas que compõem o circuito podem gerar dispositivos indesejáveis, tais como indutores e capacitores, os quais são classificados como componentes parasitas.} gerados pelas conexões internas do circuito integrado. Na etapa seguinte, verifica-se se o leiaute está de acordo com o esquema elétrico projetado através de um procedimento conhecido como LVS. Finalmente, é verificado se as regras de leiaute impostas pelas restrições da tecnologia em uso estão sendo cumpridas; isto é feito por um procedimento identificado como DRC (\emph{Desing Rule Check}).
+
+
+\section{Reuso de módulos}
+	Módulos desenvolvidos utilizando fluxo \emph{full custom} ou \emph{standard cells} em projetos anteriores podem ser reusados em novos projetos, desde que tenham sido desenvolvidos com tal finalidade \cite{ipprocess}. Além da redução do tempo de desenvolvimento, por serem módulos testados em projetos anteriores, diminuem o risco do projeto atual.
+	O desenvolvimento para reuso baseia-se no uso de padrões de interconexão entre módulos de propriedade intelectual. Por exemplo, para módulos \emph{soft}, a descrição lógica, em nível comportamental ou estrutural é reusada. Portanto, o leiaute deve ser refeito para o processo de fabricação selecionado. Restrições temporais e elétricas deverão ser garantidas para este novo leiaute do módulo.
+	Módulos do tipo \emph{hard} são específicos para um processo de fabricação e incluem o leiaute do módulo. Desta forma, o reaproveitamento é total e não é necessário refazer e verificar as restrições temporais e elétricas para o leiaute do módulo.

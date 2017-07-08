@@ -1,0 +1,278 @@
+\chapter{Open Risc FT}
+\section{Resumo}
+
+	A importância da tolerância a falha em nível da arquitetura do processador está cada vez mais importante devido ao impacto que a complexidade no projeto desses dispositivos impõe na taxa de falhas no processo de fabricação desses dispositivos. Soluções de tolerância a falhas, disponíveis em nível sistêmico ou lógico, muitas vezes utilizam-se de re-execução das instruções ou ciclos de processos que penalizam sistemas com restrições temporais de execução, ou seja, sistemas de tempo real. Neste sentido, a motivação deste trabalho foi o desenvolvimento de uma técnica híbrida que fornece detecção e mascaramento de falhas, minimizando as penalidades de re-execução dos ciclos na recuperação de erros detectados e permitindo, com isso, o uso deste processador em sistemas de tempo real.
+Neste trabalho propomos uma arquitetura para proteger a lógica e a memória de um processador contra SEU (\emph{Single Event Upset}). Uma alta cobertura com relativa baixa alteração do hardware é obtida utilizando a detecção de falhas com a recuperação e mascaramento da mesma. A estratégia para proteger sinais de controle dependentes de instrução estática utiliza replicação distribuída e utiliza, historicamente, o conceito de Redundância modular tripla (TMR). Este trabalho apresenta uma proposta de projeto de um núcleo tolerante a falhas contra os efeitos da propagação de falhas no core do openRISC 1200 de 32 bits. A abordagem adotada contempla a combinação de várias técnicas de tolerância a falhas como Algoritmo de Hamming, Reed Solomon, duplicação com paridade e redundância modular tripla (TMR).
+\section{Introdução}
+
+Questões de desempenho e custo dominaram os esforços de otimização dos projetos de microprocessadores até os anos 90. Entretanto, atualmente, a confiabilidade vem se tornando o principal interesse quando no tocante a arquiteturas de microprocessadores \cite{seumitigation, softerrors}. Esta crescente demanda por projetos que apresentam, em sua arquitetura, características de tolerância a falhas, está relacionada tanto ao fato destes microprocessadores operarem em velocidades cada vez maiores (na ordem de Ghz) quanto às aplicações, que hoje, necessitam de processamento de tempo real, ou seja, com \emph{deadline} de operação.
+Por outro lado, o espaço para aplicações de sistemas digitais cresceu muito na última década e, como resultado, a necessidade por características de tolerância a falhas tornou-se fundamental nestes sistemas. Embora os sistemas de missão crítica contenham frequentemente redundância de dispositivos para permitir a operação continuada na presença de falhas operacionais, outros sistemas, com espaço limitado para dispositivos redundantes, requerem a detecção de falha bem com a recuperação da mesma, muitas vezes com o mínimo de redundância dos dispositivos.
+	Diante deste cenário, percebe-se cada vez mais a necessidade de utilização de técnicas de Tolerância à falhas nos sistemas atuais, antes restritas às aplicações espaciais e médicas, e hoje presente em diversas aplicações tais como: automóveis, internet, operações bancárias e várias outras aplicações onde os requisitos temporais e de alta disponibilidade são prioritário para o correto funcionamento do sistema.
+	\emph{Single Event Upset} (SEU) é um tipo importante de falhas transientes. SEU é de interesse principal no ambiente espacial, mas também em aplicações terrestres, na medida em que esse fenômeno também é observado na atmosfera da terra \cite{556861}. Estas falhas são arbitrárias e transientes na natureza, e são causadas por condições ambientais instáveis, tais como a presença de radiação \cite{seumitigation, softerrors, 556861, 1003798}. Devido ao tamanho reduzido dos circuitos eletrônicos, aliado a altas taxas de freqüências de operação, de tensão e de corrente, são esperados, graves problemas de SEU proveniente do próprio ruído de operação destes dispositivos. Nestes casos, onde mesmo que o circuito eletrônico possua proteção contra a radiação externa, o problema de SEU poderá ocorrer, pois a origem está interno ao silício \cite{1003798, 1311877, scaletech}. Neste sentido, técnicas de tolerância a falhas em nível de design de CI, devem ser utilizadas a fim de evitar interferência interna.
+Uma etapa chave para se projetar um microprocessador tolerante a falhas é estudar os efeitos e a propagação das falhas nesses dispositivos. Os efeitos das falhas nos microprocessadores modernos foram estudados em diversos trabalhos. Em \cite{1311877}, uma análise do efeito de falhas transientes no Alfa 21264 e AMD Athlon foi caracterizada pela simulação, baseada na injeção de falha. Em \cite{1253674}, uma análise dos efeitos de erros transientes nas memórias cache da arquitetura do processador SPARC V8 por injeção e simulação de falhas. Efeitos de SEUs em memórias cachês dos processadores comerciais foram estudados em \cite{1030193}. Em \cite{leon3ft}, a injeção da falha utilizando cargas com íons pesados provou a eficiência do microprocessador tolerante a falhas no LEON-FT. Em \cite{1030217}, o comportamento de um microcontrolador 8051 tolerante à SEU protegido por um único código de correção de erros na presença das viradas múltiplas foi investigado. Em \cite{tpi}, técnicas de tolerância a falhas, para proteger a memória cachê SRAM de código, interna ao processador Java(JOP), contra SEU, foi investigada.
+Este artigo apresenta uma proposta de projeto de um microprocessador, com o uso de técnicas de tolerância a falhas aplicadas em nível de codificação HDL no microprocessador OpenRISC 1200 de 32 bits. Este trabalho tem como objetivo proteger o processador contra SEU e SET, bem como, através de técnicas combinadas de polinômios de correção de erros BCHs, proteger a memória do processador. Neste trabalho também foi realizado testes de confiabilidade no openRISC 1200 modificado, através de técnicas de injeção de falhas pela JTAG, para mensurar o grau de confiabilidade deste e assim compará-lo com outros trabalhos de projeto na área de tolerância a falhas em sistemas processados.
+\section{Arquitetura do OpenRISC 1200}
+
+A micro-arquitetura openRISC é mantida pelo grupo OpenCores \cite{opencores}, uma iniciativa da comunidade de hardware para o desenvolvimento de \emph{soft-cores} de domínio público. O objetivo é obter uma plataforma que seja facilmente extendida com novos componentes de hardware e assim versátil o suficiente para suportar diferentes domínios de aplicações. Também conhecida como OR1K, esta plataforma inclui um processador RISC de 32 bits com \emph{pipeline} de 5 estágios, cache de dados e instruções, suporte a memória virtual e algumas funções básicas de DSP.
+
+A Figura \ref{bdor1200} ilustra o diagrama de componentes desta micro-arquitetura. Além do micro-processador e de uma MMU, o OR1K também inclui um controlador de interrupções programável (PIC), uma unidade de depuração (DBG), um contador de tempo (TIMER) e uma unidade avançada de gerenciamento de energia (PM). Com a exceção do contador de tempo, estes outros dispositivos possuem interfaces externas para que suas funcionalidades sejam realizadas em conjunto com outros componentes.
+
+
+	\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{bdor1200}
+
+\caption{ Arquitetura do openRISC 1200 - Adaptador de \cite{or1200man}}
+						\label {bdor1200}
+
+\end{figure}
+
+A PM I/F é usada para o gerenciamento do consumo de energia dos periféricos, a DB I/G tem a ela conectados dispositivos que exteriorizam dados para a sua depuração e a INT I/F implementa as linhas de interrupção de periféricos conectados ao núcleo. A inclusão de novos componentes à OR1K respeita o padrão de interface WISHBONE e pode ser através das interfaces WB I, as quais mapeiam em memória os dispositivos.
+\section{Detecção de Erros e Tolerância a Falhas}
+\subsection{Registradores tolerantes a SEU e SET}
+
+Atualmente, a principal fonte de falhas transientes nos circuitos integrados é a radiação \cite{946456, 1545891}. Partículas ionizantes, advindas principalmente da atividade solar, ao colidirem com uma região sensível de um circuito (dreno de um transistor que se encontra desligado) \cite{4336490, 1045537}, podem ocasionar a geração de uma trilha de ionização entre o dreno e o substrato do transistor, permitindo o estabelecimento de um pulso de corrente \cite{1045537}. Se essa corrente possuir amplitude e duração suficientes para carregar (ou descarregar) o nodo, gerando assim um pulso de tensão transiente, este pode vir a ser interpretado como uma mudança de nível lógico. Caso o mesmo não venha a ser mascarado logicamente, ou eletricamente, ou chegue ao registrador de saída dentro da janela de amostragem (\emph{latching window}), uma falha não-permanente ocorrerá no circuito.
+
+Se uma partícula energizada colidir com uma região sensível de um circuito
+combinacional, ocasionando a geração de um pulso transiente de tensão, tem-se o
+fenômeno chamado de SET (\emph{Sigle-Event Transient}) \cite{1173506, springerlink:10.1023/B:JETT.0000039608.48856.33, 1263850, 840845, 1498179}. Por outro lado, se uma partícula colide com uma região sensível de um elemento de memória, ocasionando uma mudança do valor lógico ali armazenado (também chamado de \emph{bit-flip}), atribui-se o nome de \emph{Single-Event Upset} ou simplesmente SEU \cite{1545891, 1545900, 1208578}.
+
+	A maioria das técnicas de alto nível utilizadas atualmente, tanto para proteção contra SEUs quanto para proteção contra SETs, baseia-se em redundância de hardware \cite{xapp197}, redundância temporal \cite{766651} ou em uma combinação de ambas \cite{limabook}, desta forma, estamos propondo um arquitetura mista tanto para proteção contra SEUs e SETs como para proteção de memória com o uso de EDAC.
+
+Neste sentido, o ponto inicial da nossa análise foi voltado para proteção dos flip-flops, pois os registradores e \emph{latches} podem sofrer inversão de bit no valor armazenado, causando erro no evento de leitura, que poderá se propagar alterando assim o resultado da computação. A técnica de TMR é normalmente a mais usada para detectar e corrigir os bits com poucos prejuízos de desempenho, pois os dados são processados em paralelos e enviados ao votador, que se encarregará de fazer a comparação e enviar o resultado desta votação.
+
+Um objetivo importante no desenvolvimento do openRISC-FT é o de usar um design tolerante a SEU e SET, no intuito de  manter o correto funcionamento quando da presença destes tipos de eventos.  Neste sentido, a nossa meta para o openRISC-FT foi o de detectar e tolerar um erro em qualquer registro, sem a intervenção de software, suprimindo assim os efeitos do SEU e SET na lógica combinacional e seqüencial.
+
+Como o openRISC contém aproximadamente 2.352 flip-flops, usados para armazenamento temporário e máquinas de estado. Para proteger o processador contra SEU, cada registro foi implementado usando redundância modular tripla (TMR), isto é três registros em paralelo e um votador que seleciona o resultado da maioria, como mostra a Figura \ref{tmrflipflop}. Sendo assim, os \emph{flip-flops} são continuamente alterados a cada \emph{clock}, e qualquer erro de SEU será automaticamente removido dentro de um ciclo de \emph{clock}, pois a saída do votador manterá o valor comparado. O benefício deste esquema é o mascaramento e a remoção do erro, sem a necessidade de um processamento extra para análise dos resultados.
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{tmrflipflop}
+
+\caption{TMR no registrador}
+						\label {tmrflipflop}
+
+\end{figure}
+
+
+
+	Devido a quantidade de flip-flops presente no processador openRISC 1200, foi necessário o desenvolvido, de um software que analisa o source do openRISC 1200, e, através desta análise, converte automaticamente as partes do código fonte HDL, original do processador, em um código HDL tolerante a SEU em nível de registrador.
+Com este software podemos programar o openRISC com vários tipos de \emph{design} de circuitos digitais afim de identificarmos qual a melhor relação tolerância a falhas versus área ocupada na FPGA. Através de um simples parâmetro no software, podemos alterar o tipo de TMR a ser utilizado, inclusive, se for o caso, triplicar o votador ou até mesmo utilizar outro tipo de configuração NMR, como mostra a Figura \ref{confdovotador}.
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{confdovotador}
+
+\caption{Configuração do votador: Triplicado e simples}
+\label{confdovotador}
+
+\end{figure}
+
+O software foi de deteção e reconfiguração dos registros do processador openRISC, foi baseado na ferramenta da Xilinx TMRtools \cite{tmrtool}, assim como nas técnicas de \emph{design} proposta por Carmichael \cite{xapp197}, por Gaisler Research \cite{ftmr} e por Martin L. Shooman \cite{shoomanbook}.
+\subsection{Proteção da Lógica Combinacional}
+
+Uma única partícula ionizada pode se chocar com a lógica combinacional ou com a lógica seqüencial, apresentando um efeito de SEU no silício. A Figura \ref{topologiacdcs} ilustra uma topologia típica de circuito encontrado em quase todos os circuitos digitais, que mesclam a lógica combinacional com a seqüencial. Nestes casos, os dados do primeiro \emph{latch} são liberados para a lógica combinacional em um pulso de \emph{clock}, e assim as operações de lógica são executadas, com a informação recebida pelo primeiro \emph{latch}. A saída da lógica combinatória alcançará o segundo \emph{lacth} antes do próximo \emph{clock}. Neste caso, podemos observar que a informação que será repassada para o segundo \emph{latch}, sofreu interferência de dois \emph{upsets}, um na lógica seqüencial e outro na lógica combinacional, o que caracteriza que além de da necessidade de proteger a lógica seqüencial, como já demonstrado anteriormente, faz-se necessário também proteger a lógica combinacional, para eliminar a falha do sistema.
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{topologiacdcs}
+\caption{Topologia de circuito digitais combinacional e seqüencial}
+\label{topologiacdcs}
+
+
+\end{figure}
+
+Com respeito à proteção pela redundância modular tripla, a lógica combinacional é definida como todo o circuito aonde todos os trajetos viajam diretamente das entradas às saídas, sem formar lógica de laços(loops). Em outras palavras os estados da lógica dentro de um bloco da lógica combinational não são dependentes dos estados anteriores. Isto também inclui os circuitos em quais os resultados precisam de mais de um ciclo de \emph{clock} para ser computado.
+A proteção de um bloco da lógica puramente combinacional através de TMR é simples e direta. É suficiente criar três cópias independentes do circuito original Figura \ref{logicascsemtmr}. Na ocorrência de uma falha em alguns dos módulos redundantes, os valores corretos da saída serão regenerados no circuito de votação seguinte, como mostra a Figura \ref{tmrparalcs}.
+	
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{logicascsemtmr}
+\caption{Lógica seqüencial e combinacional sem TMR}
+\label{logicascsemtmr}
+
+
+\end{figure}
+
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{tmrparalcs}
+\caption{ TMR para lógica combinacional e seqüencial}
+\label{tmrparalcs}
+
+
+\end{figure}
+
+
+Deve-se notar que o circuito votador não precisa ser introduzido à direita dos módulos de saídas. A votação pode ser realizada no bloco seqüencial seguinte à lógica ou nos pinos de saída. A razão para isso é que, como os estados das saídas são, todas às vezes, uma função das entradas atuais, ou seja, não é possível para um erro "ser armazenado" em uma estrutura combinacional, no próximo \emph{clock}, quando as entradas mudarem o erro já não estará mais na lógica. Sendo assim, quando a causa do erro estiver corrigida (por exemplo, uma entrada errônea retornar a seu valor correto), o módulo produzirá outra vez as saídas corretas.	
+
+\subsection{Proteção da memória}
+
+Experimentos em memórias sob altos fluxos de prótons e íons mostraram que a probabilidade de falhas múltiplas provocadas por um único íon vem aumentando ao longo dos anos \cite{983155, 819103 , 856502}.
+
+Neste sentido, foi utilizada uma técnica baseada em códigos de correção de erros para proteção de memórias contra falhas múltiplas. A técnica utilizada combina os códigos Reed-Solomon e Hamming \cite{944038} para garantir confiabilidade em presença de múltiplas falhas com reduzidas penalidades em área e desempenho.
+
+O código de Hamming \cite{errorcodehandbook} é largamente utilizado para proteger memórias contra SEU por causa de sua capacidade de corrigir falhas simples com reduzidas penalidades de área e desempenho \cite{827386}. Por outro lado, Reed-Solomon \cite{errorcodehandbook} é um código de correção de erros baseado em blocos, capaz de tratar múltiplos erros.
+
+Sendo assim a combinação destas duas técnicas, provê ao openRISC, a capacidade de corrigir falhas simples e múltiplas a nível de memória SRAM.
+
+\subsubsection{Código de Hamming}
+
+O código de Hamming é um código binário detector e corretor de erros que satisfaz a equação, $d+p+1 \leq  {2}^{p}$, onde d é o número de bits de dados e p é o número de bits de paridade. De acordo com esta equação, o código de Hamming pode corrigir todos erros de único bit em palavras de d bits e detectar erros de dois bits quando um bit de paridade total é usado (SEC-DED) \cite{944038}.
+A implementação do código de hamming é composta por um bloco combinacional responsável por codificar os dados (bloco codificador), inclusão de bits extras na palavra para a paridade (\emph{latches} ou \emph{flip-flops} extras) e outro bloco combinacional responsável por decodificar os dados (bloco decodificador). O bloco codificador calcula os bits de paridade e pode ser implementado por um conjunto de portas lógicas {XOR} de duas entradas. O bloco decodificador é mais complexo que o bloco codificador, porque não necessita só detectar a falha, mas também deve corrigi-la. Basicamente é composto pela mesma lógica que calculava a paridade mais um decodificador que indicará o endereço do bit que contém o erro. O bloco decodificador também é composto de um conjunto de portas {XOR} de duas entradas e algumas portas {AND} e inversores.
+\subsubsection{Código Reed-Solomon}
+
+Reed-Solomon é um código corretor de erros que foi concebido para tratar o problema de correção de múltiplos erros. Um código Reed-Solomon é especificado como $RS (n, k)$ com símbolos de s bits, onde n é o número total de símbolos por palavra de código e k é o número de símbolos de informação por palavra de código. O número de símbolos de paridade é igual a $n - k$, onde $n$ é $({2}^{s} - 1)$. Um decodificador Reed-Solomon pode corrigir até t símbolos incorretos, onde $2t = n - k$ (ver Figura \ref{palavrars}).
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{palavrars}
+\caption{ Palavra de código Reed-Solomon}
+\label{palavrars}
+
+
+\end{figure}
+
+O processo de codificação é o seguinte, divisão dos bits de dados em símbolos de s bits, multiplicação de cada símbolo por constantes apropriadas, operações booleana XOR entre os resultados das multiplicações para encontrar os símbolos de paridade R e S. O algoritmo RS necessita de um número grande de tabelas para as multiplicações. Mas para implementação em hardware, tabelas têm um custo muito grande, e para executar a operação em um só ciclo, são necessárias tabelas para cada multiplicação. Na implementação desenvolvida, essas tabelas foram substituídas por um multiplicador otimizado que utiliza portas XOR e AND \cite{reedsolomon}.
+O processo de decodificação é a divisão dos bits recebidos em R, S e símbolos de dados, multiplicação desses símbolos por constantes, operações de XOR dos últimos resultados para encontrar S0 e S1. Se S0 e S1 são iguais a zero, nenhum erro ocorreu, caso contrário, S1/S0 é a localização do erro e S0 é o padrão do erro. Em um decodificador que só detecta se há erros, sem nenhuma correção, os passos são basicamente os mesmos do codificador.
+
+\subsubsection{Arquitetura da Memória Tolerante a Falhas Transientes Múltiplas}
+
+Uma memória de dados de palavra de n bits pode ser protegida contra falhas usando técnicas baseadas em códigos de correção usando blocos codificador e decodificador, e bits extras para armazenar as paridades, como apresentado na Figura \ref{ftmemorymodel}. O codificador e o decodificador podem usar qualquer código de correção de erros. Uma limitação desta abordagem é que os dados são codificados nas operações de escrita, e decodificados nas operações de leitura. Então, é possível que ocorra acumulação de falhas, e é dependente da freqüência das operações de leitura e escrita da aplicação. No caso de se usar código de Hamming, ele só pode corrigir falhas em um único bit de memória.
+
+
+
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{ftmemorymodel}
+\caption{Esquemático geral de uma memória tolerante a falhas}
+\label{ftmemorymodel}
+
+
+\end{figure}
+
+
+
+
+Para ser capaz de corrigir falhas em múltiplos bits da memória, o código RS deve ser utilizado. A palavra de dados é dividida em símbolos, e cada palavra de dados é um código RS diferente. Por exemplo, numa memória de 256 linhas, a palavra de dados usa a linha inteira, e cada palavra de dados é dividida em m símbolos de acordo com o tamanho do símbolo e do tamanho dos dados da memória. Múltiplas falhas podem ocorrer em qualquer posição da matriz de memória, mas é mais provável que ocorram em dois bits adjacentes que estão no mesmo símbolo (falha tipo a), em símbolos adjacentes verticalmente (falha tipo b), ou em símbolos adjacentes horizontalmente, (falha tipo c) Figura \ref{falhasmemoria}.
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{falhasmemoria}
+\caption{Falhas duplas em uma memória onde cada linha é protegida por RS}
+\label{falhasmemoria}
+
+
+\end{figure}
+
+O código RS pode facilmente corrigir falhas do tipo a, pois é a propriedade essencial deste código: múltipla correção de erro em um mesmo símbolo. O segundo tipo de falha que pode ocorrer (tipo b) também será corrigido porque cada linha é um código RS diferente então isto é equivalente a dois erros simples em linhas distintas. Mas o terceiro tipo de falha (tipo c) não será corrigido, porque é equivalente a erros em dois símbolos diferentes da mesma palavra codificada, e o RS implementado não é capaz de corrigir este tipo de erro.
+Este novo código foi analisado para todos os possíveis erros simples, duplos e alguns de maior multiplicidade, como mostrado na Figura \ref{falhasdm} e na Tabela \ref{analisefalha}. Todos os erros simples são corrigidos pelo código. Erros duplos ocorrendo horizontalmente ou verticalmente são corrigidos pelo código porque cada linha é uma palavra de código diferente e existe a proteção do código de Hamming na interface dos símbolos RS. Alguns erros múltiplos, como os casos 7, 8 e 9, também são corrigidos pela técnica proposta. O único tipo de erro múltiplo que não é corrigido pelo método é o 10.
+
+\begin{figure}[!t]
+\centering
+
+\includegraphics[width=3.5in]{falhasdm}
+\caption{falhas simples, duplas e múltiplas em uma memória}
+\label{falhasdm}
+
+
+\end{figure}
+
+
+\section{Injeção de Falhas}
+
+Injeção de Falhas é uma técnica atraente para avaliação de projetos devido a sua alta flexibilidade em termos de informação temporal e espacial. O processo envolve a inserção de falhas em determinados alvos de um sistema em um tempo determinado no processo, e monitorar os resultados para definir seu comportamento em resposta a uma falha. Tem também tempo e custo de testes reduzido comparado com testes sob radiação tradicionais. Além do mais, já foi mostrado que injetando falhas em uma plataforma programável, depois de sintetizado em um FPGA, pode aumentar a velocidade do processo em muitas ordens de magnitude \cite{crcfpga}.
+Nas experiências, dois programas comuns da carga de trabalho são considerados a multiplicação de matrizes e a ordenação por bolhas(\emph{bubble sort}). As cargas de trabalho são codificadas em C e compiladas com o compilador do GCC do GNU, que pode gerar o código para o microprocessador 1200 de OpenRISC \cite{1030217}.
+A ferramenta da injeção da falha é usada injetando modelos diferentes da falha no modelo de Verilog do OpenRISC 1200 a nível de RTL. Para ambas as cargas de trabalho, o mesmo processo de injeção de falhas é usado. Nas experiências, as falhas foram injetadas no módulo do processador central posicionado dentro do núcleo do microprocessador e o mesmo se mostrou operante em todas as falhas inseridas em nível de registrador.
+Foram injetadas falhas nas memórias, classificadas nos 10 tipos diferentes de falhas. Como previsto, todas as falhas simples e duplas foram toleradas. No caso de múltiplas falhas, o método não tolerou apenas o tipo de falha 10, como já era esperado.
+
+\section{Resultados}
+
+Os resultados foram obtidos através dos testes efetuados na placa ML403 da Xilinx, que inclui uma FPGA Virtex-4 FX. O openRISC 1200 modificado,  com as técnicas de tolerância a falhas discutidas neste trabalho, foi submetido a um conjunto de testes de simulação de radiação (SEU), tendo seus resultados apresentados a seguir. Mensuramos como resultado, a ocupação dos recursos na FPGA, destacando a área ocupada pelo design do processador, a freqüência máxima de funcionamento, ou seja, o desempenho do openRISC, antes e depois das modificações, bem como a capacidade de recuperação de falhas no core do processador e nas memórias.
+
+Desta forma, podemos observar na Tabela \ref{analisefalha}, os tipos de falhas e os efeitos que estas causaram no funcionamento do openRISC 1200 modificado, bem como a especificação da localização do SEU sofrido, neste caso foram analisados a variáveis verticais e horizontais.
+\begin{table}[htbp]
+\centering
+\caption{Análise da detecção e correção dos tipos de falhas}
+\label{analisefalha}
+
+% Table generated by Excel2LaTeX from sheet 'Plan3'
+%%\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|p{1.5cm}|p{4.0cm}|p{1cm}|p{6.6cm}|}
+\hline
+    {\bf Falhas} & {\bf Localização} & {\bf Tipo} & {\bf Efeito} \\
+\hline
+\multirow{4}{*}{Simples} & Símbolo RS & 1 &  Corrigido, erro simples em apenas um símbolo RS \\ \cline{2-4}
+& Bit Hamming & 2 &  Corrigido, erro simples em apenas um bit Hamming \\ \hline
+\multirow{9}{*}{Dupla} & Símbolo RS & 3 & Corrigido, erro múltiplo em apenas um símbolo RS  \\ \cline{2-4}
+& Simbolo RS adjacentes verticalmente & 4 & Corrigido, erros simples em diferentes códigos RS \\ \cline{2-4}
+& Bits Hamming adjacentes verticalmente & 5 &  Corrigido, erros simples em diferentes códigos de Hamming \\ \cline{2-4}
+& Bit Hamming e símbolo RS adjacente horizontalmente & 6 &  Corrigido, erro simples em símbolo RS e erro simples em bit Hamming \\ \hline
+\multirow{10}{*}{Múltipla} & Símbolos RS verticais & 7 & Corrigido, erros simples em diferentes códigos RS \\ \cline{2-4}
+& Bits Hamming verticais & 8 & Corrigido, erros simples em diferentes códifos de Hamming \\ \cline{2-4}
+& Símbolo RS e bit Hamming horizontal & 9 & Corrigido, erro simples em símbolo RS e erro simples em bit Hamming \\ \cline{2-4}
+& Símbolo RS, bit Hamming e símbolo RS horizontal & 10 & Detectado, mas não corriido, erro simples em bit Hamming, mas erro em dois diferentes símbolos RS na mesma linha   \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+A área ocupada na FPGA é medida em número de \emph{Look-up Tables} usadas para implementar a lógica. A Tabela \ref{compararsham} mostra os resultados do $RS (155, 145)$ comparado com um código de Hamming de 145 bits, utilizados neste design.
+\begin{table}[htb]
+   \centering
+   \large       % tamanho da fonte
+   \setlength{\arrayrulewidth}{2\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{Comparação entre os códigos Reed-Solomon e Hamming }
+   \begin{tabular}{|c|c|c|c|c|}
+      \hline
+       & \multicolumn{2}{|c|}{Reed-Solomon} & \multicolumn{2}{|c|}{Hamming} \\
+      \hline
+       & Codificador & Decodificador & Codificador & Decodificador  \\
+      \hline
+      4-LUTs & 226 & 474 & 134 & 363 \\
+      \hline
+       Flip-flops & \multicolumn{2}{|c|}{10} & \multicolumn{2}{|c|}{8} \\
+      \hline
+      Atraso (ns) & 15.4 & 45.5 & 14.1 & 24.4 \\
+      \hline
+   \end{tabular}
+   \label{compararsham}
+\end{table}
+Na análise geral das técnicas aplicadas, podemos observar, na Tabela \ref{resultsintese}, que ao adicionar tolerância a falhas, principalmente quando falamos de correção e mascaramento da falha, podemos observar que o desempenho do microprocessador diminui. Neste caso a freqüência de operação do openRISC passou de 83 MHz, na versão original, ou seja, sem o design de tolerância a falhas, para aproximadamente 60 MHz após aplicar as técnicas descritas neste artigo. Sendo assim observamos um decremento no desempenho da freqüência de operação da ordem de 28\%.	
+
+\begin{table}
+  \centering
+  \caption{Resultado da síntese do OpenRISC 1200}\label{resultsintese}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    \textbf{RTL OpenRISC} 1200 & \textbf{Gates} & \textbf{Freqüência da operação} \\ \hline
+    OR 1200 (Original) & 1,140,805 & 83.15 MHz \\ \hline
+    OR 1200(proteção flip-flops) & 1,544,827 & 76.08 MHz \\ \hline
+    OR 1200(proteção flip-flops + proteção memória) & 1,610,570 & 60.05 MHz \\ \hline
+
+  \end{tabular}
+\end{table}
+\section{Conclusão}
+
+Falhas simples nos registros foram adicionadas aleatoriamente, e constatadas ineficientes neste processo. Ou seja, em 100\% das vezes que uma falha ocorre nos registros, está falha é mascarada e o processamento computado corretamente. Contudo quando utilizamos o sistema de votador simples, ou seja, sem replicar, inserimos no sistema um ponto de falha único, e nos casos em que o SEU ocorre no votador o resultado é de 100\% de falhas. Desta forma para as partes críticas do processador faz-se necessário o uso de replicação do votador, tornado assim o sistema mais confiável.
+Múltiplas falhas foram aleatoriamente injetadas em todas as células de memória para avaliar a robustez do método. A experiência foi emulada numa plataforma de prototipação de circuitos programáveis (FPGA Virtex 4 da Xilinx). Os resultados mostram a eficiência do método proposto para todas as falhas simples e duplas e uma grande parte das falhas múltiplas. Todas as falhas duplas e uma grande combinação de falhas múltiplas foram corrigidas pelo método. O único tipo de falha múltipla que só foi detectada, mas não foi corrigida é quando a falha múltipla (três ou mais bits) afeta dois símbolos diferentes do código RS.
+

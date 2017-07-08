@@ -1,0 +1,58 @@
+\chapter{Introdução}
+\label{Chapter:Introd}
+
+
+%\PARstartOne{O}s sistemas eletrônicos de tempo real embarcados em missões espaciais estão sujeitos aos elevados níveis de %radiação presentes no espaço. Por isso, tais sistemas estão muito sujeitos a falhas causadas pela colisão de partículas %pesadas com as estruturas nanométricas de silício presentes nos circuitos integrados modernos.
+
+\PARstartOne{A}{~importância} de desempenho  sistemas estão muito sujeitos a falhas causadas pela colisão de partículas %pesadas com as estruturas nanométricas de silício presentes nos circuitos integrados modernos.
+
+\section{Motivação}
+
+	Particularmente para circuitos integrados contendo blocos de memória SRAM (\emph{Static Random Access Memory}), a principal conseqüência destas colisões são os SEUs (\emph{Single Event Upsets}), que correspondem a uma inversão permanente de um \emph{bit}. Embora existam indústrias de circuitos integrados especializadas em produção de circuitos integrados tolerantes a radiação, devido ao pequeno volume de produção desses circuitos, os mesmos têm preços elevados. Além disso, essas fábricas estão, em geral, duas ou três gerações atrasadas em relação à tecnologia de fabricação do estado da arte \cite{radhardcoldwar}. Portanto, é muito importante garantir tolerância a radiação em nível de projeto do circuito integrado (ou RHBD - \emph{Radiation Hardening By Design}), independentemente do processo de fabricação, pois isso reduz os custos do sistema e permite utilizar os mais modernos processos de fabricação existentes.
+
+Devido ao tamanho reduzido e alta frequência de operação dos circuitos eletrônicos digitais modernos, os mesmos estão cada vez mais susceptíveis a ruído. Por isso, problemas antes somente encontrados em sistemas submetidos a radiações em nível espacial (missões espaciais), hoje são enfrentados em sistemas operando em nível terrestre. Portanto, percebe-se cada vez mais a necessidade de utilização de técnicas de tolerância a falhas não somente em sistemas embarcados em missões espaciais, mas também nos sistemas terrestres. Dentre alguns exemplos dessas aplicações terrestres podemos citar a indústria automobilística, bancária, e várias outras aplicações onde os requisitos temporais e de alta disponibilidade são prioritários para o correto funcionamento do sistema.
+
+	A linguagem de programação {C} é atualmente a mais utilizada para desenvolvimento de \emph{software} para sistemas embarcados, tanto para o sistema operacional quanto para a aplicação. Isto pode ser facilmente demonstrado por uma análise dos compiladores comerciais disponíveis para os processadores modernos de sistemas embarcados.
+
+Usualmente, o sistema operacional é responsável por funções de suporte a tempo real, gerenciamento de memória e comunicação inter-processos. Tais recursos são disponibilizados para a aplicação por meio de chamadas de sistema (\emph{System Calls}) \cite{TanenbaumModernOS} e de uma API (\emph{Application Program Interface}).
+
+	O uso de uma linguagem de alto nível de abstração traz benefícios, do ponto de vista do desenvolvimento do sistema, tais como diminuir a probabilidade de erros de codificação e a redução do tempo de desenvolvimento de um sistema \cite{RTProgLang}. {J}ava é uma linguagem de alto nível atualmente muito utilizada e com extenso suporte para o desenvolvimento de sistemas computacionais. Além do alto nível de abstração, a linguagem {J}ava traz no seu núcleo (a Máquina Virtual {J}ava) recursos comumente implementados em nível de sistema operacional, tais como comunicação inter-processo e escalonamento de tarefas.
+
+Em uma implementação tradicional de sistemas embarcados de tempo real, baseada em um processador de uso geral e um sistema operacional de tempo real, essas vantagens podem ter um custo elevado em termos de recursos computacionais, o que é incompatível com as severas restrições de recursos computacionais em sistemas embarcados. Esta incompatibilidade pode ser resolvida pelo uso de um processador específico para a linguagem Java, como proposto por Schoeberl em \cite{jop:jnl:jsa2007} e vários outros\cite{femto2003,Cjip,komodo2003,pjfpga}. No entanto, para nenhum destes processadores, esses autores discutem a garantia de funcionamento (\emph {dependability}) do processador. Quando comparado com os demais processadores Java, o JOP (\emph{Java Optimized Processor}) \cite{jop:tecs:jhal} se diferencia, por exemplo, em relação a características de tempo real, porém também sem haver preocupação com requisitos de garantia de funcionamento. Por isso, nós escolhemos o processador JOP como base para este trabalho.
+
+	Neste trabalho, são propostas técnicas de tolerância a falhas para proteger a memórias SRAM de código interna do JOP contra SEUs. Além disso, propõe-se realizar a compilação do JOP modificado por tais técnicas em uma FPGA. 	
+
+\section{Objetivos}
+	O presente trabalho tem por objetivos gerais melhorar o nível de confiabilidade do processador Java de tempo real JOP e prototipar o mesmo em FPGA; dentre os objetivos específicos destacamos:
+\begin{itemize}
+\item Avaliar as técnicas de tolerância a falhas propostas para melhorar o nível de confiabilidade do JOP;
+
+\item Validar as técnicas de tolerância a falhas implementadas em nível lógico;
+
+\item Implementar em FPGA o JOP com as técnicas de tolerância a falhas validadas.
+
+\end{itemize}
+\section{Resumo das Contribuições}
+   Esta dissertação agrega as seguintes contribuições para o desenvolvimento de processadores Java de tempo real, mais especificamente no quesito tolerância a falhas:
+
+\begin{enumerate}
+  \item Concepção, implementação e avaliação de uma técnica de proteção dos bytecodes contra SEUs (\emph{Single Event Upsets});
+  \item Concepção, implementação e avaliação de uma técnica de proteção de métodos contra SEUs;
+  \item Uma análise das modificações necessárias para a implementação do processador JOP em tecnologia CMOS (\emph{Complementary Metal Oxide Semiconductor});
+  \item Implementação em FPGA do FT-JOP.
+\end{enumerate}
+
+    A contribuição 1 foi publicada em um artigo completo no congresso WSCAD-SSC 2009 (Simpósio em Sistemas Computacionais), enquanto as outras contribuições serão submetidas para um periódico \cite{tpi}.
+
+
+\section{Organização}
+    Uma vez introduzida a motivação deste trabalho e os objetivos a que se propõe, expõe-se a seguir como o restante está apresentado. No Capítulo \ref{Chapter:RTS}, são descritas as características e requisitos de tempo e de garantia de funcionamento para sistemas de tempo real.
+
+	No Capítulo \ref{Chapter:PCILD} descrevemos sobre fluxograma, metodologia e ferramentas para projeto de circuitos integrados lógicos digitais.
+
+	O \emph{soft core} de tempo real JOP, sobre o qual foram validadas as técnicas de tolerância a falhas propostas neste trabalho, é descrito no capítulo \ref{Chapter:JOP}.
+
+	No Capítulo \ref{Chapter:JOPFT}, descreve-se as técnicas de tolerância a falhas para a \emph{cache} do  JOP e as modificações necessárias de serem feitas no JOP em nível lógico para implementá-lo em silício.
+
+	Os resultados das simulações das técnicas de tolerância a falhas para a memória de código, assim como os testes realizados utilizando FPGA e as conclusões são apresentados no Capítulo \ref{Chapter:Conclusao}.
+

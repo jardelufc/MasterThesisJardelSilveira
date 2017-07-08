@@ -1,0 +1,200 @@
+\chapter{Sistemas Embarcados de Tempo Real}
+\label{Chapter:RTS}
+
+	\PARstartOne{U}m sistema embarcado (\emph{embedded system}) é um sistema computacional de pro\-pó\-si\-to especial projetado para realizar uma ou mais funções dedicadas \cite{realtimedef} e, frequentemente, possui restrições de volume, peso, consumo e de exe\-cu\-ção em tempo real. As restrições de tempo real se dividem em requisitos temporais e de garantia de funcionamento.
+	Essas características são facilmente identificadas nos vários exemplos de sistemas embarcados, tais como telefones celulares, sistemas de freios ABS (\emph{Anti-lock Breaking Systems}), computadores de bordo de aviões, dentre outros.
+\section{Introdução}
+	Com o objetivo de introduzir alguns conceitos básicos de sistemas de tempo real, utilizam-se alguns exemplos do cotidiano. Suponha que você está vendo um filme em seu \emph{laptop} de última geração. Ainda que raramente, é possível perceber pequenas interrupções momentâneas na execução do filme.
+
+	Em outro momento, você pode estar vendo um filme em seu aparelho reprodutor de DVDs (\emph{Digital Video Discs}). Para este simples aparelho, que tem desempenho computacional e custo muito inferior ao seu \emph{laptop}, as mesmas interrupções momentâneas não são percebidas. Isso se deve ao fato de que o seu \emph{laptop} não estar equipado com um sistema operacional de tempo real, tampouco com um \emph{hardware} de tempo real, ou, colocando de outra forma, seu \emph{laptop} não é um sistema de tempo real. Para esta aplicação, do ponto de vista computacional, o desempenho médio do seu laptop é muito superior ao do seu aparelho de DVD, mas este último é um sistema de tempo real do tipo \emph{soft}. Além disso, o \emph{laptop} não executa apenas essa tarefa, ao passo que o DVD, por ser um sistema dedicado, o faz. Neste sentido, este sistema atende aos requisitos de executar uma tarefa no tempo requerido. Isto constitui o que se chama de previsibilidade.
+
+	Em outra situação, suponha que se deseja projetar um sistema computacional que irá controlar os \emph{flaps} das asas de um avião durante o pouso. Para testes de laboratório, executa-se o \emph{software} em seu \emph{laptop} para controlar os \emph{flaps} através de um dispositivo com interface USB (\emph{Universal Serial Bus}). Novamente pode-se perceber, assim como na situação anterior, que apesar dos \emph{flaps} operarem bem na maior parte do tempo, em algumas situações, ainda que seu \emph{software} comande os \emph{flaps} corretamente, estes não obedecem os comandos no tempo correto, demonstrando algumas paradas não previsíveis. Durante os testes, pode-se perceber que, algumas vezes, seu \emph{laptop} travou, e que nessa situação, os \emph{flaps} continuaram a se mover continuamente na última velocidade comandada pelo computador, antes do mesmo travar. Neste caso, identifica-se a segunda característica principal de um sistema de tempo real: confiabilidade.
+
+ 	Ainda que as interrupções do filme possam incomodar, certamente continuar-se-à a ver filmes em \emph{laptops}. Por outro lado, mesmo que o sistema computacional embarcado em um avião possua alto custo, em relação ao custo de um \emph{laptop}, certamente este último não será usado para a computação de bordo de um avião. Isso porque o sistema embarcado no avião é um exemplo de sistema de tempo real do tipo \emph{hard}, o qual envolve riscos de vidas humanas. 	É nesse cenário que surge a necessidade dos sistemas computacionais de tempo real, os quais, além de serem projetados para terem um pequeno tempo médio de execução, estão também preocupados com questões como \emph{deadlines} e confiabilidade.
+
+
+	Para se projetar um sistema de tempo real, todas as partes que o compõem devem ser de tempo real: \emph{hardware} (RTHW - \emph{Real Time Hardware}), sistema operacional (RTOS - \emph{Real Time Operating System}) e aplicação (RTApp - \emph{Real Time Application}).
+A Figura \ref{rtsystem} mostra duas implementações bastante comuns de sistemas de tempo real.
+\begin{figure}[!h]
+   \centering
+   \subfigure[]{\label{rtsystema}\includegraphics[width=0.25\hsize]{rtsystema}}
+   \hspace{0.02\hsize}
+   \subfigure[]{\label{rtsystemb}\includegraphics[width=0.25\hsize]{rtsystemb}}
+   \hspace{0.05\hsize}
+   \caption{implementação em camadas de um sistema de tempo real.}
+   \label{rtsystem}
+\end{figure}
+A primeira é baseada em uma aplicação de tempo real (RTApp), a qual implementa os requisitos funcionais do sistema, um sistema operacional de tempo real (neste exemplo, o RT Linux),  o qual faz o gerenciamento dos recursos e o escalonamento de tarefas, e um \emph{hardware} apropriado para tempo real (simbolizado aqui como RTHW). Na segunda implementação, não existe RTOS e a própria aplicação (RTApp - \emph{Real Time Application}) implementa o objetivo propriamente dito do sistema, além de promover o gerenciamento dos recursos. Este último é também conhecido como ciclo executivo, pois, as tarefas são listadas sequencialmente em um laço.
+
+
+	Algumas das técnicas de projeto que os engenheiros usam para atender a estes requisitos de tempo e confiabilidade são redundância, paralelismo real, algoritmos de escalonamento de tempo real e simplificação do sistema  \cite{RTProgLang}. Obviamente, isso pode envolver uma penalização associada ao tempo de desenvolvimento, custo final e desempenho médio do sistema. Portanto, estas técnicas de projeto devem ser aplicadas com parcimônia e especificidade para cada sistema.
+\section{Determinismo e análise temporal}
+	Os sistemas computacionais modernos usualmente têm recursos disponíveis, tais como: Acesso Direto à Memória (DMA), \emph{cache} de memória, \emph{pipeline}, \emph {branch prediction}, gerenciador de memória, escalonador de processos, funções de entrada/saída e comunicação inter-processos. Em um sistema comum (que não é de tempo real), estes recursos dão ao usuário do sistema, ou ao ambiente que o circunda, a impressão de que várias tarefas estão acontecendo em paralelo e prezam por um desempenho médio. Entretanto, um sistema de tempo real precisa restringir o não-determinismo encontrado em sistemas concorrentes comuns. Neste sentido, procura-se simplificar o sistema de forma a facilitar a análise do mesmo. No entanto, é importante entender que algumas penalidades podem ocorrer por simplificar bastante o sistema. Primeiro, a análise pode ser extremamente pessimista e pode não reproduzir a real situação ocorrida na maior parte do tempo. Logo, pode-se gerar um outro problema clássico de sistemas de tempo real, a introdução de \emph{jitter}, que é a diferença entre os tempos de execução no melhor caso e no pior caso. A segunda penalidade, a rigidez imposta ao sistema, significando que uma pequena modificação no sistema como, por exemplo, inserir um novo processo, pode acarretar uma completa re-análise temporal e mesmo em outras modificações no sistema.
+
+	Em sistemas de tempo real as tarefas são executadas em tempo determinado, visando a operação normal destes sistemas. Assim, instantaneamente, cada tarefa está associada a um marco no tempo, ou seja, a um \emph{deadline}. A partir deste, se o sistema não responder ao estímulo da entrada, este pode sofrer uma transição para um estado indesejável. Em sistemas de tempo real do tipo \emph{hard}, um \emph{deadline} perdido pode levar a uma falha catastrófica. Já em sistemas de tempo real do tipo \emph{soft}, a perda de um \emph{deadline} pode levar o sistema a funcionar fora de sua especificação. A garantia de que \emph{deadlines} serão cumpridos baseia-se na análise temporal da execução do sistema no pior caso. Nesta análise, calcula-se o tempo exato de execução do pior caso ou WCET (\emph{Worst Case Execution Time}) \cite{jop:wcet:spe}. Este cálculo é realizado baseado no modelo temporal do \emph{hardware}, no algoritmo de escalonamento do sistema operacional e na aplicação, podendo ser realizado manualmente, mas preferencialmente com o auxílio de uma ferramenta de \emph{software}.
+
+	Para se obter o WCET de forma analítica, é necessário se obter o comportamento temporal do processador em questão. No entanto, o modelo temporal detalhado dos processadores modernos é não trivial devido às características, tais como \emph{caches}, \emph{pipelines} e \emph{branch prediction}. Estas características ajudam a reduzir o tempo médio de execução, mas podem ser difíceis de prever seus impactos no WCET. Além disso, muitas informações necessárias podem ser proprietárias e difíceis de serem obtidas, mesmo sobre NDA (\emph{Non-Disclosure Agreement}).
+
+\section{Hardware de tempo real}
+	O hardware de um processador moderno contém estruturas paralelas que o auxiliam em suas tarefas, tais como DMA (\emph{Direct Memory Access}), \emph{cache} de memória, \emph{pipeline} e \emph {branch prediction}. Estas estruturas introduzem maior complexidade em seu modelo temporal.
+
+	A \emph{cache} de memória de um processador é um recurso que aumenta o desempenho médio de um sistema computacional, mas por outro lado, introduz uma grande imprevisibilidade de tempo de execução de uma tarefa. Isto porquê o algoritmo de \emph{cache} pode acertar ou errar quais são as próximas instruções ou dados a serem utilizados. Para solucionar este problema, pode-se desabilitar a \emph{cache} ou fazer uso de um processador mais simples, sem este recurso. Em um primeiro instante, esta abordagem pode parecer como uma fuga ao problema, por falta de competência para se fazer a análise complexa do sistema com o uso de \emph{cache}. No entanto, essa abordagem pode ser justificada pela seguinte máxima na comunidade de projetistas desses sistemas: ``simplicidade contribui para confiabilidade". Neste caso, ou seja, em sistemas de tempo real do tipo \emph{hard}, deseja-se a solução mais segura, ainda que menos elegante.
+
+    Além da complexidade do modelo temporal, de uma maneira geral, esses modelos ou mesmo as informações necessárias para montá-los, não estão facilmente disponíveis, devendo o interessado entrar em acordo legal (NDA - \emph{Non Disclosure Agreement}) com o fornecedor do circuito integrado para tentar obtê-los.
+\section{Escalonamento de processos em sis\-te\-mas de tem\-po re\-al}
+\subsection{Ciclo de execução}
+	Para o problema de escalonamento de processos, a solução simplificada é o uso de execução cíclica, contínua e repetida de uma sequência de tarefas. Cada tarefa ocupa uma pequena parte do tempo como está mostrado na Figura \ref{cyclicexecutive}, chamada de \emph{minor frame} (ou \emph{frame} secundário) e a soma de todas as tarefas ocupa um tempo conhecido por \emph{major frame} ou \emph{frame} principal \cite{RTProgLang}.	
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.5in]{cicloexecutivo}
+
+\caption{ciclo executivo, adaptado de \cite{TimeSys}.}
+\label {cyclicexecutive}
+
+\end{figure}
+
+
+\subsection{Prioridade fixa / periódicos}
+	A maioria dos sistemas operacionais de tempo real usa um escalonador de prioridade fixa preemptivo (ou FPS - \emph{Fixed Priority Scheduling}). Nesse caso, o conjunto de processos é fixo, e a cada um destes é atribuída uma prioridade também fixa. Preemptivo significa que, sempre que um processo de maior prioridade está pronto para ser executado, e um processo de menor prioridade estiver em execução, este último é imediatamente interrompido para que o processo de maior prioridade seja executado. Este esquema é preferido por permitir uma reação mais rápida dos processos de alta prioridade.  Esta forma de atribuir prioridades é ótima no sentido de que, se um conjunto de processos $P$ é escalonável, então a atribuição de prioridades monotônicas em função da frequência de execução é uma das soluções para o problema de escalonamento do conjunto de processos $P$, sem perdas de \emph{deadlines} \cite{JopHandbook, RTProgLang}.
+
+	Considere um conjunto de $N$ processos $P$. Sejam $T_i$ e $C_i$, o período de execução e tempo máximo de execução do processo $i$, respectivamente. O uso computacional do sistema é calculado da seguinte forma:
+
+\begin{equation}\label{usocomp}
+U=\sum_{i=1}^n \frac{C_i}{T_i}
+\end {equation}
+
+	Demonstra-se que se $U\leq N \cdot ( {2}^{\frac{1}{N}} - 1 )$ e se as prioridades dos processos forem atribuídas obedecendo à monotonicidade da frequência de execução ($\frac{1}{T_i}$) e com preempção, então, o conjunto de processos $P$ é escalonável, e portanto todos os \emph{deadlines} são sempre obedecidos. Com o crescimento de $N$, a expressão converge assintoticamente para 0,63. Esta condição é suficiente, mas não necessária para que o conjunto de processos $P$ seja escalonável. A razão de não ser necessária é que, em muitos casos, é possível ter um uso computacional maior e ainda assim, o sistema ser escalonável \cite{liulayland}.
+\subsubsection{Problema da inversão de prioridade e solução}
+
+	Usando um algoritmo de prioridade fixa, depara-se com o problema de inversão de prioridade, situação na qual um processo de alta prioridade é bloqueado por um processo de baixa prioridade que detém um recurso compartilhado entre estes processos. A Figura \ref{priorityinversion} exemplifica esta situação.
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.0in]{priorityinversion}
+
+\caption{inversão de prioridades, adaptado de \cite{TimeSys}.}
+\label{priorityinversion}
+
+\end{figure}
+Durante todo o período em que a tarefa de maior prioridade (assinalada com a cor preta) está esperando que o processo de menor prioridade saia da região crítica, o que é razoável. Porém não é aceitável que, nesta condição, o processo de prioridade intermediária interrompa a execução do processo de menor prioridade, pois, por transferência, o processo de maior prioridade está esperando por este \cite{TimeSys}.
+
+
+	Uma solução para esse problema é o uso de um protocolo de sincronização, como por exemplo o protocolo de herança de prioridades. Usualmente, a implementação deste protocolo está associada às modificações nas funções de acesso à região crítica. A RTSJ (\emph{Real Time Specification for Java}), por exemplo, prevê uma solução baseada em herança de prioridades para resolver o problema de inversão de prioridades.
+\subsection{Algoritmo do \emph{deadline} mais próximo}
+	Neste algoritmo, também conhecido como EDF (\emph{Early Deadline First}), sempre é escalonada para execução a tarefa que está com seu \emph{deadline} mais próximo. Liu e Layland demonstraram que, se o uso computacional $U$ de um conjunto de tarefas for menor do que 1, então este conjunto é escalonável seguindo este algoritmo e, portanto, os \emph{deadlines} serão sempre cumpridos \cite{liulayland}.
+
+	Apesar desse algoritmo permitir um uso computacional efetivo do sistema (100\%), as prioridades são calculadas dinamicamente, e isto dificulta a implementação do escalonador. Além disso, em situações não previstas de carga máxima, o determinismo do sistema é menor do que se este fosse baseado em prioridades fixas.
+\subsection{Escalonamento de tarefas aperiódicas}
+	As tarefas aperiódicas são disparadas por eventos tais como requisições do operador, mensagens de emergência, notificação de alcance de limiar, um botão pressionado ou o movimento de um mouse, dentre outros exemplos.
+
+	Em particular, uma abordagem para lidar com eventos aperiódicos em sistemas de tempo real, é através do uso de um servidor aperiódico. Este servidor deposita ``passes'', os quais são revalidados depois de um certo período após terem sido usados. Quando um evento aperiódico ocorre, este verifica se existem ``passes'' disponíveis no servidor. Se existirem, o sistema imediatamente processa o evento, e então escalona a criação de outro ``passe'', baseado nas políticas de criação de ``passes''. Um servidor aperiódico impõe previsibilidade em tarefas aperiódicas e, portanto, torna-as adequadas para serem escalonadas, utilizando os algoritmos de EDF ou FPS explicados nas seções anteriores.
+
+    Após mostrar e discutir nesta seção os principais algoritmos utilizados, para escalonamento de processos em sistemas de tempo real, na próxima seção discorre-se, sucintamente, sobre o gerenciamento de memória em sistemas de tempo real.
+
+\section{Gerenciamento de memória}
+	Em sistemas de tempo real, uma abordagem bastante adotada para o gerenciamento de memória é criar todos os processos e alocar memória estaticamente, na fase de inicialização do sistema. Portanto, antes da operação propriamente dita do sistema, toda a memória a ser utilizada durante todo o tempo de missão deve estar previamente alocada. A penalização é que o total de memória necessário para o sistema é significativamente maior do que no caso de alocação dinâmica de memória, no qual a alocação é feita em tempo de execução e desalocada sempre que esta região não for mais necessária.	
+\section{Tolerância a falhas}
+	Uma falha pode causar um erro e este por sua vez, um defeito conforme mostrado na Figura \ref{falhaerrodefeito}. Idealmente, persegue-se detectar, confinar e corrigir a falha antes que esta cause um erro. Por isso, a falha é objeto de estudo primário de sistemas tolerantes a falhas.
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.5in]{falhaerrodefeito}
+
+\caption{sequência de falha, erro e defeito, adaptado de \cite{helanothesis}.}
+\label{falhaerrodefeito}
+
+\end{figure}
+
+
+
+	As falhas podem ser classificadas como antecipadas e não antecipadas. Uma falha de projeto, por exemplo, é uma falha não antecipada, pois certamente o projeto não foi feito errado de propósito \cite{anderson81}.
+
+	Após detectar uma falha, o sistema deve imediatamente tentar identificar a extensão dos possíveis erros e danos já causados por esta falha. Após isto, medidas devem ser tomadas para que o erro não se propague, ou seja, para que outras partes do sistema não operem baseados em dados errôneos fornecidos pelas partes do sistema que foram afetados pela falha. Essa fase é conhecida como confinamento da falha.
+
+	O processo de correção de falhas envolve, quando possível, recuperar todos os erros causados por esta. Na impossibilidade de recuperar o sistema, este pode tentar operar de forma degradada. Suponha por exemplo, um sistema de telefonia. Uma operação em modo degradado poderia permitir, ou garantir apenas a realização de chamadas de emergência.
+
+	Em última hipótese, o sistema deve tentar entrar em modo de falha seguro. No modo de falha seguro, o sistema, ciente de que está defeituoso, não continua a operar, pois, suas execuções podem causar danos maiores ainda. 	Assim, deve-se prever na arquitetura do sistema, recursos adicionais (de \emph{hardware} e de \emph {software}) que suportem procedimentos para tolerância a falhas. A arquitetura de um sistema tolerante a falhas é projetada de forma a fornecer ao sistema recursos extras, de \emph{hardware} e de \emph{software}, para realizar as ações já descritas de detecção e correção de falhas.
+
+Uma das principais arquiteturas de \emph{hardware} para sistemas tolerantes a falha, é a arquitetura de redundância modular tripla ou TMR (\emph{Triple Modular Redundancy}). Na redundância modular tripla, o sistema computacional é replicado três vezes e um votador é adicionado. Os três sistemas computacionais funcionam em paralelo (\emph{hot stand-by}) e o resultado considerado correto é aquele apontado por no mínimo dois módulos. O votador, que é um ponto de falha comum, por ser um sistema muito menos complexo que uma das réplicas do sistema computacional, usualmente tem uma probabilidade de falha pequena comparada aos módulos computacionais. Ainda assim, é possível replicar também o votador. Note que em um sistema TMR a falha somente é detectada após a mesma ter causado um erro computacional, porém antes que o erro se torne um defeito.	
+\subsection{Cálculo de confiabilidade}
+	O cálculo da confiabilidade de um sistema é o ponto de partida para a decisão de se adicionar técnicas de tolerância à falhas. Pela comparação entre a confiabilidade esperada e a confiabilidade atual do sistema, o projetista pode tomar decisões.
+
+	Para sistemas simples, sem redundância, estes cálculos são triviais e se baseiam em probabilidade simples. Por exemplo, a confiabilidade de um sistema série é calculada multiplicando-se a confiabilidade de cada um dos componentes do sistema, dada por \cite{helanothesis}
+\begin{equation}\label{confiabilidadeserie}
+R_s=\prod_{i=1}^n {R_i},
+\end {equation}
+sendo $R_s$ a confiabilidade do sistema série e $R_i$ a confiabilidade do componente $i$.
+
+	Em sistemas com redundância, os módulos replicados podem entrar em funcionamento desde o início da fase de missão (\emph{hot standby}), ou dinamicamente de acordo com as necessidades do sistema (\emph{cold standby}). Baseado em um diagrama de estados dos módulos do sistema, o cálculo da confiabilidade pode ser feito baseado em cadeias de Markov \cite{shoomanbook}.
+\subsection{Detecção e correção de erros em uma sequência de dados}
+	Sistemas com correção de erro sem reenvio de informações são também conhecidos como FEC (\emph{Forward Error Correction}). Nesse caso, o código de correção de erros ou ECC (\emph{Error Correction Code}), que são dados redundantes, são enviados em um único pacote ou bloco juntamente com os dados originais.
+\subsubsection{Checagem por redundância cíclica}
+	CRC (\emph{Cyclic Redundancy Check}) é um algoritmo utilizado para detecção de erros durante transmissão de dados. Para detectar tais erros, o CRC utiliza-se de um complexo polinômio para gerar um número baseado no dado a ser transmitido. O cálculo do CRC é feito pelo dispositivo que irá enviar esses dados (transmissor) e, após a transmissão, pelo dispositivo que os recebeu (receptor). Caso os dois dispositivos tenham obtido os mesmos valores de CRC, a transmissão ocorreu livre de falhas. Existem várias formas de calcular o CRC, diferem-se pelo polinômio adotado e pela forma de entrada dos dados, paralelamente ou serialmente \cite{crc1,crc2}.
+\subsubsection{Algoritmo de Hamming}
+	O algoritmo de Hamming é capaz de corrigir e detectar erros em uma sequência de \emph{bits} e é relativamente simples e de fácil implementação, tanto em \emph{software}, como em \emph{hardware}. A limitação do algoritmo de Hamming está nas suas habilidades para realizar correções. É possível detectar e corrigir um erro em um único \emph{bit}. O algoritmo de Hamming é usualmente especificado pelo tamanho do bloco em \emph{bits} e o número de \emph{bits} desse bloco que se refere ao dado original. Por exemplo, Hamming (255, 247), refere-se a uma codificação de Hamming com blocos de tamanho 255 \emph{bits}, sendo 8 \emph{bits} redundantes. De uma maneira geral, definem-se \cite{shoomanbook}
+	\begin{equation}\label{hamdef}
+     \left\{%
+\begin{array}{ll}
+    n~\mbox{como o número de \emph{bits} de redundância}; e\\
+    (2^n - 1)~\mbox{o tamanho total do bloco, incluindo n \emph{bits} de redundância}. \\
+\end{array}%
+\right.
+\end{equation}
+Assim, tem-se que o número de \emph{bits} de dados em um bloco é $(2^n-1) -n$.
+
+	Os \emph{bits} redundantes são calculados por uma série de operações ``ou exclusivo" (\texttt{xor}) sobre os \emph{bits} de entrada, e então montados em um bloco contendo os \emph{bits} de entrada e os \emph{bits} de Hamming, com a ordem de sequenciamento desses \emph{bits} ditada pelo algoritmo.
+
+	Para verificar se ocorreu um erro, os valores esperados dos \emph{bits} redundantes são calculados (com base nos \emph{bits} de dados recebidos) e comparados com os \emph{bits} de Hamming recebidos. Caso haja qualquer divergência entre \emph{bits} calculados e recebidos, significa que um erro foi detectado.
+
+	Para recuperar o erro, o algoritmo, através de operações ou exclusivo descobre qual a posição do bloco contém um bit errado. Com a posição dada, para realizar a correção basta inverter o \emph{bit} na posição apontada pelo algoritmo. É importante ressaltar que é possível detectar e corrigir um erro ocorrido em apenas um bit.
+
+	Modificando-se o algoritmo original de Hamming pelo acréscimo de mais um \emph{bit} de redundância no tamanho do bloco, é possível detectar até dois \emph{bits} errados. O \emph{bit} adicional é um \emph{bit} de paridade do restante do bloco. O processo de correção é idêntico ao algoritmo original e corrige também apenas um \emph{bit}.
+\subsubsection{Outros algoritmos de correção de erros}
+	Existem algoritmos com uma correção de erros mais robusta, capazes de corrigir vários \emph{bits} errados, como Reed Solomon e BCH (Bose-Chaudhuri-Hocqueenghem). Estes algoritmos são preferíveis para correções de erros em canais ruidosos ou em memórias \emph{flash} do tipo \texttt{nand} com células multicamada (\emph {Multi Layer Cell}), em que a probabilidade de erros em vários \emph{bits} é alta. Reed Solomon é um caso particular de BCH e tem menor eficiência. Apesar de serem mais eficientes, esses algoritmos são muito mais complexos do que Hamming e, portanto, consomem muito mais células lógicas ou ciclos de relógio (\emph{clock}).
+
+\section{Java para sistemas de tempo real}
+\subsection{Sistemas atuais}
+	A linguagem de programação C é a principal linguagem utilizada atualmente para desenvolvimento de \emph{software} para sistemas embarcados, tanto para o sistema operacional quanto para a aplicação. Funções de suporte a tempo real, gerenciamento de memória e comunicação inter-processos são usualmente desempenhadas por um sistema operacional de tempo real e são acessíveis pela aplicação através de Chamadas de Sistema \cite{TanenbaumModernOS} e de uma API (\emph{Application Progam Interface}).
+\subsection{Vantagens da linguagem Java}
+	As principais características da linguagem Java são: ser fortemente tipada; ter extensa checagem em tempo de execução e compilação; não ter ponteiros; possuir monitores; ter meios de comunicação inter-processos; ser \emph{multi-thread}; ter checagem e tratamento de exceções.
+	Para sistemas operando sobre uma máquina virtual Java, essas funções são desempenhadas pela máquina virtual e estão disponíveis para serem usadas pela aplicação, através de estruturas próprias da linguagem de programação Java e não através de chamadas de sistema. Essa abordagem também é utilizada por outras linguagens de programação clássicas de sistemas de tempo real, como Occam 2, Modula 2 e Ada \cite{RTProgLang}. Além disso, a linguagem Java não trabalha com ponteiros e tem uma extensa checagem de exceções em tempo de compilação e de execução, o que a torna menos propensa a erros do programador em relação à linguagem C. Portanto, a linguagem Java permite que o programador de sistemas embarcados use um nível de abstração maior, dando foco no desenvolvimento da aplicação.
+\subsection{Desvantagens da linguagem Java}
+	Em sistemas embarcados, a Máquina Virtual Java pode ser executada no topo de um sistema operacional Linux, por exemplo. Versões recentes da JVM (\emph{Java Virtual Machine}) utilizam recursos como compilação JIT (\emph{Just in Time}) para otimizar o desempenho dos sistemas. No entanto, essa solução não é interessante para sistemas embarcados, devido à restrição de recursos do mesmo quando comparados a um computador pessoal. Uma outra desvantagem é a introdução de \emph{jitter} no tempo de execução das aplicações, devido ao sistema de \emph{garbage collector} \cite{jop:tecs:nbgc,jop:rtsgc:rts}. Schoeberl analisou estas restrições da linguagem Java e fez uma implementação eficiente em {hardware} de uma máquina virtual Java com aplicação em sistemas embarcados de tempo real \cite {JopHandbook}.
+\subsection{Especificação Java para sistemas de tempo real}
+	Existem, particularmente, dois tipos de sistema de tempo real que são bastante desenvolvidos em Java, e estão, há vários anos, aguardando por uma especificação e implementação de tempo real para Java: Sistemas Financeiros e Sistemas Embarcados. Apesar da requisição por uma especificação Java ser bem antiga (data de antes do ano 2000), que aliás é a primeira JSR (\emph{Java Specification Request}), a RTSJ (\emph{Real Time Specification for Java}) ainda é um trabalho em andamento.
+
+	Diferentemente de outras linguagens de programação, quando se fala de Java, não é simplesmente da semântica e das funções disponíveis em uma linguagem de programação, mas, além disso, referm-se a um ambiente de execução, a máquina virtual Java. Essa máquina virtual Java pode interfacear diretamente com o \emph{hardware} ou através de um sistema operacional. Em um ambiente de desenvolvimento para tempo real em Java, todos os elementos supracitados devem ser de tempo real, ou seja, a linguagem Java, JVM, RTOS e o \emph{hardware}. Como as carac\-te\-rís\-ti\-cas do \emph{hardware} e dos sistemas operacionais de tempo real foram discutidas nas seções anteriores, nós iremos nos deter em JVM e na linguagem de programação Java.
+
+	Dois pontos de vista distintos podem ser definidos em relação à especificação RTSJ: o do projetista de máquinas virtuais Java de tempo real e o do programador de aplicações Java de tempo real. Para o primeiro, as características de previsibilidade e confiabilidade precisam ser adicionadas à JVM. Nessa direção, os principais problemas estão relacionados ao gerenciamento de memória (\emph{Garbage Collector}); escalonamento de \emph{threads}; sincronização de threads; gerenciamento de tempo com alta resolução; tempo máximo de repostas a interrupções.
+
+De acordo com a RTSJ, o \emph{garbage collector} não deve atuar na área de memória utilizada pelas \emph{threads} de tempo real do tipo \emph{noheap}, pois, a memória alocada para essas \emph{threads} é completamente estática e reside na área denominada \emph{immortal}. Esta é uma região reservada para alocações estáticas, ou seja, na qual o garbage collector não atua. Notadamente, a solução adotada para a concorrência por recursos entre \emph{garbage collector} e \emph{noheap threads} foi eliminar a região crítica.	Ainda do ponto de vista do projetista de máquinas virtuais, para projetar uma máquina virtual Java compatível com o padrão RTSJ, o algoritmo de FPS deve ser utilizado para escalonamento de processos, além da adoção de uma solução para o problema de inversão de prioridades.
+
+Do ponto de vista do segundo, o programador de aplicações, este necessita de uma API e semântica adequadas para controlar o comportamento temporal do sistema. Neste sentido, A RTSJ define um conjunto de classes e métodos para facilitar a implementação de sistemas de tempo real. Os primeiros passos são instalar na JVM  a extensão RTS e renomear todas as ins\-tan\-cia\-ções de \texttt{java.lang.Thread} para \texttt{javax.realtime.Realtime\-Thre\-ad}. Porém, como não existe uma solução única para programação de sistemas de tempo real, é necessário a cooperação do programador de aplicações para o correto desenvolvimento do sistema.
+
+
+\subsection{Especificação Java para sistemas críticos de tempo real}
+	Por consumir muitos recursos do sistema, a RTSJ não é adequada para implementação de uma JVM para uso em sistemas embarcados \cite{JopHandbook}. Schoeberl implementou uma máquina virtual Java para sistemas embarcados que atende a um subconjunto da RTSJ.
+
+	Não obstante, a JSR de número 302 refere-se à extensão do padrão Java 2 Micro Edition (J2ME) para aplicação em sistemas com nível de confiabilidade crítico (\emph{hard real time}). A especificação baseia-se na RTSJ e contém as características mínimas necessárias para um sistema ser certificado como DO-178B compatível \cite{jop:scjava}. Esta especificação foi nomeada SCJ (\emph{Safety Critical Java}) e encontra-se em fase de desenvolvimento \cite{jsr302}.
+
+	Conforme pode ser visto na Figura \ref{scj}, três fases são claramente distinguíveis no fluxo de execução de um sistema baseado em SCJ: inicialização, missão e recuperação. A fase de inicialização não é de tempo real. Nesta fase, todos os objetos são instanciados e assim permanecem por toda a fase de missão, pois não há \emph{garbage collector} na SCJ. Na fase de missão, que é de tempo real,  o sistema deve realizar sua função propriamente dita, e assegurar os requisitos de tempo real da missão. Na ocorrência de uma falha que não possa ser tratada pelos mecanismos de tolerância a falhas, sem comprometer a funcionalidade do sistema, o mesmo é levado à fase de recuperação. Nesta fase, os danos são avaliados, a falha é confinada, e dependendo da gravidade do problema, o sistema pode entrar em modo de falha segura ou recuperar a aplicação, e retornar à fase de inicialização.
+
+
+\begin{figure}[!htb]
+\centering
+
+\includegraphics[width=4.5in]{scj}
+
+\caption{fases de execução de uma aplicação com modelo da especificação SCJ, adaptado de \cite{jop:scjava}.}
+\label{scj}
+
+\end{figure}
+
+
+\section{Conclusão}
+	Um processador ideal para sistemas de tempo real deve ter um modelo temporal previsível e de fácil análise, ao mesmo tempo, deve dispor dos recursos dos processadores modernos para que tenha um bom desempenho médio.
+
+	Deve-se investir para melhorar a confiabilidade de um sistema tanto maior a probabilidade da ocorrência de uma falha e mais custoso seu impacto.  Para sistemas de tempo real do tipo \emph{hard}, toda e qualquer característica que possa melhorar a confiabilidade do sistema deve ser considerada, ainda que outras variáveis sejam penalizadas. Os demais sistemas de tempo real (que não envolvem riscos de vidas humanas) são do tipo \emph{soft}, como por exemplo um sistema de recepção de multimídia para entretenimento.	

@@ -1,0 +1,73 @@
+\chapter{Resultados}
+\label{Chapter:Resultados}
+
+
+\PARstartOne{N}{este} Capítulo, são descritos os resultados dos testes de injeção de falhas realizados, tanto em nível de simulação como em FPGAs.
+
+	\section{Resultados dos Testes de injeção de falhas em simulação}
+
+	O JOP modificado pelo uso da técnicas de TPI e TPM (FT-JOP) foi simulado utilizando a ferramenta NC-VHDL para avaliar se houve degradação de seu funcionamento. Para avaliar a eficácia da técnica foi desenvolvido um módulo injetor de falhas escrito em VHDL, que seleciona  aleatoriamente e inverte um \emph{bit} de cada um dos \emph{bytecodes}  de um programa em execução pelo JOP. Para fins de avaliação, foi desenvolvido e executado um programa que conta de 1 a 65535, e envia o número atual da contagem pela porta serial do JOP. Então, foram inseridos erros nos \emph{bytecodes} desse programa, e 100\% destes foram automaticamente detectados e corrigidos.
+
+
+
+	\section{Resultados da síntese física em FPGA}
+
+    A ferramenta de software ISE da Xilinx foi usada para realizar a síntese de três configurações do  processador JOP para a FPGA FX25 da família Virtex 4 da Xilinx. Utilizou-se as configurações \emph{default} desta ferramenta.
+	A Tabela \ref{tabela_resultados} mostra uma comparação, em termos de frequência de operação, recursos de elementos lógicos (\emph{slices}) e de memória RAM de 3 combinações do JOP original e das duas técnicas propostas.
+
+\begin{table}[!htb]
+\begin{center}
+%% increase table row spacing, adjust to taste
+\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{comparação entre o FT-JOP e o JOP original.}
+\label{tabela_resultados}
+% Some packages, such as MDW tools, offer better commands for making tables
+% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|c|c|c|c|}
+	\hline
+Configuração do JOP &  FPGA Slices    &   RAM   (Kbits)   & Freq   (MHz)   \\
+	\hline
+JOP Original   & 1762 & 16 & 130  \\ 	\hline
+JOP Original e TPI   & 1808 & 24 & 130\\ 	\hline
+JOP original, TPI e TPM   & 1870 & 24 & 130  \\ 	\hline
+\end{tabular}
+\end{center}
+\end {table}
+
+
+	\section{Descrição e Resultados dos Testes de injeção de falhas em FPGA}
+        As técnicas propostas foram aplicadas ao JOP em FPGA, com o intuito de avaliar os recursos lógicos (portas lógicas) extras necessários, e testar o FT-JOP quando submetido a injeção de falhas. Como o objetivo do teste foi validar as técnicas de proteção de \emph{cache}, foram inseridos erros diretamente na \emph{cache} do processador e não na memória de configuração da FPGA. Portanto, nenhuma técnica de proteção da memória de configuração da FPGA foi embarcada para realização destes testes.
+
+    O primeiro ensaio realizado testa a técnica de TPI, aonde além do JOP modificado com a técnica de TPI, foi embarcado na FPGA, um circuito lógico que conecta o barramento de saída da memória \emph{cache} aos pinos externos da FPGA, nos quais estão conectados DIP \emph{Switches}. Desta forma, pode-se facilmente inserir erros permanentes do tipo \emph{stuck-at} (1 ou 0) e erros temporários aleatórios, simplesmente mudando o estado das chaves.
+
+    Para todas as falhas inseridas nas quais apenas um \emph{bit} do barramento é invertido, houve detecção e correção automática de 100\% destes \emph{bits} pelo uso da técnica de proteção de instruções. No caso de inversão de dois \emph{bits}, não houve detecção ou correção e o sistema parou de responder aos comandos.
+
+    O segundo ensaio realizado testa a técnica de TPM. Neste caso, o código a ser executado pelo JOP foi intencionalmente modificado manualmente, utilizando um software editor de arquivos binários. Conforme esperado, o JOP não executou o método corrompido e desviou a execução para uma rotina de tratamento de exceção.
+
+
+	\section{Discussão dos Resultados}
+
+\subsection {Aumento de área de silício do JOP}
+Conforme pode ser visto na Tabela \ref{tabela_resultados}, a implementação da técnica de TPI utilizou 46 \emph{slices} adicionais da FPGA. Isto representa apenas 2,61\% do tamanho original do JOP. Conforme demonstrado pela simulação e pelos testes com o sistema embarcado na FPGA, a técnica mostrou-se eficaz, pois corrigiu em tempo real as falhas injetadas.
+
+Para o JOP modificado utilizando ambas as técnicas de TPI e TPM, observa-se um aumento de 108 \emph{slices} da FPGA em relação ao JOP original, ou seja, apenas 6,13\%.
+
+
+\subsection {Eficácia dos testes}
+
+  O FT-JOP, além de detectar e corrigir 100\% dos erros de inversão de apenas um \emph{bit} gerados por \emph{single SEUs} na \emph{cache}, é capaz de detectar que o código foi corrompido ainda quando estava na memória externa ao processador. O método corrompido pode ser recuperado a partir de uma outra memória, caso exista, mas é importante ressaltar que isto levaria o sistema a operar em um modo degradado, pois as condições de tempo real não poderiam ser mais garantidas.
+
+  Portanto, a injeção de falhas através de simulação e testes demonstraram a eficácia da proposta. No entanto, os testes realizados não simulam com perfeição um ambiente submetido a elevados níveis de radiação. Neste sentido, considera-se necessário avaliar o funcionamento do FT-JOP quando submetido ao bombardeamento de partículas altamente energizadas. Estes testes devem permitir avaliar a confiabilidade do processador e podem ser realizados, por exemplo, no LIN - Laboratório de Instrumentação Nuclear da UFRJ, assim que o FT-JOP for prototipado em silício.
+
+\subsection{Temporização}
+
+Importante ainda notar que, de acordo com a Tabela \ref{tabela_resultados} a frequência atingida pela ferramenta de síntese foi a mesma. Além disso, não foram realizadas alterações no núcleo do JOP, e portanto, o ciclo de execução deste se mantém, bem como suas características de tempo real. Por fim, os blocos codificador de Hamming, decodificador de Hamming e CRC32 são completamente combinacionais, e portanto não incluem ciclos de máquina adicionais na execução de \emph{bytecodes} pelo FT-JOP.
+
+
+
+
+% DEPOIS O JOP TOLERANTE A FALHAS
+% STACK
+%  REGISTROS

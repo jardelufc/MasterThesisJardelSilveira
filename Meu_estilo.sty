@@ -1,0 +1,189 @@
+% Estilos modificados para dissertacao de Mestrado
+
+\setlength{\textheight}{23.7cm} 
+\setlength{\textwidth}{16.1cm}
+\setlength{\topmargin}{-0.54cm}
+\setlength{\headsep}{1cm}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+% Definição de espaçamento
+\renewcommand{\baselinestretch}{1}
+
+
+% Redefine the macro used for footnotes to use single spacing
+\long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+
+
+\def\titulo{%
+
+    \begin{center}
+    \setlength{\parskip}{12pt}
+    \footnotesize
+    \bfseries
+    UNIVERSIDADE FEDERAL DO CEAR\'A \\
+    CENTRO DE TECNOLOGIA \\    
+    DEPARTAMENTO DE ENGENHARIA EL\'ETRICA \\    
+    CURSO DE P\'OS-GRADUA\c{C}\~AO EM ENGENHARIA EL\'ETRICA
+    \end{center}
+
+    \null\vskip2cm
+    \begin{center}
+        \hyphenpenalty=10000\huge\bfseries\expandafter{\@title}
+    \end{center}
+    \vskip2cm
+    \begin{flushright}
+        \begin{tabular}{rl}
+        Autor: & {\bfseries\@author}
+        \vspace{1cm} \\
+        Orientador: & Francisco Rodrigo Porto Cavalcanti \\
+        \end{tabular}
+    
+    \vskip2.5cm
+    
+        \parbox{3.1in}{\footnotesize\it Disserta\c{c}\~{a}o apresentada \`{a} Coordena\c{c}\~{a}o do Curso de P\'os-Gradua\c{c}\~{a}o em Engenharia
+         El\'{e}trica da Universidade Federal do Cear\'{a}  como parte
+         dos requisitos exigidos para obten\c{c}\~{a}o do grau de
+         {\bfseries Mestre em Engenharia El\'{e}trica}}
+    \end{flushright}
+
+    \begin{center}
+        \vskip2.7cm
+        {\bfseries Fevereiro-2001}
+    \end{center}\newpage}
+
+
+% Ambiente de dedicatoria flushrigth
+\newenvironment{dedicatoria}{\newpage\thispagestyle{empty}
+\begin{center} \Large\em\null\vskip2in} {\end{center}}
+
+% Ambiente para Agradecimentos
+\newenvironment{agradecimentos}{\pagestyle{empty}
+\addcontentsline{toc}{chapter}{Agradecimentos}
+\markboth{\slshape AGRADECIMENTOS}{\slshape AGRADECIMENTOS}
+\chapter*{Agradecimentos}}
+
+% Ambiente para Resumo
+\newenvironment{resumo}{
+\addcontentsline{toc}{chapter}{Resumo}
+\markboth{\slshape RESUMO}{\slshape RESUMO}
+\chapter*{Resumo}}
+
+% Ambiente para Abstract
+\newenvironment{abs}{
+\addcontentsline{toc}{chapter}{Abstract}
+\markboth{\slshape ABSTRACT}{\slshape ABSTRACT}
+\chapter*{Abstract}}{}
+
+% Ambiente para Notações
+\newenvironment{notacoes}{
+\addcontentsline{toc}{chapter}{Nota\c{c}\~oes e Abrevia\c{c}\~ oes}
+\markboth{\slshape NOTA\c{C}\~OES E ABREVIA\c{C}\~OES}{\slshape NOTA\c{C}\~OES E ABREVIA\c{C}\~OES}
+\chapter*{Nota\c{c}\~oes e Abrevia\c{c}\~oes}}{}
+
+
+%% Ambiente para Exemplo
+%\newcounter{exempl}
+%\newenvironment{exemplo}
+%{\stepcounter{exempl}\noindent\rule{\textwidth}{1.5pt}
+%{\textsc{Exemplo \arabic{chapter}.\arabic{exempl}:}}\newline
+%\noindent\rule{\textwidth}{0.75pt}\begin{minipage}[c]{14.5cm}  \end{minipage}\vskip 12pt }
+%{\newline\noindent\rule{\textwidth}{1.5pt}}
+%
+%% Ambiente para Teorema
+%\newcounter{teor}
+%\newenvironment{teorema}
+%{\stepcounter{teor}\begin{quote}
+%\textbf{Teorema: }\it }
+%{\end{quote}}
+%
+%% Ambiente para Lema
+%\newenvironment{lema}
+%{\begin{quote}
+%\textbf{Lema: }\it }
+%{\end{quote}}
+
+% Definição de Fonte para Initials.sty
+\font\initialfont=ecbx3350
+
+% **** Formatação dos Capítulos e Partes ***
+    %Parte
+%\titleformat{\part}[frame]%
+%  {}%
+%  {\filcenter%
+%   \large\scshape   %
+%   \enspace \partname \space\Huge\bfseries\thepart\enspace}%
+%   {8.5cm}%
+%  {\centering\Huge\scshape\bfseries}%
+  
+
+    % Capítulo
+\titleformat{\chapter}[frame]
+  {\setlength{\fboxrule}{1mm}}
+  {\filright
+   \large\scshape   
+   \enspace \chaptername \space\bfseries\Huge\thechapter\enspace}
+  {0.8in}
+  {\centering\Huge\scshape\bfseries}
+
+
+% Formatação para Caption de Figures e Subfigures (Tables e Subtables)
+\renewcommand{\captionfont}{\small\ttfamily}
+\renewcommand{\captionlabelfont}{\small\bfseries\sffamily}
+
+\makeatletter
+    \renewcommand{\@thesubfigure}{{\captionlabelfont\thesubfigure:}\space}
+    \renewcommand{\@thesubtable}{{\captionlabelfont\thesubtable:}\space}
+    \renewcommand{\p@subfigure}{}
+    \renewcommand{\p@subtable}{}
+\makeatother
+
+% Centralizar e justificar texto em tabularx
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{D}{>{\flushright\arraybackslash}X}
+\newcolumntype{E}{>{\flushleft\arraybackslash}X}
+
+
+% Definição do espacamento para subfigures
+\newcommand{\goodgap}{\hspace{\subfigtopskip}\hspace{\subfigbottomskip}}
+
+
+% Declaração para usar fontes em \scshape e \bfseries
+\DeclareFontShape{OT1}{cmr}{bx}{sc}
+    {<5><6><7><8><9><10><12><10.95><14.4><17.28><20.74><24.88> cmbcsc10}{}
+
+% Declaração para usar fontes em \ttfamily e \bfseries
+\DeclareFontShape{OT1}{cmtt}{bx}{n}    
+    {<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88> cmttb10}{}
+
+% Declaração para usar fontes em \ttfamily e itálico
+\DeclareFontShape{OT1}{cmtt}{m}{it}
+    {<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88> cmvtti10}{}
+
+  
+%\renewcommand{\bfdefault}{b}
+
+% Definição do Título da Bibliografia e Índice Remissivo
+\renewcommand\bibname{Refer\^encias}
+
+% Definição de sobrescrito e subescrito
+\newcommand{\sobrescrito}[1]{\mbox{$^{\text{#1}}$}}
+\newcommand{\subescrito}[1]{\mbox{$_{\text{#1}}$}}
+
+
+\font\caligra = callig15 at 24pt  % Fonte caligrafica
+\font\luchand = ecluchand at 14pt % Fonte Lucida Handwriting
+\font\phyllis = ecphyllis at 14pt  % Fonte Phyllis (TTF)
+\font\signetro = ecsignetro at 12pt % Fonte Signet Rockland (TTF)
+\font\scriptmono = ecscaswfte at 14pt % Fonte Script Mono (TTF)
+
+\sloppy
+
+\renewcommand\seename{ver}
